@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+@theme {
+  /* color -> msecondary */
+  --color-white: oklch(100% 0 0);
+  --color-black: oklch(0% 0 0);
+  --color-theme: oklch(54.88% 0.167 257.87);
+  --color-htheme: oklch(48.82% 0.217 264.38);
+  --color-ebg: oklch(96.72% 0 0);
+  --color-bBottomColor: oklch(96.72% 0 0);
+  --color-bgGreen: oklch(62.71% 0.17 149.21);
+  --color-ebg2: oklch(95.51% 0 0);
+  --color-ebg3: oklch(98.21% 0 0);
+  --color-cgray: oklch(54.44% 0.035 265.11);
+  --color-pink1: oklch(80.79% 0.048 304.55);
+  --color-red1: oklch(79.78% 0.038 34.82);
+
+  /* font size */
+  --text-pxs: 0.75rem; /* 12px */
+  --text-psm: 0.875rem; /* 14px */
+  --text-pbase: 1rem; /* 16px */
+  --text-plg: 1.125rem; /* 18px */
+  --text-pxl: 1.25rem; /* 20px */
+  --text-p2xl: 1.5rem; /* 24px */
+  --text-p3xl: 1.875rem; /* 30px */
+  --text-t2: 2rem; /* 32px */
+  --text-p4xl: 2.25rem; /* 36px */
+  --text-p5xl: 3.25rem; /* 48px */
+  --text-p6xl: 3.75rem; /* 60px */
+  --text-p7xl: 4.5rem; /* 72px */
+  --text-p8xl: 6rem; /* 96px */
+  --text-heroHeading: 7.125rem; /* 96px */
+  --text-p9xl: 8rem; /* 128px */
+
+  /* height */
+  --height-heroimge: 30rem;
+  --height-psm: 2rem;
+  --height-pmd: 3rem;
+  --height-plg: 4rem;
+  --height-aem: 5em;
+  --height-ism: 25rem;
+  --height-imd: 28.125rem;
+  --height-ilg: 34.375rem;
+  --height-ixl: 45.625rem;
+  --height-i: 18.75rem;
+  /* width */
+  --width-psm: 2rem; /* 32px */
+  --width-pmd: 3rem; /* 48px */
+  --width-plg: 4rem;
+
+  /* padding */
+  --padding-xs: 0.25rem; /* 4px */
+  --padding-sm: 0.5rem; /* 8px */
+  --padding-md: 1rem; /* 16px */
+  --padding-lg: 1.5rem; /* 24px */
+  --padding-xl: 2rem; /* 32px */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
