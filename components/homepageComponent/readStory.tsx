@@ -17,16 +17,16 @@ export default function ReadStory() {
         </div>
 
         {/* Text Content */}
-        <div className="w-full lg:w-1/2 lg:pr-20     flex flex-col item-center justify-center">
+        <div className=" lg:w-1/2 lg:pr-20     flex flex-col item-center justify-center">
           <p className="text-sm font-semibold text-black">Paul E. Knudson</p>
           <p className="text-sm mb-4">
             Best Robotic Surgeon's Co-Founder and CEO
           </p>
 
-          <h2 className="text-2xl sm:text-3xl 2xl:text-4xl font-normal  mb-6 ">
+          <p className="text-2xl sm:text-3xl xl:text-t2 font-normal  mb-6 2xl:pr-28 ">
             "Managing my mother&apos;s recovery at home was the inspiration for
             Best Robotic Surgeon"
-          </h2>
+          </p>
 
           <p className=" text-base 2xl:text-lg mb-6 xl:pr-5   ">
             Learn about the first-hand experience Paul E. Knudson had with
@@ -34,7 +34,7 @@ export default function ReadStory() {
             Surgeon.
           </p>
 
-          <button className="bg-black text-white sm:px-6 px-2 2xl:px-14 py-2.5 rounded-full text-sm xl:text-lg hover:opacity-90 transition">
+          <button className="bg-black w-fit text-white sm:px-6 px-2 2xl:px-14 py-2.5 rounded-full text-sm xl:text-lg hover:opacity-90 transition">
             Read story
           </button>
         </div>

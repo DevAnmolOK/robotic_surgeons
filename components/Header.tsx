@@ -33,18 +33,7 @@ const Header = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 items-center text-base xl:text-xl font-medium text-gray-800">
-          {/* <div className="relative group cursor-pointer">
-            <span className="flex items-center gap-1">Find a Doctor</span>
-            <div className="absolute left-0 top-full mt-2 hidden group-hover:block bg-white border rounded shadow-lg z-">
-              <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
-                Nearby Doctors
-              </Link>
-              <Link href="#" className="block px-4 py-2 hover:bg-gray-100">
-                Specialties
-              </Link>
-            </div>
-          </div> */}
+        <nav className="hidden md:flex gap-8 items-center text-sm md:text-lg font-medium text-gray-800">
           <Link href="#">
             <div className=" flex  items-center justify-center">
               <span className="mr-2">Find a Doctor</span>

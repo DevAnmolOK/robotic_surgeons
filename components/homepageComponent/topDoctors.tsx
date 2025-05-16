@@ -39,10 +39,10 @@ export default function TopDoctors() {
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl  font-medium mb-2 font-playfair">
+            <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair">
               Top Doctors
             </h2>
-            <p className="text-gray-700 text-base md:text-xl    ">
+            <p className="text-black text-base md:text-xl    ">
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function TopDoctors() {
                 />
               </div>
               <div className="p-4">
-                <h3 className="text-xl font-semibold">{doc.name}</h3>
+                <p className="text-xl font-bold">{doc.name}</p>
                 <p className="text-sm font-semibold  mb-2">{doc.title}</p>
                 <div className="flex items-start gap-2 text-base    text-gray-700 mb-1">
                   <SlLocationPin className="mt-1 text-theme" size={14} />

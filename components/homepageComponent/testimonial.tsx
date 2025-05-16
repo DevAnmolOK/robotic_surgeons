@@ -82,15 +82,15 @@ export const testimonials = [
 export default function Testimonial() {
   return (
     <>
-      <div className=" bg-white text-black py-14 font-sans">
-        <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center py-5 font-playfair">
+      <div className=" bg-white text-black py-14 ">
+        <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center py-5 ">
           {/* heading section */}
           <div>
             <div className=" flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-4xl  font-medium mb-2 font-serif">
+              <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair">
                 What are our client says
               </h2>
-              <p className="text-gray-700 text-base md:text-xl    ">
+              <p className="text-black text-base md:text-xl    ">
                 Dummy Text Highly recommended doctors, ready to help you feel
                 better.
               </p>

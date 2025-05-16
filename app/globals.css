@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
 @import "tailwindcss";
 
@@ -24,18 +24,18 @@
 
   /* font family */
 
-  --font-sans: 'DM Sans', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-playfair: "Playfair Display", serif;
 
   /* font size */
-  --text-pxs: 0.75rem; /* 12px */
-  --text-psm: 0.875rem; /* 14px */
+  --text-pxs: 1.75rem; /* 12px */
+  --text-psm: 4.375rem; /* 14px */
   --text-pbase: 1rem; /* 16px */
   --text-plg: 1.125rem; /* 18px */
   --text-pxl: 1.25rem; /* 20px */
   --text-p2xl: 1.5rem; /* 24px */
   --text-p3xl: 1.875rem; /* 30px */
-  --text-t2: 2rem; /* 32px */
+  --text-t2: 2.125rem; /* 34px */
   --text-p4xl: 2.25rem; /* 36px */
   --text-p5xl: 3.25rem; /* 48px */
   --text-p6xl: 3.75rem; /* 60px */
@@ -106,4 +106,13 @@ body {
 .slick-dots li.slick-active button:before {
   opacity: 1;
   color: #000;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
 }
