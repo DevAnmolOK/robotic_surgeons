@@ -7,17 +7,19 @@ import InstantAppointment from "@/components/homepageComponent/instantAppointmen
 import TopDoctors from "@/components/homepageComponent/topDoctors";
 import ReadStory from "@/components/homepageComponent/readStory";
 import NewsAndBlogs from "@/components/homepageComponent/newsAndBlogs";
+import Testimonial from "@/components/homepageComponent/testimonial";
 export default function Home() {
   return (
     <>
-     <HeroSection/>
-     <SearchDoctor/>
-     <DiscoverExpert/>
-     <HelpToFind/>
-     <InstantAppointment/>
-     <TopDoctors/>
-     <ReadStory/>
-     <NewsAndBlogs/>
+      <HeroSection />
+      <SearchDoctor />
+      <DiscoverExpert />
+      <HelpToFind />
+      <InstantAppointment />
+      <TopDoctors />
+      <Testimonial />
+      <ReadStory />
+      <NewsAndBlogs />
     </>
   );
 }

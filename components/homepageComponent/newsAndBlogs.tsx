@@ -54,11 +54,11 @@ const blogs = [
 
 export default function BlogSection() {
   return (
-    <section className="bg-white text-black py-14 px-4">
+    <section className="bg-white text-black py-14 px-4 font-sans ">
       <div className="max-w-[75vw] w-full mx-auto">
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl  font-medium mb-2 font-serif">
+            <h2 className="text-3xl md:text-4xl  font-medium mb-2  font-playfair">
               Our Latest News and Blogs
             </h2>
             <p className="text-gray-700 text-base md:text-xl    ">

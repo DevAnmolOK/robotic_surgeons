@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { SlLocationPin } from "react-icons/sl";
 import { BsTelephone } from "react-icons/bs";
@@ -35,12 +34,12 @@ const doctors = [
 
 export default function TopDoctors() {
   return (
-    <section className="  px-4 py-12 bg-white text-black">
+    <section className="  px-4 py-12 bg-white text-black font-sans">
       <div className="max-w-[75vw] mx-auto  ">
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl  font-medium mb-2 font-serif">
+            <h2 className="text-3xl md:text-4xl  font-medium mb-2 font-playfair">
               Top Doctors
             </h2>
             <p className="text-gray-700 text-base md:text-xl    ">
@@ -59,7 +58,7 @@ export default function TopDoctors() {
               key={i}
               className="bg-white overflow-hidden  hover:shadow-lg transition"
             >
-              <div className="w-full h-80 relative">
+              <div className="w-full h-96  relative">
                 <Image
                   src={doc.image}
                   alt={doc.name}
@@ -72,11 +71,11 @@ export default function TopDoctors() {
                 <h3 className="text-xl font-semibold">{doc.name}</h3>
                 <p className="text-sm font-semibold  mb-2">{doc.title}</p>
                 <div className="flex items-start gap-2 text-base    text-gray-700 mb-1">
-                  <SlLocationPin className="mt-1 text-theme"size={14}/>
+                  <SlLocationPin className="mt-1 text-theme" size={14} />
                   {doc.location}
                 </div>
                 <div className="flex items-center gap-2 text-base text-theme font-semibold">
-                  <BsTelephone size={14}/>
+                  <BsTelephone size={14} />
                   {doc.phone}
                 </div>
               </div>

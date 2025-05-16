@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import React from "react";
 import Link from "next/link";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { RiTwitterXFill } from "react-icons/ri";
@@ -7,7 +7,7 @@ import { FaLinkedin } from "react-icons/fa";
 type FooterLink = {
   label: string;
   href: string;
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
 };
 
 type FooterSection = {
@@ -59,11 +59,9 @@ export const footerData: FooterSection[] = [
 ];
 
 export default function Footer() {
-  console.log("hello");
   return (
     <>
       <footer className="bg-black text-white">
-        {/* <div className="max-w-[75vw] mx-auto w-full px-4 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"> */}
         <div className="max-w-[75vw] mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between ">
           {footerData.map((section) => (
             <div key={section.title}>

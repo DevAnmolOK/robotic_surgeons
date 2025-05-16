@@ -10,11 +10,11 @@ const points = [
 
 export default function   RobotAppointment() {
   return (
-    <section className="bg-ebg2 py-16 text-black">
+    <section className="bg-ebg2 py-16 text-black font-sans">
       <div className="max-w-[75vw] w-full mx-auto px-4 flex flex-col-reverse item-center justify-center lg:flex-row items-stretch gap-5 lg:gap-0     h-full">
         {/* Left Content */}
         <div className="w-full lg:w-[30%] h-full ">
-          <h2 className="text-2xl md:text-3xl font-serif  mb-6 leading-tight">
+          <h2 className="text-2xl md:text-3xl mb-6 leading-tight font-playfair">
             Instant Appointment with <br /> Robotic Surgeons
           </h2>
           <p className=" mb-6 text-base md:text-base leading-relaxed">

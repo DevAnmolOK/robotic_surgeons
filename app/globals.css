@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @import "tailwindcss";
 
@@ -20,6 +21,11 @@
   --color-cgray: oklch(54.44% 0.035 265.11);
   --color-pink1: oklch(80.79% 0.048 304.55);
   --color-red1: oklch(79.78% 0.038 34.82);
+
+  /* font family */
+
+  --font-sans: 'DM Sans', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
 
   /* font size */
   --text-pxs: 0.75rem; /* 12px */
@@ -80,4 +86,24 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom spacing between react-slick dots */
+.slick-dots {
+  bottom: 10px;
+}
+
+.slick-dots li {
+  margin: 0 0px !important; /* 👈 Forces 2px spacing */
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  opacity: 0.5;
+  color: #000;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #000;
 }

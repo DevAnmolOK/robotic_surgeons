@@ -1,14 +1,4 @@
-// export default function DiscoverExpert() {
-//   return (
-//     <>
-//       <div className=" w-full bg-white text-black flex items-center justify-center p-3 ">
-//         <div className="max-w-[75vw] w-full flex items-center justify-center border border-red-200">
-//           Discover Expert
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+
 "use client";
 import Image from "next/image";
 
@@ -23,9 +13,9 @@ const experts = [
 
 export default function DiscoverExpert() {
   return (
-    <section className=" px-4 text-center bg-white text-black pt-24 pb-14">
+    <section className=" px-4 text-center bg-white text-black pt-24 pb-14 font-sans">
       <div className="max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2">
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 font-playfair">
           Discover Expert by Concern
         </h2>
         <p className=" mb-10">

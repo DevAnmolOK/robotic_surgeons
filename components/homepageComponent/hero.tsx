@@ -12,10 +12,10 @@ export default function HeroSection() {
 
       {/* Text Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-4">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-4 font-playfair">
           Healthcare at Your Fingertips
         </h1>
-        <p className=" text-base md:text-lg lg:text-3xl  tracking-wide">
+        <p className=" text-base md:text-lg lg:text-3xl  tracking-wide font-sans">
           Book an online consultation and get medical advice in just a few
           clicks.
         </p>

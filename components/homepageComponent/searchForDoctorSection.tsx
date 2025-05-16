@@ -9,8 +9,8 @@ export default function SearchDoctor() {
       {/* <div>Seacrh doctor section</div> */}
       <div className=" w-full bg-black py-6 z-20 xl:py-16 flex items-center justify-center ">
         <div className="max-w-[75vw] w-full mx-auto px-4 flex flex-col  justify-center">
-          <h2 className="text-white text-lg md:text-xl 2xl:text-3xl font-semibold mb-4 text-center 2xl:mb-5">
-            Search for Doctors Close to You – Anytime, Anywhere
+          <h2 className="text-white text-lg md:text-xl 2xl:text-3xl font-semibold mb-4 text-center 2xl:mb-5 font-playfair">
+            Search for Doctors Close to You - Anytime, Anywhere
           </h2>
           <form className="flex flex-col md:flex-row gap-4 items-center justify-center  ">
             {/* Input 1 */}
@@ -47,9 +47,9 @@ export default function SearchDoctor() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="flex items-center 2xl:px-14 px-6  bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-semibold text-sm  transition 2xl:text-xl"
+              className="flex items-center 2xl:px-14 px-6  bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-light text-sm  transition 2xl:text-xl"
             >
-              <IoPaperPlaneOutline className="text-xl mr-2  2xl:mr-4 2xl:text-2xl " />
+              <IoPaperPlaneOutline className="text-xl mr-2  2xl:mr-4 2xl:text-2xl font-light " />
               Submit
             </button>
           </form>
