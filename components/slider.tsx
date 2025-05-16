@@ -67,7 +67,7 @@ export default function SlickSlider({ products }: SlickSliderProps) {
   }
 
   return (
-    <div className="max-w-[70vw] mx-auto p-4">
+    <div className="sm:max-w-[70vw] mx-auto p-4">
       <Slider {...settings}>
         {products?.map((data, index) => (
           <div key={index} className="px-2 sm:px-3 md:px-4 lg:px-5  h-full ">

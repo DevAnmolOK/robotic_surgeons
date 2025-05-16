@@ -15,18 +15,18 @@ import surgeonImage from "@/public/homePage/help.jpg"; // Replace with your imag
 
 export default function HelpToFind() {
   return (
-    <section className="px-4 py-5 pb-20  bg-white font-sans font-normal">
-      <div className="max-w-[75vw] w-full mx-auto flex flex-col-reverse gap-5 lg:gap-0    lg:flex-row items-center">
+    <section className="px-4 sm:py-5 sm:pb-20 p-5  bg-white font-sans font-normal">
+      <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto flex flex-col-reverse gap-5 lg:gap-0    lg:flex-row items-center">
         {/* Left Text Card */}
-        <div className="bg-theme text-white p-12 rounded-2xl w-full lg:w-3/5 lg:pr-32 shadow-md lg:-mr-20  z-20">
+        <div className="bg-theme text-white sm:p-12 p-4 rounded-2xl w-full lg:w-3/5 lg:pr-32 shadow-md lg:-mr-20  z-20">
           <h2 className="text-2xl md:text-2xl 2xl:text-4xl font-semibold mb-4 leading-snug font-playfair">
             We Helps to Find Best Surgeon
           </h2>
-          <div className="mb-4 text-base lg:text-lg 2xl:text-xl font-extralight   leading-relaxed tracking-wide  ">
+          <div className="mb-4 text-base sm:text-base lg:text-lg 2xl:text-xl font-extralight   leading-relaxed tracking-wide  ">
             Our surgeons are among the most experienced robotic surgery
             specialists in the country.
           </div>
-          <div className="mb-6 text-base lg:text-lg 2xl:text-xl leading-relaxed font-medium  tracking-wide">
+          <div className="mb-6 text-sm sm:text-base lg:text-lg 2xl:text-xl leading-relaxed font-medium  tracking-wide">
             We are a trusted digital healthcare platform committed to making
             quality medical care accessible, convenient, and secure for
             everyone. Whether you need a general consultation or a specialist

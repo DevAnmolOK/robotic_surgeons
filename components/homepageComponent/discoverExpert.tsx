@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 
@@ -14,7 +13,7 @@ const experts = [
 export default function DiscoverExpert() {
   return (
     <section className=" px-4 text-center bg-white text-black pt-24 pb-14 font-sans">
-      <div className="max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
+      <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 font-playfair">
           Discover Expert by Concern
         </h2>
@@ -26,7 +25,7 @@ export default function DiscoverExpert() {
         <div className="flex flex-wrap justify-between gap-6 ">
           {experts.map((expert) => (
             <div key={expert.id} className="flex flex-col items-center ">
-              <div className="w-32 h-32 rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition">
+              <div className="sm:w-32 sm:h-32 h-24 w-24 rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition">
                 <Image
                   src={expert.icon}
                   alt={expert.title}
@@ -35,7 +34,7 @@ export default function DiscoverExpert() {
                   className="object-contain"
                 />
               </div>
-              <p className="mt-3 text-sm md:text-lg font-medium">
+              <p className="mt-3 text-xs sm:text-sm md:text-lg font-medium">
                 {expert.title}
               </p>
             </div>

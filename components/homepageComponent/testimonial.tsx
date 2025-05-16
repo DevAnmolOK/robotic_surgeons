@@ -83,7 +83,7 @@ export default function Testimonial() {
   return (
     <>
       <div className=" bg-white text-black py-14 font-sans">
-        <div className="max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center py-5 font-playfair">
+        <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center py-5 font-playfair">
           {/* heading section */}
           <div>
             <div className=" flex flex-col items-center justify-center">

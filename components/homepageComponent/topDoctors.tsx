@@ -35,7 +35,7 @@ const doctors = [
 export default function TopDoctors() {
   return (
     <section className="  px-4 py-12 bg-white text-black font-sans">
-      <div className="max-w-[75vw] mx-auto  ">
+      <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
@@ -50,7 +50,6 @@ export default function TopDoctors() {
             View All
           </button>
         </div>
-
         {/* Doctor Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {doctors.map((doc, i) => (
@@ -58,7 +57,7 @@ export default function TopDoctors() {
               key={i}
               className="bg-white overflow-hidden  hover:shadow-lg transition"
             >
-              <div className="w-full h-96  relative">
+              <div className="w-full md:h-96 sm:h-80 h-64  relative">
                 <Image
                   src={doc.image}
                   alt={doc.name}

@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <HeroSection />
       <SearchDoctor />
-      <DiscoverExpert />
+      <DiscoverExpert />  
       <HelpToFind />
       <InstantAppointment />
       <TopDoctors />

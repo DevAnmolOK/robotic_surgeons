@@ -13,9 +13,13 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
         />
       </div>
       <div className="py-1">
-        <div className="font-semibold text-lg">{testimonial.name}</div>
+        <div className="font-semibold text-base sm:text-lg">
+          {testimonial.name}
+        </div>
       </div>
-      <p className=" text-lg font-extralight">“{testimonial.quote}”</p>
+      <p className="text-base sm:text-lg font-extralight">
+        “{testimonial.quote}”
+      </p>
     </div>
   );
 }

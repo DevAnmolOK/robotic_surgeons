@@ -55,7 +55,7 @@ const blogs = [
 export default function BlogSection() {
   return (
     <section className="bg-white text-black py-14 px-4 font-sans ">
-      <div className="max-w-[75vw] w-full mx-auto">
+      <div className=" max-w-[85vw] sm:max-w-[75vw] w-full mx-auto">
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl  font-medium mb-2  font-playfair">
@@ -65,7 +65,7 @@ export default function BlogSection() {
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
-          <button className="bg-black text-white px-6  py-2 rounded-full hover:opacity-90 transition text-base md:text-lg xl:px-16 ">
+          <button className="bg-black text-white sm:px-6 px-2 sm:py-2 py-1 rounded-full hover:opacity-90 transition sm:text-base text-sm md:text-lg xl:px-16 ">
             Explore More
           </button>
         </div>
@@ -75,9 +75,9 @@ export default function BlogSection() {
           {blogs.map((blog, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition"
+              className="bg-white rounded-xl shadow-sm sm:p-6 hover:shadow-md transition"
             >
-              <div className="relative w-full h-60  overflow-hidden mb-4">
+              <div className="relative w-full md:h-60 sm:h-52  h-48 overflow-hidden mb-4">
                 <Image
                   src={blog.image}
                   alt={blog.title}
@@ -90,10 +90,12 @@ export default function BlogSection() {
                 {blog.category}
               </p>
               <div className="flex justify-between items-center">
-                <h3 className="font-semibold text-xl">{blog.title}</h3>
+                <h3 className="font-semibold text-lg sm:text-xl">
+                  {blog.title}
+                </h3>
                 <ImArrowUpRight2 size={16} className="" />
               </div>
-              <p className="text-base tracking-wide text-cgray py-3 xl:py-5">
+              <p className="text-sm sm:text-base tracking-wide text-cgray py-3 xl:py-5">
                 {blog.description}
               </p>
               <div className="flex items-center gap-2 pb-3">

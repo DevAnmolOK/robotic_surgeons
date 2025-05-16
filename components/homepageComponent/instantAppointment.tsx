@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { IoCheckmarkSharp } from "react-icons/io5";
 
@@ -8,10 +7,10 @@ const points = [
   "Verified and Informative Doctor Profiles",
 ];
 
-export default function   RobotAppointment() {
+export default function RobotAppointment() {
   return (
-    <section className="bg-ebg2 py-16 text-black font-sans">
-      <div className="max-w-[75vw] w-full mx-auto px-4 flex flex-col-reverse item-center justify-center lg:flex-row items-stretch gap-5 lg:gap-0     h-full">
+    <section className="bg-ebg2 sm:py-16 py-10 text-black font-sans">
+      <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto px-4 flex flex-col-reverse item-center justify-center lg:flex-row items-stretch gap-5 lg:gap-0     h-full">
         {/* Left Content */}
         <div className="w-full lg:w-[30%] h-full ">
           <h2 className="text-2xl md:text-3xl mb-6 leading-tight font-playfair">
@@ -30,15 +29,15 @@ export default function   RobotAppointment() {
                 key={index}
                 className="flex items-center text-black text-sm md:text-base"
               >
-                <div  className=" h-6  w-6 border flex items-center justify-center bg-bgGreen text-white mr-3 rounded-md">
-                  <IoCheckmarkSharp  className="" size={18} />
+                <div className=" h-6  w-6 border flex items-center justify-center bg-bgGreen text-white mr-3 rounded-md">
+                  <IoCheckmarkSharp className="" size={18} />
                 </div>
                 {point}
               </li>
             ))}
           </ul>
 
-          <button className="bg-black text-white px-5 xl:px-8 py-2 rounded-full text-lg hover:shadow-lg transition">
+          <button className="bg-black text-white px-3 sm:px-5 xl:px-8 sm:py-2 py-1 rounded-full sm:text-lg text-base hover:shadow-lg transition">
             Book Appointment Now
           </button>
         </div>
