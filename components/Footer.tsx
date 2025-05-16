@@ -62,7 +62,7 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-black text-white">
-        <div className="max-w-[75vw] mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between ">
+        <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between ">
           {footerData.map((section) => (
             <div key={section.title}>
               <h3 className="font-semibold text-lg mb-3">{section.title}</h3>

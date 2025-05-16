@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <header className="border-b px-4 py-4 md:px-8 bg-white text-black">
-      <div className=" max-w-[75vw] mx-auto w-full flex justify-between items-center">
+      <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full flex justify-between items-center">
         {/* Logo Section */}
         <div className="flex items-center ">
           <Image
@@ -48,14 +48,14 @@ const Header = () => {
           <Link href="#">
             <div className=" flex  items-center justify-center">
               <span className="mr-2">Find a Doctor</span>
-              <MdKeyboardArrowDown/>
+              <MdKeyboardArrowDown />
             </div>
           </Link>
           <Link href="#">Categories</Link>
           <Link href="#">Membership</Link>
           <Link href="#">Blogs</Link>
           <Link href="#">
-            <FaRegUserCircle size={24}/>
+            <FaRegUserCircle size={24} />
           </Link>
         </nav>
 
