@@ -18,7 +18,7 @@ export default function HelpToFind() {
     <section className="px-4 sm:py-5 sm:pb-20 p-5  bg-white ">
       <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto flex flex-col-reverse gap-5 lg:gap-0    lg:flex-row items-center">
         {/* Left Text Card */}
-        <div className="bg-theme text-white sm:p-12 p-4 rounded-2xl w-full lg:w-3/5 lg:pr-32 shadow-md lg:-mr-16  z-20">
+        <div className="bg-theme text-white sm:p-8 p-2 rounded-2xl w-full lg:w-3/5 2xl:pr-24 shadow-md lg:-mr-14  z-20">
           <h2 className="text-2xl md:text-2xl 2xl:text-t2 font-semibold mb-4 leading-snug font-playfair">
             We Helps to Find Best Surgeon
           </h2>
@@ -33,13 +33,13 @@ export default function HelpToFind() {
             opinion, we connect you with verified doctors across various
             specialties — right from the comfort of your home.
           </div>
-          <button className="bg-white text-black font-medium px-2 lg:px-6 2xl:px-10 py-1 lg:py-2 text-base lg:text-lg  mt-4 rounded-full shadow hover:shadow-lg transition">
+          <button className="bg-white text-black font-medium px-2 lg:px-6 2xl:px-10 py-1 lg:py-2 text-base lg:text-lg  xl:mt-4 rounded-full shadow hover:shadow-lg transition">
             Learn More
           </button>
         </div>
 
         {/* Right Image Card */}
-        <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-md">
+        <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-md h-full">
           <Image
             src="/homePage/help.png"
             alt="Robotic Surgery"

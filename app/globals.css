@@ -81,6 +81,46 @@
     --foreground: #ededed;
   }
 }
+@layer base {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 901px) and (max-width: 1300px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1301px) and (max-width: 1500px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1501px) and (max-width: 1700px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1701px) and (max-width: 2500px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+/* @media (min-width: 2101px) and (max-width: 2500px) {
+  html {
+    font-size: 22px;
+  }
+} */
+
+@media (min-width: 2501px) and (max-width: 3000px) {
+  html {
+    font-size: 26px;
+  }
+}
 
 body {
   background: var(--background);
