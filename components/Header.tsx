@@ -1,12 +1,4 @@
-// export default function Header() {
-//   return (
-//     <>
-//       <div className=" bg-white text-black py flex item-center justify-center">
-//         <div className=" py-2">Header</div>
-//       </div>
-//     </>
-//   );
-// }
+
 
 "use client";
 
@@ -20,20 +12,20 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="border-b px-4 py-4 md:px-8 bg-white text-black">
-      <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full flex justify-between items-center">
+    <header className="border-b md:px-6 bg-white text-black">
+      <div className="max-w-[85vw] py-3.5 sm:max-w-[75vw]  mx-auto w-full flex justify-between items-center">
         {/* Logo Section */}
-        <div className="flex items-center ">
+        <div className="relative h-lh w-lw ">
           <Image
             src="/logo.png"
             alt="The best robotic surgeon"
-            height={50}
-            width={140}
+           fill
+           className="object-contain"
           />
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 items-center text-sm md:text-lg font-medium text-gray-800">
+        <nav className="hidden md:flex gap-8 items-center text-sm md:text-lg font-medium text-black">
           <Link href="#">
             <div className=" flex  items-center justify-center">
               <span className="mr-2">Find a Doctor</span>

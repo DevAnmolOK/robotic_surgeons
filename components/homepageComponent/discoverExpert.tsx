@@ -14,10 +14,13 @@ export default function DiscoverExpert() {
   return (
     <section className=" px-4 text-center bg-white text-black pt-24 pb-14 font-sans">
       <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
-        <h2 className="text-2xl md:text-t2  mb-2 font-playfair font-normal">
+        {/* <h2 className="text-2xl md:text-t2  mb-2 font-playfair font-normal"> */}
+        <h2 className="text-t2 mb-1 font-playfair font-medium">
           Discover Expert by Concern
+        {/* </h2> */}
         </h2>
-        <p className=" mb-10 text-xs sm:text-sm md:text-xl font-sans tracking-tight ">
+        {/* <p className=" mb-10 text-xs sm:text-sm md:text-xl font-sans tracking-tight "> */}
+        <p className=" mb-10 text-pxl  font-sans tracking-tight ">
           Select a specialty to find the right doctor for your needs.
         </p>
 

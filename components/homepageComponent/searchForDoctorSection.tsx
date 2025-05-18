@@ -31,7 +31,8 @@ export default function SearchDoctor() {
       {/* <div>Seacrh doctor section</div> */}
       <div className=" w-full bg-black 2xl:py-12 lg:py-10 py-8 z-20   flex items-center justify-center ">
         <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto px-4 flex flex-col items-center  justify-center">
-          <h2 className="text-white text-lg md:text-xl 2xl:text-3xl font-semibold mb-4 text-center 2xl:mb-5 font-playfair">
+          {/* <h2 className="text-white text-lg md:text-xl 2xl:text-3xl font-semibold mb-4 text-center 2xl:mb-5 font-playfair"> */}
+          <h2 className="text-white  text-pxs font-semibold mb-4 text-center 2xl:mb-5 font-playfair">
             Search for Doctors Close to You - Anytime, Anywhere
           </h2>
           <form
@@ -83,7 +84,8 @@ export default function SearchDoctor() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="flex items-center 2xl:px-14 px-6  bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-light text-sm  transition 2xl:text-xl"
+              // className="flex items-center 2xl:px-14 px-6  bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-light text-sm  transition 2xl:text-xl"
+              className="flex items-center w-fit 2xl:px-20   bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-light text-sm  transition 2xl:text-xl"
             >
               <IoPaperPlaneOutline className="text-xl mr-2  2xl:mr-4 2xl:text-2xl font-light " />
               Submit

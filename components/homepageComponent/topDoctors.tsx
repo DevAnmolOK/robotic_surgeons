@@ -39,10 +39,12 @@ export default function TopDoctors() {
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair">
+            {/* <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair"> */}
+            <h2 className="text-t2  font-medium mb-2 font-playfair">
               Top Doctors
             </h2>
-            <p className="text-black text-base md:text-xl    ">
+            {/* <p className="text-black text-base md:text-xl    "> */}
+            <p className="text-black text-xl    ">
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
@@ -55,9 +57,9 @@ export default function TopDoctors() {
           {doctors.map((doc, i) => (
             <div
               key={i}
-              className="bg-white overflow-hidden  hover:shadow-lg transition"
+              className="bg-white overflow-hidden "
             >
-              <div className="w-full md:h-96 sm:h-80 h-64  relative">
+              <div className=" h-dh w-dw relative">
                 <Image
                   src={doc.image}
                   alt={doc.name}
@@ -67,13 +69,13 @@ export default function TopDoctors() {
                 />
               </div>
               <div className="p-4">
-                <p className="text-xl font-bold">{doc.name}</p>
-                <p className="text-sm font-semibold  mb-2">{doc.title}</p>
-                <div className="flex items-start gap-2 text-base    text-gray-700 mb-1">
+                <p className="text-pxl font-bold">{doc.name}</p>
+                <p className="text-dt font-semibold  mb-2">{doc.title}</p>
+                <div className="flex items-start gap-0.5 text-pbase    text-gray-700 mb-1">
                   <SlLocationPin className="mt-1 text-theme" size={14} />
                   {doc.location}
                 </div>
-                <div className="flex items-center gap-2 text-base text-theme font-semibold">
+                <div className="flex items-center gap-2 text-pbase text-theme font-semibold">
                   <BsTelephone size={14} />
                   {doc.phone}
                 </div>

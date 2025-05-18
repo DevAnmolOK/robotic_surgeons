@@ -87,10 +87,10 @@ export default function Testimonial() {
           {/* heading section */}
           <div>
             <div className=" flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair">
+              <h2 className="text-t2  font-medium mb-2 font-playfair">
                 What are our client says
               </h2>
-              <p className="text-black text-base md:text-xl    ">
+              <p className="text-black text-pxl    ">
                 Dummy Text Highly recommended doctors, ready to help you feel
                 better.
               </p>
@@ -98,7 +98,7 @@ export default function Testimonial() {
           </div>
           {/* slider section */}
           <div className="">
-            <div className="flex flex-wrap justify-center ">
+            <div className="flex flex-wrap justify-center h-full ">
               <SlickSlider products={testimonials} />
             </div>
           </div>
