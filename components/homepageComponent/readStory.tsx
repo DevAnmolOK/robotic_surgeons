@@ -5,12 +5,12 @@ export default function ReadStory() {
     <section className="bg-ebg3    text-black  ">
       <div className="max-w-[85vw] sm:max-w-[75vw]   mx-auto flex flex-col lg:flex-row  gap-10 lg:gap-0 py-12 lg:py-0  ">
         {/* Image */}
-        <div className="relative lg:w-1/2 h-story ">
+        <div className="relative lg:w-1/2 lg:h-story h-[20rem]">
           <Image
             src="/doctorba.png"
             alt="Doctor"
             fill
-            className="object-cover"
+            className="lg:object-cover object-contain"
             priority
           />
         </div>
@@ -23,15 +23,15 @@ export default function ReadStory() {
           </p>
 
           <p className="  leading-10 text-t2 font-normal  mb-6  ">
-            "Managing my mother&apos;s recovery at <br /> home was the
+            "Managing my mother&apos;s recovery at <br className="lg:show hidden"/> home was the
             inspiration for
-            <br />
+            <br className="lg:show hidden"/>
             Best Robotic Surgeon"
           </p>
 
           <p className=" text-plg mb-6    ">
             Learn about the first-hand experience Paul E. Knudson had with home-{" "}
-            <br />
+            <br className=" lg:show hidden"/>
             based care, and how it compelled him to found Best Robotic Surgeon.
           </p>
 

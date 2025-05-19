@@ -1,7 +1,7 @@
 export default function HeroSection() {
   return (
     // <div className="relative sm:h-heroimge  h-auto  w-full bg-black/50">
-    <div className="relative h-[55vh] sm:h-heroimge  w-full bg-black/50">
+    <div className="relative h-[55vh] sm:h-heroimge  w-full bg-black/50 p-4">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover   bg-no-repeat "

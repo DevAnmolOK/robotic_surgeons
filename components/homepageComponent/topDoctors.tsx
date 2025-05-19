@@ -38,23 +38,21 @@ export default function TopDoctors() {
       <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
-          <div>
-            {/* <h2 className="text-3xl md:text-t2  font-medium mb-2 font-playfair"> */}
-            <h2 className="text-t2  font-medium mb-2 font-playfair">
-              Top Doctors
-            </h2>
-            {/* <p className="text-black text-base md:text-xl    "> */}
-            <p className="text-black text-xl    ">
-              Highly recommended doctors, ready to help you feel better.
-            </p>
-          </div>
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:opacity-90 transition text-base md:text-lg xl:px-10 ">
+          <h2 className="text-t2  font-medium mb-2 font-playfair">
+            Top Doctors
+          </h2>
+
+          <p className="text-black text-xl    ">
+            Highly recommended doctors, ready to help you feel better.
+          </p>
+
+          <button className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition">
             View All
           </button>
         </div>
         {/* Doctor Grid */}
         <div className="lg:grid  lg:grid-cols-4 flex flex-wrap items-center justify-center lg:gap-6 gap-10">
-        {/* <div className="flex flex-wrap items-center justify-center gap-6"> */}
+          {/* <div className="flex flex-wrap items-center justify-center gap-6"> */}
           {doctors.map((doc, i) => (
             <div key={i} className="bg-white overflow-hidden ">
               <div className=" h-dh w-dw relative">

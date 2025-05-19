@@ -44,7 +44,7 @@ export default function RobotAppointment() {
         </div>
 
         {/* Right Image */}
-        <div className=" relative w-full  h-[26.125rem]  lg:max-w-[65%] flex items-center justify-center">
+        <div className=" relative w-full  lg:h-[26.125rem] h-[10rem]  lg:max-w-[65%] flex items-center justify-center">
           <Image
             src="/homePage/robot.png" // update path based on your public folder
             alt="Robotic Surgery Setup"

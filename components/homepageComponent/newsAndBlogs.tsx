@@ -65,7 +65,7 @@ export default function BlogSection() {
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
-          <button className="bg-black text-white  px-2 sm:py-2 py-1 rounded-full hover:opacity-90 transition text-pxl xl:px-6 ">
+          <button className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition ">
             Explore More
           </button>
         </div>

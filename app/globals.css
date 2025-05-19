@@ -102,7 +102,7 @@
 }
 @media only screen and (max-width: 600px) {
   html {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 @media (min-width: 601px) and (max-width: 900px) {
@@ -211,9 +211,8 @@ h3 {
   font-family: "Playfair Display", serif;
 }
 
-
 /* In your CSS file or style tag */
 .custom-shadow {
-  box-shadow: 0 4px 20px #286ED021;
+  box-shadow: 0 4px 20px #286ed021;
   border-radius: 12px;
 }

@@ -17,15 +17,15 @@ export default function DiscoverExpert() {
         {/* <h2 className="text-2xl md:text-t2  mb-2 font-playfair font-normal"> */}
         <h2 className="text-t2 mb-1 font-playfair font-medium">
           Discover Expert by Concern
-        {/* </h2> */}
+          {/* </h2> */}
         </h2>
         {/* <p className=" mb-10 text-xs sm:text-sm md:text-xl font-sans tracking-tight "> */}
         <p className=" mb-10 text-pxl  font-sans tracking-tight ">
           Select a specialty to find the right doctor for your needs.
         </p>
 
-        {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 border justify-items-start"> */}
-        <div className="flex flex-wrap justify-between gap-6 ">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6  justify-items-center">
+          {/* <div className="flex flex-wrap justify-between gap-6 "> */}
           {experts.map((expert) => (
             <div key={expert.id} className="flex flex-col items-center ">
               <div className="sm:w-28 sm:h-28 h-24 w-24 rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition">
