@@ -70,7 +70,10 @@ export default function SlickSlider({ products }: SlickSliderProps) {
     <div className="sm:max-w-[70vw] mx-auto p-4">
       <Slider {...settings}>
         {products?.map((data, index) => (
-          <div key={index} className="px-2 sm:px-3 md:px-4 lg:px-5  h-full ">
+          <div
+            key={index}
+            className="h-full flex items-stretch px-2 sm:px-3 md:px-4 lg:px-5  "
+          >
             <TestimonialCard testimonial={data} />
           </div>
         ))}

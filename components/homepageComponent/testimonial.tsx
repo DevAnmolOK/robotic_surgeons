@@ -12,7 +12,7 @@ export const testimonials = [
     name: "Jonathan Sweeney",
     avatar: "/homePage/t1.png",
     quote:
-      "I love that model. I used to have to call all around, and I absolutely love that model that you could save me the time and headache of doing that.",
+      "I am so happy with your company.Ever since my insurer switched to you,everything and everybody I've spokento has been extremely, extremely pleasant, helpful, and they listen to my concerns instead of just saying okay!",
   },
   {
     id: 2,

@@ -18,7 +18,7 @@ export default function HelpToFind() {
     <section className="px-4 sm:py-5 sm:pb-20 p-5  bg-white ">
       <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto flex flex-col-reverse gap-5 lg:gap-0    lg:flex-row items-center">
         {/* Left Text Card */}
-        <div className="bg-theme text-white sm:p-12   rounded-2xl w-full lg:w-3/5 lg:pr-36 shadow-md lg:-mr-10  z-20">
+        <div className="bg-theme text-white sm:p-12  p-4  rounded-2xl w-full lg:w-3/5 lg:pr-36 shadow-md lg:-mr-10  z-20">
           {/* <h2 className="text-2xl md:text-2xl 2xl:text-t2 font-semibold mb-4 leading-snug font-playfair"> */}
           <h2 className="text-t2 font-medium mb-4 leading-snug font-playfair">
             We Helps to Find Best Surgeon

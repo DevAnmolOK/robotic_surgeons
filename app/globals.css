@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @import "tailwindcss";
 
@@ -26,11 +27,12 @@
 
   --font-sans: "DM Sans", sans-serif;
   --font-playfair: "Playfair Display", serif;
+  --font-inter: "Inter", sans-serif;
 
   /* font size */
   --text-pxs: 1.75rem; /* 28px */
   --text-psm: 4.375rem; /* 70px */
-  --text-dt: 0.875rem; /* 16px */
+  --text-dt: 0.875rem; /* 14px */
   --text-pbase: 1rem; /* 16px */
   --text-plg: 1.125rem; /* 18px */
   --text-pxl: 1.25rem; /* 20px */
@@ -56,9 +58,9 @@
   --height-ilg: 34.375rem;
   --height-ixl: 45.625rem;
   --height-i: 18.75rem;
-  --height-lh:3.938rem; /*63px*/
-  --height-dh:20.639rem; /*330.22px*/
-  --height-story:50.938rem; /*815px*/
+  --height-lh: 3.938rem; /*63px*/
+  --height-dh: 20.639rem; /*330.22px*/
+  --height-story: 47.813rem; /*765px*/
   /* width */
   --width-psm: 2rem; /* 32px */
   --width-lw: 8.938rem; /*143px */
@@ -93,34 +95,48 @@
     font-size: 16px;
   }
 }
-@media (min-width: 901px) and (max-width: 1300px) {
+@media only screen and (max-width: 600px) {
   html {
-    font-size: 12px;
+    font-size: 13px;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  html {
+    font-size: 11px;
+  }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  html {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1101px) and (max-width: 1300px) {
+  html {
+    font-size: 11px;
   }
 }
 
 @media (min-width: 1301px) and (max-width: 1500px) {
   html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1501px) and (max-width: 1700px) {
+  html {
     font-size: 14px;
   }
 }
 
-@media (min-width: 1501px) and (max-width: 2500px) {
+@media (min-width: 1701px) and (max-width: 2500px) {
   html {
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 
-/* @media (min-width: 1701px) and (max-width: 2500px) {
-  html {
-    font-size: 5px;
-  }
-} */
-
-
 @media (min-width: 2501px) and (max-width: 3000px) {
   html {
-    font-size: 26px;
+    font-size: 24px;
   }
 }
 
@@ -167,18 +183,18 @@ body {
 }
 
 .slick-dots li {
-  margin: 0 0px !important; /* 👈 Forces 2px spacing */
+  margin: 0 -5px !important; /* 👈 Forces 2px spacing */
 }
 
 .slick-dots li button:before {
   font-size: 10px;
   opacity: 0.5;
-  color: #000;
+  color: var(--color-theme);
 }
 
 .slick-dots li.slick-active button:before {
-  opacity: 1;
-  color: #000;
+  opacity: 20px;
+  color: var(--color-theme);
 }
 
 body {

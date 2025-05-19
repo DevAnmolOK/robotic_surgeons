@@ -4,7 +4,7 @@ interface TestimonialCardProps {
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="bg-black text-white p-6 rounded-lg mb-5 shadow-lg h-full  shadow-theme ">
+    <div className="bg-black text-white p-8 rounded-lg mb-5 shadow-lg flex flex-col h-full shadow-theme">
       <div className="flex items-center mb-4">
         <img
           src={testimonial.avatar}
@@ -17,7 +17,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           {testimonial.name}
         </div>
       </div>
-      <p className="text-base sm:text-lg font-extralight">
+      <p className="text-plg font-light font-inter line-clamp-6 ">
         “{testimonial.quote}”
       </p>
     </div>

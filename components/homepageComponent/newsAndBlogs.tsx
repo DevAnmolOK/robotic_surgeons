@@ -58,14 +58,14 @@ export default function BlogSection() {
       <div className=" max-w-[85vw] sm:max-w-[75vw] w-full mx-auto">
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl md:text-t2  font-medium mb-2  font-playfair">
+            <h2 className="text-t2  font-medium mb-2  font-playfair">
               Our Latest News and Blogs
             </h2>
-            <p className="text-black text-base md:text-xl    ">
+            <p className="text-pxl    ">
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
-          <button className="bg-black text-white  px-2 sm:py-2 py-1 rounded-full hover:opacity-90 transition sm:text-base text-sm md:text-lg xl:px-6 ">
+          <button className="bg-black text-white  px-2 sm:py-2 py-1 rounded-full hover:opacity-90 transition text-pxl xl:px-6 ">
             Explore More
           </button>
         </div>
@@ -75,7 +75,7 @@ export default function BlogSection() {
           {blogs.map((blog, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-sm sm:p-6 hover:shadow-md transition"
+              className="bg-white rounded-xl shadow-sm sm:p-6 hover:shadow-md transition p-4"
             >
               <div className="relative w-full md:h-60 sm:h-52  h-48 overflow-hidden mb-4">
                 <Image
@@ -86,16 +86,14 @@ export default function BlogSection() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                 />
               </div>
-              <p className="text-sm text-theme font-semibold mb-1">
+              <p className="text-dt text-theme font-semibold mb-1">
                 {blog.category}
               </p>
               <div className="flex justify-between items-center pt-2 ">
-                <p className="font-semibold text-lg sm:text-xl">
-                  {blog.title}
-                </p>
+                <p className="font-semibold text-pxl">{blog.title}</p>
                 <ImArrowUpRight2 size={16} className="" />
               </div>
-              <p className="text-sm sm:text-base tracking-wide text-cgray py-3 xl:py-4">
+              <p className="text-pbase tracking-normal text-cgray py-3 xl:py-4">
                 {blog.description}
               </p>
               <div className="flex items-center gap-2 pb-3">
@@ -110,10 +108,12 @@ export default function BlogSection() {
                   }`}
                 />
                 <div className="">
-                  <p className="text-black text-sm font-medium">
+                  <p className="text-black text-dt font-medium">
                     {blog.author.name}
                   </p>
-                  <p className="text-cgray text-sm">{blog.author.date}</p>
+                  <p className="text-cgray text-dt font-normal">
+                    {blog.author.date}
+                  </p>
                 </div>
               </div>
             </div>

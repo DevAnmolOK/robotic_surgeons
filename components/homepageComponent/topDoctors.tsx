@@ -53,12 +53,10 @@ export default function TopDoctors() {
           </button>
         </div>
         {/* Doctor Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"> */}
+        <div className="flex flex-wrap items-center justify-center gap-6">
           {doctors.map((doc, i) => (
-            <div
-              key={i}
-              className="bg-white overflow-hidden "
-            >
+            <div key={i} className="bg-white overflow-hidden ">
               <div className=" h-dh w-dw relative">
                 <Image
                   src={doc.image}
