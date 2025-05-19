@@ -61,7 +61,7 @@
   --height-lh: 3.938rem; /*63px*/
   --height-bh: 15rem; /*240px*/
   --height-dh: 20.639rem; /*330.22px*/
-  --height-story: 47.813rem; /*765px*/
+  --height-story: 44.813rem; /*765px*/
   /* width */
   --width-psm: 2rem; /* 32px */
   --width-lw: 8.938rem; /*143px */
@@ -209,4 +209,11 @@ h1,
 h2,
 h3 {
   font-family: "Playfair Display", serif;
+}
+
+
+/* In your CSS file or style tag */
+.custom-shadow {
+  box-shadow: 0 4px 20px #286ED021;
+  border-radius: 12px;
 }

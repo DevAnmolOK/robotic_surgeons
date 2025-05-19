@@ -71,11 +71,11 @@ export default function BlogSection() {
         </div>
 
         {/* Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 ">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
           {blogs.map((blog, index) => (
             <div
               key={index}
-              className="bg-white overflow-hidden rounded-xl shadow-sm sm:p-6 hover:shadow-md transition p-4"
+              className="bg-white overflow-hidden rounded-xl custom-shadow sm:p-6  transition p-4"
             >
               <div className="relative  h-bh overflow-hidden mb-4">
                 <Image
