@@ -34,7 +34,7 @@ const doctors = [
 
 export default function TopDoctors() {
   return (
-    <section className="  px-4 py-12 bg-white text-black font-sans">
+    <section className="  px-4 pt-2xl bg-white text-black font-sans">
       <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">

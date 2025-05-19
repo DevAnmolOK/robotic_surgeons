@@ -65,8 +65,8 @@ export default function Footer() {
         <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between ">
           {footerData.map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold text-lg mb-3">{section.title}</h3>
-              <ul className="space-y-2 text-base text-gray-300">
+              <h3 className="font-semibold text-pxl mb-3">{section.title}</h3>
+              <ul className="space-y-2 font-semibold text-pbase text-white">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -85,7 +85,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="bg-blue-600 text-white text-sm py-4 px-4 ">
-          <div className="max-w-[75vw] mx-auto w-full flex flex-col sm:flex-row justify-between items-center">
+          <div className="max-w-[75vw] mx-auto w-full flex flex-col sm:flex-row text-pbase font-normal   justify-between items-center">
             <p>© 2016–2024, The Best Robotic Surgeon. All Rights Reserved.</p>
             <div className="mt-2 sm:mt-0">
               <Link href="#" className="hover:underline">

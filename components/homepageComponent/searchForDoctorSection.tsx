@@ -54,7 +54,7 @@ export default function SearchDoctor() {
 
             {/* Input 2 */}
             <div className="flex items-center bg-white px-7 2xl:px-8 py-2 2xl:py-3 rounded-full w-full ">
-              <SlLocationPin className="text-black mr-4 text-p4xl  " />
+              <SlLocationPin className="text-black mr-4 text-p3xl  " />
               <input
                 type="text"
                 name="location"

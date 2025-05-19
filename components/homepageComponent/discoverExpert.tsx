@@ -12,7 +12,7 @@ const experts = [
 
 export default function DiscoverExpert() {
   return (
-    <section className=" px-4 text-center bg-white text-black pt-24 pb-14 font-sans">
+    <section className=" px-4 text-center bg-white text-black pt-pbn pb-axl font-sans">
       <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
         {/* <h2 className="text-2xl md:text-t2  mb-2 font-playfair font-normal"> */}
         <h2 className="text-t2 mb-1 font-playfair font-medium">
@@ -37,7 +37,7 @@ export default function DiscoverExpert() {
                   className="object-contain"
                 />
               </div>
-              <p className="mt-3 text-xs sm:text-sm md:text-lg font-medium font-sans">
+              <p className="mt-3 text-plg font-medium font-sans">
                 {expert.title}
               </p>
             </div>

@@ -59,6 +59,7 @@
   --height-ixl: 45.625rem;
   --height-i: 18.75rem;
   --height-lh: 3.938rem; /*63px*/
+  --height-bh: 15rem; /*240px*/
   --height-dh: 20.639rem; /*330.22px*/
   --height-story: 47.813rem; /*765px*/
   /* width */
@@ -66,6 +67,7 @@
   --width-lw: 8.938rem; /*143px */
   --width-pmd: 3rem; /* 48px */
   --width-plg: 4rem;
+  --width-bw: 18.125rem; /*290px*/
   --width-dw: 20.639rem; /*330.22px*/
   --width-story: 50.938rem; /*815px*/
 
@@ -75,6 +77,9 @@
   --padding-md: 1rem; /* 16px */
   --padding-lg: 1.5rem; /* 24px */
   --padding-xl: 2rem; /* 32px */
+  --padding-axl: 3.5rem; /* 56px */
+  --padding-2xl: 4rem; /* 64px */
+  --padding-pbn: 5.5rem; /* 88px */
 }
 
 @theme inline {

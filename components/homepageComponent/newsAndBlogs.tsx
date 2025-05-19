@@ -54,7 +54,7 @@ const blogs = [
 
 export default function BlogSection() {
   return (
-    <section className="bg-white text-black py-14 px-4 font-sans ">
+    <section className="bg-white text-black py-pbn px-4 font-sans ">
       <div className=" max-w-[85vw] sm:max-w-[75vw] w-full mx-auto">
         <div className="flex justify-between items-center mb-10 flex-wrap gap-4">
           <div>
@@ -75,9 +75,9 @@ export default function BlogSection() {
           {blogs.map((blog, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-sm sm:p-6 hover:shadow-md transition p-4"
+              className="bg-white overflow-hidden rounded-xl shadow-sm sm:p-6 hover:shadow-md transition p-4"
             >
-              <div className="relative w-full md:h-60 sm:h-52  h-48 overflow-hidden mb-4">
+              <div className="relative  h-bh overflow-hidden mb-4">
                 <Image
                   src={blog.image}
                   alt={blog.title}
@@ -86,34 +86,36 @@ export default function BlogSection() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                 />
               </div>
-              <p className="text-dt text-theme font-semibold mb-1">
-                {blog.category}
-              </p>
-              <div className="flex justify-between items-center pt-2 ">
-                <p className="font-semibold text-pxl">{blog.title}</p>
-                <ImArrowUpRight2 size={16} className="" />
-              </div>
-              <p className="text-pbase tracking-normal text-cgray py-3 xl:py-4">
-                {blog.description}
-              </p>
-              <div className="flex items-center gap-2 pb-3">
-                <Image
-                  src={blog.author.avatar}
-                  alt={blog.author.name}
-                  width={36}
-                  height={36}
-                  // className="rounded-full bg-pink1 object-cover"
-                  className={`rounded-full bg-pink1 object-cover  ${
-                    index < 2 ? "bg-pink1" : "bg-red1"
-                  }`}
-                />
-                <div className="">
-                  <p className="text-black text-dt font-medium">
-                    {blog.author.name}
-                  </p>
-                  <p className="text-cgray text-dt font-normal">
-                    {blog.author.date}
-                  </p>
+              <div className=" flex flex-col ">
+                <p className="text-dt text-theme font-semibold mb-1">
+                  {blog.category}
+                </p>
+                <div className="flex justify-between items-center pt-2 ">
+                  <p className="font-semibold text-pxl">{blog.title}</p>
+                  <ImArrowUpRight2 size={16} className="" />
+                </div>
+                <p className="text-pbase tracking-normal text-cgray py-3 xl:py-4">
+                  {blog.description}
+                </p>
+                <div className="flex items-center gap-2 pb-3">
+                  <Image
+                    src={blog.author.avatar}
+                    alt={blog.author.name}
+                    width={36}
+                    height={36}
+                    // className="rounded-full bg-pink1 object-cover"
+                    className={`rounded-full bg-pink1 object-cover  ${
+                      index < 2 ? "bg-pink1" : "bg-red1"
+                    }`}
+                  />
+                  <div className="">
+                    <p className="text-black text-dt font-medium">
+                      {blog.author.name}
+                    </p>
+                    <p className="text-cgray text-dt font-normal">
+                      {blog.author.date}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

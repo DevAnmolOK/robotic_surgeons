@@ -8,7 +8,6 @@ export default function HeroSection() {
         style={{
           backgroundImage: "url('/homePage/heroimage.jpg')",
           // backgroundSize: "100%", // Zoom level
-          
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>

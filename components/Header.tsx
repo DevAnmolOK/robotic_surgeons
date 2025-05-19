@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState } from "react";
@@ -7,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
-
+import { HiOutlineUserCircle } from "react-icons/hi2";
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,13 +17,13 @@ const Header = () => {
           <Image
             src="/logo.png"
             alt="The best robotic surgeon"
-           fill
-           className="object-contain"
+            fill
+            className="object-contain"
           />
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 items-center text-sm md:text-lg font-medium text-black">
+        <nav className="hidden md:flex gap-8 items-center text-pxl font-normal  font-sans text-black">
           <Link href="#">
             <div className=" flex  items-center justify-center">
               <span className="mr-2">Find a Doctor</span>
@@ -36,7 +34,7 @@ const Header = () => {
           <Link href="#">Membership</Link>
           <Link href="#">Blogs</Link>
           <Link href="#">
-            <FaRegUserCircle size={24} />
+           <HiOutlineUserCircle size={22}/>
           </Link>
         </nav>
 

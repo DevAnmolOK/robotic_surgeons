@@ -82,8 +82,8 @@ export const testimonials = [
 export default function Testimonial() {
   return (
     <>
-      <div className=" bg-white text-black py-14 ">
-        <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center py-5 ">
+      <div className=" bg-white text-black py-pbn ">
+        <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center  ">
           {/* heading section */}
           <div>
             <div className=" flex flex-col items-center justify-center">
