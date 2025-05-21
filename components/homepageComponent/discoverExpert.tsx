@@ -21,15 +21,6 @@ type DiscoverExpertSectionProps = {
   expertsData: BlockData;
 }
 
-const experts = [
-  { id: 1, title: "Internal Medicine", icon: "/expert/first-aid.png" },
-  { id: 2, title: "Orthopaedic Surgery", icon: "/expert/healthy.png" },
-  { id: 3, title: "Ophthalmology", icon: "/expert/retina.png" },
-  { id: 4, title: "Dermatology", icon: "/expert/hydrated-skin.png" },
-  { id: 5, title: "Urology", icon: "/expert/urology.png" },
-  { id: 6, title: "Gynaecology", icon: "/expert/uterus.png" },
-];
-
 const DiscoverExpert: React.FC<DiscoverExpertSectionProps> = ({ expertsData }) => {
 
   const { heading, sub_heading, repeater_fields } = expertsData
