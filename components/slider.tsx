@@ -62,7 +62,7 @@ export default function SlickSlider({ products }: SlickSliderProps) {
 
   if (!Array.isArray(products) || products.length === 0) {
     return (
-      <div className="text-center text-red-500">No products available</div>
+      <div className="text-center text-red-500">No testimonial available</div>
     );
   }
 
