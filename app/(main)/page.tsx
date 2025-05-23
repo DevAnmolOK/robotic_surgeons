@@ -8,18 +8,27 @@ import TopDoctors from "@/components/homepageComponent/topDoctors";
 import ReadStory from "@/components/homepageComponent/readStory";
 import NewsAndBlogs from "@/components/homepageComponent/newsAndBlogs";
 import Testimonial from "@/components/homepageComponent/testimonial";
-export default function Home() {
+
+
+export default async function Home() {
+
+  const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
+  const blockData = await homepageData.json();
+
+  const blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=5`);
+  const latestBlogs = await blogsData.json();
+
   return (
     <>
-      <HeroSection />
+      {blockData.data.homepagebanner && <HeroSection bannerData={blockData.data.homepagebanner} /> }
       <SearchDoctor />
-      <DiscoverExpert />  
-      <HelpToFind />
-      <InstantAppointment />
+      {blockData.data.homediscoverexpert && <DiscoverExpert expertsData = {blockData.data.homediscoverexpert} />  }
+      {blockData.data.homefindbestsurgeon && <HelpToFind helpToFindData = {blockData.data.homefindbestsurgeon} /> }
+      {blockData.data.homerobotappointment && <InstantAppointment InstantAppointmentData = {blockData.data.homerobotappointment} /> }
       <TopDoctors />
-      <Testimonial />
-      <ReadStory />
-      <NewsAndBlogs />
+      {blockData.data.hometestimonial && <Testimonial testimonialsData = {blockData.data.hometestimonial} /> }
+      {blockData.data.homereadstory && <ReadStory readStoryData = {blockData.data.homereadstory} /> } 
+      {latestBlogs.data.length > 0 && <NewsAndBlogs latestBlogs={latestBlogs} /> }
     </>
   );
 }
