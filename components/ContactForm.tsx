@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-interface FormData {
+
+type FormData = {
   firstname: string;
   lastname: string;
   email: string;
@@ -8,7 +9,7 @@ interface FormData {
   phone: string;
   message: string;
 }
-interface FormErrors {
+type FormErrors = {
   firstname?: string;
   lastname?: string;
   email?: string;
@@ -26,6 +27,10 @@ export default function ContactForm() {
     subject: "",
     message: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState<string | null>(null);
+
 
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -61,21 +66,51 @@ export default function ContactForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted:", formData);
-      alert("Message sent successfully!");
 
-      setFormData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-      setErrors({});
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact/inquiry`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            email: formData.email,
+            phone: formData.phone,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          setResponse('Message sent successfully!');
+          console.log("Form submitted:", formData);
+          setFormData({
+            firstname: "",
+            lastname: "",
+            email: "",
+            phone: "",
+            subject: "",
+            message: "",
+          });
+          setErrors({});
+
+        } else {
+          setResponse(result.message || 'Submission failed');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        setResponse('An error occurred. Please try again.');
+      }
+      finally {
+        setLoading(false); // Reset loading state
+      }
     }
   };
   return (
@@ -94,9 +129,8 @@ export default function ContactForm() {
                 name="firstname"
                 value={formData.firstname}
                 onChange={handleChange}
-                className={`w-full  py-[.5rem]  ${
-                  errors.firstname ? "border-red-500" : "border-placeholder"
-                }  border-b-2 focus:border-b-[3px]  focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
+                className={`w-full  py-[.5rem]  ${errors.firstname ? "border-red-500" : "border-placeholder"
+                  }  border-b-2 focus:border-b-[3px]  focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
                 placeholder="John"
               />
               {errors.firstname && (
@@ -113,9 +147,8 @@ export default function ContactForm() {
                 name="lastname"
                 value={formData.lastname}
                 onChange={handleChange}
-                className={`w-full  py-[.5rem] ${
-                  errors.lastname ? "border-red-500" : "border-placeholder"
-                }  border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
+                className={`w-full  py-[.5rem] ${errors.lastname ? "border-red-500" : "border-placeholder"
+                  }  border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
                 placeholder="Deo"
               />
               {errors.lastname && (
@@ -133,9 +166,8 @@ export default function ContactForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full  py-[.5rem]  ${
-                  errors.email ? "border-red-500" : "border-placeholder"
-                }   border-b-2 focus:border-b-[3px]  focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
+                className={`w-full  py-[.5rem]  ${errors.email ? "border-red-500" : "border-placeholder"
+                  }   border-b-2 focus:border-b-[3px]  focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
                 placeholder="john@gmail.com"
               />
               {errors.email && (
@@ -152,9 +184,8 @@ export default function ContactForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`w-full  py-[.5rem] ${
-                  errors.phone ? "border-red-500" : "border-placeholder"
-                }    border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
+                className={`w-full  py-[.5rem] ${errors.phone ? "border-red-500" : "border-placeholder"
+                  }    border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
                 placeholder="+1 012 3456 789"
               />
               {errors.phone && (
@@ -220,9 +251,8 @@ export default function ContactForm() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                className={`w-full  py-[0.5rem] ${
-                  errors.message ? "border-red-500" : "border-placeholder"
-                }   border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
+                className={`w-full  py-[0.5rem] ${errors.message ? "border-red-500" : "border-placeholder"
+                  }   border-b-2 focus:border-b-[3px] focus:border-theme  text-black  outline-none transition duration-200 placeholder-placeholder`}
                 placeholder="Write Your Message"
               />
               {errors.message && (
@@ -232,11 +262,12 @@ export default function ContactForm() {
           </div>
           <button
             type="submit"
-            className=" max-w-[12.813rem] rounded-[6.25rem] h-[2.813rem] bg-black text-white w-full text-pxl font-normal"
+            className={`max-w-[12.813rem] rounded-[6.25rem] h-[2.813rem] ${loading ? 'bg-gray-400 cursor-not-allowed' : "bg-black"} text-white w-full text-pxl font-normal`}
           >
-            Send Message
+            {loading ? 'Please wait...' : 'Send Message'}
           </button>
         </form>
+        {response && <p className="mt-4">{response}</p>}
       </div>
     </>
   );

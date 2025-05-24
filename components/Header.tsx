@@ -73,13 +73,15 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
     <header className="border-b md:px-6 bg-white text-black">
       <div className="max-w-[85vw] py-3.5 sm:max-w-[75vw]  mx-auto w-full flex justify-between items-center">
         {/* Logo Section */}
-        <div className="relative h-lh w-lw ">
+        <div className="relative h-lh w-lw">
+          <Link href="/">
           <Image
             src={logoImg}
             alt="The best robotic surgeon"
             fill
             className="object-contain"
           />
+          </Link>
         </div>
 
         {/* Desktop Nav */}

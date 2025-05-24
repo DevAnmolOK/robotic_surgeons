@@ -9,39 +9,42 @@ import NewsAndBlogs from "@/components/homepageComponent/newsAndBlogs";
 import Testimonial from "@/components/homepageComponent/testimonial";
 
 export default async function Home() {
+  
   const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
   const blockData = await homepageData.json();
-  // console.log("blockData", blockData);
 
   const blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=4`);
   const latestBlogs = await blogsData.json();
 
+  const data = blockData.data || {};
+  const blogs = latestBlogs || [];
+
   return (
     <>
-      {blockData.data.homepagebanner && (
-        <HeroSection bannerData={blockData.data.homepagebanner} />
+      {data.homepagebanner && (
+        <HeroSection bannerData={data.homepagebanner} />
       )}
       <SearchDoctor />
-      {blockData.data.homediscoverexpert && (
-        <DiscoverExpert expertsData={blockData.data.homediscoverexpert} />
+      {data.homediscoverexpert && (
+        <DiscoverExpert expertsData={data.homediscoverexpert} />
       )}
-      {blockData.data.homefindbestsurgeon && (
-        <HelpToFind helpToFindData={blockData.data.homefindbestsurgeon} />
+      {data.homefindbestsurgeon && (
+        <HelpToFind helpToFindData={data.homefindbestsurgeon} />
       )}
-      {blockData.data.homerobotappointment && (
+      {data.homerobotappointment && (
         <InstantAppointment
-          InstantAppointmentData={blockData.data.homerobotappointment}
+          InstantAppointmentData={data.homerobotappointment}
         />
       )}
       <TopDoctors />
-      {blockData.data.hometestimonial && (
-        <Testimonial testimonialsData={blockData.data.hometestimonial} />
+      {data.hometestimonial && (
+        <Testimonial testimonialsData={data.hometestimonial} />
       )}
-      {blockData.data.homereadstory && (
-        <ReadStory readStoryData={blockData.data.homereadstory} />
+      {data.homereadstory && (
+        <ReadStory readStoryData={data.homereadstory} />
       )}
-      {latestBlogs.data.length > 0 && (
-        <NewsAndBlogs latestBlogs={latestBlogs} />
+      {blogs.data.length > 0 && (
+        <NewsAndBlogs latestBlogs={blogs} />
       )}
     </>
   );
