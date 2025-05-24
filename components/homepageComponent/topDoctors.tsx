@@ -8,9 +8,11 @@ const TopDoctors = async () => {
   const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featureddoctors`);
   const doctorData = await doctorsRes.json();
 
+  console.log(doctorData)
+
   return (
     <>
-      {doctorData.length > 0 &&
+      {doctorData.data.length > 0 &&
         <section className="  px-4 pt-2xl bg-white text-black font-sans">
           <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
             {/* Header */}
