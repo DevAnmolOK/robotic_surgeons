@@ -31,67 +31,15 @@ type latestBlogsType = {
   };
 };
 
-const blogs = [
-  {
-    category: "Allergy",
-    title: "Allergy and Immunology",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Olivia Rhye",
-      date: "20 Jan 2022",
-      avatar: "/blog/author2.png",
-    },
-    image: "/blog/b1.png", // place in /public/homePage/blogs/
-  },
-  {
-    category: "Allergy",
-    title: "Allergy and Immunology",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Olivia Rhye",
-      date: "20 Jan 2022",
-      avatar: "/blog/author2.png",
-    },
-    image: "/blog/b2.png",
-  },
-  {
-    category: "Medicine",
-    title: "Family Medicine",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Lana Steiner",
-      date: "18 Jan 2022",
-      avatar: "/blog/author1.png",
-    },
-    image: "/blog/b3.png",
-  },
-  {
-    category: "Oculoplastic",
-    title: "Oculoplastic Surgery",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Lana Steiner",
-      date: "18 Jan 2022",
-      avatar: "/blog/author1.png",
-    },
-    image: "/blog/b4.png",
-  },
-];
-
 const formatDate = (date: any) => {
-  return new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
+  return new Date(date).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
   });
 };
 
 const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
-  // console.log(latestBlogs.data[0].categories[0].name)
 
   return (
     <section className="bg-white text-black py-pbn px-4 font-sans ">
@@ -119,10 +67,8 @@ const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
             >
               <div className="relative  h-bh overflow-hidden mb-4">
                 <Image
-                  src={
-                    blog.image ?? "https://placehold.co/600x400?text=No Image"
-                  }
-                  alt={blog.name ?? ""}
+                  src={blog.image ?? 'https://placehold.co/600x400?text=No Image'}
+                  alt={blog.name ?? ''}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 25vw"
@@ -146,9 +92,8 @@ const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
                     width={36}
                     height={36}
                     // className="rounded-full bg-pink1 object-cover"
-                    className={`rounded-full bg-pink1 object-cover  ${
-                      index < 2 ? "bg-pink1" : "bg-red1"
-                    }`}
+                    className={`rounded-full bg-pink1 object-cover  ${index < 2 ? "bg-pink1" : "bg-red1"
+                      }`}
                   />
                   <div className="">
                     <p className="text-black text-dt font-medium">

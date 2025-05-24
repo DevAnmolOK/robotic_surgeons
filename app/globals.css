@@ -203,6 +203,29 @@ body {
   color: var(--color-theme);
 }
 
+.ul-custom-style ul li{
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 18px;
+}
+
+.ul-custom-style ul li::before {
+  content: "✔";
+  color: white;
+  background-color: #34A853; /* Google green */
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  text-align: center;
+  line-height: 20px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
 }

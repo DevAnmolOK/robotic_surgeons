@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IoCheckmarkSharp } from "react-icons/io5";
 import Link from "next/link";
 
 type BlockData = {
@@ -25,7 +24,7 @@ const points = [
 
 const RobotAppointment: React.FC<InstantAppointmentSectionProps> = ({ InstantAppointmentData }) => {
 
-  const { heading, description, image, cta_text, cta_link } = InstantAppointmentData
+  const { heading, description, image, cta_text, cta_link, content } = InstantAppointmentData
 
   return (
     <section className="bg-ebg2 py-16 text-black font-sans">
@@ -38,28 +37,12 @@ const RobotAppointment: React.FC<InstantAppointmentSectionProps> = ({ InstantApp
             {description ?? ''}
           </p>
 
-          {/* Bullet Points */}
-          <ul className="space-y-5 mb-3">
-            {points.map((point, index) => (
-              <li
-                key={index}
-                className="flex items-center text-black text-pbase"
-              >
-                <div className=" h-6  w-6 border flex items-center justify-center bg-bgGreen text-white mr-3 rounded-md">
-                  <IoCheckmarkSharp className="" size={18} />
-                </div>
-                {point}
-              </li>
-            ))}
-          </ul>
+          <div className="space-y-5 mb-3 ul-custom-style" dangerouslySetInnerHTML={{ __html: content ?? '' }} />
 
-          {/* <div dangerouslySetInnerHTML={{ __html: raw_content ?? '' }} />
-
-<div dangerouslySetInnerHTML={{ __html: content ?? '' }} /> */}
-
+          
           {cta_text &&
             <Link href={cta_link ?? '#'}>
-              <button className="bg-black w-fit text-pxl text-white px-3 sm:px-6 xl:px-8 sm:py-2 py-1 mt-3 rounded-full  font-[400]  hover:shadow-lg transition cursor-pointer">
+              <button className="bg-black w-fit text-pxl text-white px-3 sm:px-6 xl:px-8 sm:py-2 py-1 rounded-full  font-[400]  hover:shadow-lg transition cursor-pointer">
                 {cta_text ?? ''}
               </button>
             </Link>
