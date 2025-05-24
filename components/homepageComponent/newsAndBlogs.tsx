@@ -1,20 +1,19 @@
 import Image from "next/image";
 import { ImArrowUpRight2 } from "react-icons/im";
 
-
 type Category = {
   id: number;
   name: string;
   slug: string;
   url: string;
   description: string;
-}
+};
 
 type SeoMeta = {
   seo_title: string | null;
   seo_description: string | null;
   seo_index: string | null;
-}
+};
 
 type NewsItem = {
   id: number;
@@ -24,13 +23,13 @@ type NewsItem = {
   image: string;
   categories: Category[];
   seo_meta: SeoMeta;
-}
+};
 
 type latestBlogsType = {
   latestBlogs: {
-    data: NewsItem[]
-  }
-}
+    data: NewsItem[];
+  };
+};
 
 const blogs = [
   {
@@ -83,17 +82,16 @@ const blogs = [
   },
 ];
 
-const formatDate = (date:any) => {
-  return new Date(date).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
+const formatDate = (date: any) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
   });
 };
 
-const BlogSection:React.FC<latestBlogsType> = ({latestBlogs}) => {
-
-  console.log(latestBlogs.data[0].categories[0].name)
+const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
+  // console.log(latestBlogs.data[0].categories[0].name)
 
   return (
     <section className="bg-white text-black py-pbn px-4 font-sans ">
@@ -120,14 +118,15 @@ const BlogSection:React.FC<latestBlogsType> = ({latestBlogs}) => {
               className="bg-white overflow-hidden rounded-xl custom-shadow sm:p-6  transition p-4"
             >
               <div className="relative  h-bh overflow-hidden mb-4">
-
                 <Image
-                      src={blog.image ?? 'https://placehold.co/600x400?text=No Image'}
-                      alt={blog.name ?? ''}
-                      fill
-                      className="object-cover"
+                  src={
+                    blog.image ?? "https://placehold.co/600x400?text=No Image"
+                  }
+                  alt={blog.name ?? ""}
+                  fill
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 25vw"
-                    />
+                />
               </div>
               <div className=" flex flex-col ">
                 <p className="text-dt text-theme font-semibold mb-1">
@@ -141,7 +140,6 @@ const BlogSection:React.FC<latestBlogsType> = ({latestBlogs}) => {
                   {blog.description}
                 </p>
                 <div className="flex items-center gap-2 pb-3">
-                  
                   <Image
                     src="/blog/author2.png"
                     alt={blog.name}
@@ -170,6 +168,6 @@ const BlogSection:React.FC<latestBlogsType> = ({latestBlogs}) => {
       </div>
     </section>
   );
-}
+};
 
-export default BlogSection
+export default BlogSection;
