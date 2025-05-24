@@ -1,3 +1,4 @@
+import Image from "next/image";
 import HeroSection from "@/components/homepageComponent/hero";
 import SearchDoctor from "@/components/homepageComponent/searchForDoctorSection";
 import DiscoverExpert from "@/components/homepageComponent/discoverExpert";
@@ -13,7 +14,9 @@ export default async function Home() {
   const blockData = await homepageData.json();
   // console.log("blockData", blockData);
 
-  const blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=4`);
+  const blogsData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=4`
+  );
   const latestBlogs = await blogsData.json();
 
   return (
