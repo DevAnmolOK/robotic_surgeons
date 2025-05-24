@@ -1,11 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { AiOutlineInstagram } from "react-icons/ai";
-import { RiTwitterXFill } from "react-icons/ri";
-import { FaYoutube } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import * as TbIcons from "react-icons/tb";
-import { IconType } from "react-icons";
+import * as TbIcons from 'react-icons/tb';
+import { IconType } from 'react-icons';
 
 type ChildMenu = {
   id: number;
@@ -64,50 +60,6 @@ const getIconComponent = (iconClass: string | null): IconType | null => {
   return (TbIcons as Record<string, IconType>)[fullIcon] || null;
 };
 
-// export const footerData: FooterSection[] = [
-//   {
-//     title: "About us",
-//     links: [
-//       { label: "Find a Doctor", href: "#" },
-//       { label: "Categories", href: "#" },
-//       { label: "Membership", href: "#" },
-//       { label: "Blogs", href: "#" },
-//       { label: "For Doctors", href: "#" },
-//       { label: "FAQ", href: "#" },
-//     ],
-//   },
-//   {
-//     title: "Patients",
-//     links: [
-//       { label: "Find a Physician", href: "#" },
-//       { label: "Bariatric", href: "#" },
-//       { label: "Cardiac", href: "#" },
-//       { label: "General Surgery", href: "#" },
-//       { label: "Gynecology", href: "#" },
-//       { label: "Head & Neck", href: "#" },
-//       { label: "Urology", href: "#" },
-//     ],
-//   },
-//   {
-//     title: "Products",
-//     links: [
-//       { label: "Surgeons", href: "#" },
-//       { label: "Hospital Executives", href: "#" },
-//       { label: "Referring Physicians", href: "#" },
-//       { label: "Academics", href: "#" },
-//     ],
-//   },
-//   {
-//     title: "Social",
-//     links: [
-//       { label: "Instagram", href: "#", icon: <AiOutlineInstagram /> },
-//       { label: "X", href: "#", icon: <RiTwitterXFill /> },
-//       { label: "YouTube", href: "#", icon: <FaYoutube /> },
-//       { label: "LinkedIn", href: "#", icon: <FaLinkedin /> },
-//     ],
-//   },
-// ];
-
 const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
   const orderById: Record<number, number> = {
     3: 1, // About us
@@ -150,25 +102,6 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
               </ul>
             </div>
           ))}
-
-          {/* {footerData.map((section) => (
-            <div key={section.title}>
-              <h3 className="font-semibold text-pxl mb-3">{section.title}</h3>
-              <ul className="space-y-2 font-semibold text-pbase text-white">
-                {section.links.map((link :any) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="flex items-center gap-2 hover:text-white transition"
-                    >
-                      {link.icon && <span>{link.icon}</span>}
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))} */}
         </div>
 
         {/* Bottom Bar */}
