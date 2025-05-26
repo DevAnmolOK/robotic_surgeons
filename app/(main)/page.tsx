@@ -10,7 +10,6 @@ import NewsAndBlogs from "@/components/homepageComponent/newsAndBlogs";
 import Testimonial from "@/components/homepageComponent/testimonial";
 
 export default async function Home() {
-  
   const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
   const blockData = await homepageData.json();
 
@@ -21,12 +20,11 @@ export default async function Home() {
 
   const data = blockData.data || {};
   const blogs = latestBlogs || [];
+  
 
   return (
     <>
-      {data.homepagebanner && (
-        <HeroSection bannerData={data.homepagebanner} />
-      )}
+      {data.homepagebanner && <HeroSection bannerData={data.homepagebanner} />}
       <SearchDoctor />
       {data.homediscoverexpert && (
         <DiscoverExpert expertsData={data.homediscoverexpert} />
@@ -43,12 +41,8 @@ export default async function Home() {
       {data.hometestimonial && (
         <Testimonial testimonialsData={data.hometestimonial} />
       )}
-      {data.homereadstory && (
-        <ReadStory readStoryData={data.homereadstory} />
-      )}
-      {blogs.data.length > 0 && (
-        <NewsAndBlogs latestBlogs={blogs} />
-      )}
+      {data.homereadstory && <ReadStory readStoryData={data.homereadstory} />}
+      {blogs.data.length > 0 && <NewsAndBlogs latestBlogs={blogs} />}
     </>
   );
 }

@@ -14,7 +14,7 @@ type ChildMenu = {
   target: string;
   has_child: number;
   children: ChildMenu[];
-}
+};
 
 type MenuItem = {
   id: number;
@@ -24,50 +24,51 @@ type MenuItem = {
   target: string;
   has_child: number;
   children: ChildMenu[];
-}
+};
 
 type Menu = {
   id: number;
   name: string;
   slug: string;
   items: MenuItem[];
-}
+};
 
 type Logo = {
   value: string;
-}
+};
 
 type HeaderProps = {
   mainMenu: Menu;
   logo: Logo[];
-}
-
+};
 
 const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside); // Add this line
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside); // Add this line
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside); // Add this line
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside); // Add this line
     };
   }, []);
 
   const logoImg = logo
     ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${logo[0].value}`
-    : 'https://placehold.co/123x46.png'
+    : "https://placehold.co/123x46.png";
 
   return (
     <header className="border-b md:px-6 bg-white text-black">
@@ -75,46 +76,63 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
         {/* Logo Section */}
         <div className="relative h-lh w-lw">
           <Link href="/">
-          <Image
-            src={logoImg}
-            alt="The best robotic surgeon"
-            fill
-            className="object-contain"
-          />
+            <Image
+              src={logoImg}
+              alt="The best robotic surgeon"
+              fill
+              className="object-contain"
+            />
           </Link>
         </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-8 items-center text-pxl font-normal  font-sans text-black">
-          {mainMenu?.items &&
+          {mainMenu?.items && (
             <>
               {mainMenu?.items?.map((item: any, index: any) => (
                 <div
-                  className={`capitalize ${item.has_child ? 'relative' : ''}`}
+                  className={`capitalize ${item.has_child ? "relative" : ""}`}
                   key={index}
                 >
                   {item.has_child ? (
-                    <div className="flex items-center justify-center" onClick={() => setDropdownOpen(!dropdownOpen)} >
+                    <div
+                      className="flex items-center justify-center"
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                    >
                       <span className="mr-2">{item.title}</span>
                       <MdKeyboardArrowDown />
                     </div>
                   ) : (
-                    <Link href={item.url ?? '#'} className="capitalize" target={item.target}>
-                      {item.title ?? ''}
+                    <Link
+                      href={item.url ?? "#"}
+                      className="capitalize"
+                      target={item.target}
+                    >
+                      {item.title ?? ""}
                     </Link>
                   )}
 
                   {dropdownOpen && (
-                    <div ref={dropdownRef} className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-                      {item.children && item.children.map((child: any, index: any) => (
-                        <Link key={index} href={child.url ?? '#'} className="block px-4 py-2 capitalize">{child.title ?? ''}</Link>
-                      ))}
+                    <div
+                      ref={dropdownRef}
+                      className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50"
+                    >
+                      {item.children &&
+                        item.children.map((child: any, index: any) => (
+                          <Link
+                            key={index}
+                            href={child.url ?? "#"}
+                            className="block px-4 py-2 capitalize"
+                          >
+                            {child.title ?? ""}
+                          </Link>
+                        ))}
                     </div>
                   )}
                 </div>
               ))}
             </>
-          }
+          )}
 
           <Link href="#">
             <HiOutlineUserCircle size={22} />
