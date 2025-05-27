@@ -8,8 +8,6 @@ const TopDoctors = async () => {
   const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featureddoctors`);
   const doctorData = await doctorsRes.json();
 
-  console.log(doctorData)
-
   return (
     <>
       {doctorData.data.length > 0 &&

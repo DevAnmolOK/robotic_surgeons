@@ -22,8 +22,10 @@
   --color-cgray: oklch(54.44% 0.035 265.11);
   --color-pink1: oklch(80.79% 0.048 304.55);
   --color-red1: oklch(79.78% 0.038 34.82);
-  --color-accordion: oklch(12.86% 0.000 0);
+  --color-accordion: oklch(12.86% 0 0);
   --color-placeholder: oklch(64.34% 0 0);
+  --color-blog: oklch(20.99% 0.034 263.44);
+  --color-blog1: oklch(48.91% 0 0);
 
   /* font family */
 
@@ -71,7 +73,7 @@
   --width-plg: 4rem;
   --width-bw: 18.125rem; /*290px*/
   --width-dw: 20.639rem; /*330.22px*/
-  --width-bp: 440px
+  --width-bp: 440px;
   --width-story: 50.938rem; /*815px*/
 
   /* padding */
@@ -205,7 +207,7 @@ body {
   color: var(--color-theme);
 }
 
-.ul-custom-style ul li{
+.ul-custom-style ul li {
   position: relative;
   padding-left: 32px;
   margin-bottom: 18px;
@@ -214,7 +216,7 @@ body {
 .ul-custom-style ul li::before {
   content: "✔";
   color: white;
-  background-color: #34A853; /* Google green */
+  background-color: #34a853; /* Google green */
   border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
@@ -245,7 +247,28 @@ h3 {
 .contact-shadow {
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.18);
 }
- .accordion-shadow {
-    /* box-shadow: 0px 0px 18.6px rgba(40, 110, 208, 0.10); */
-    box-shadow: 0px 0px 18.6px #286ED01A
-  }
+.accordion-shadow {
+  /* box-shadow: 0px 0px 18.6px rgba(40, 110, 208, 0.10); */
+  box-shadow: 0px 0px 18.6px #286ed01a;
+}
+
+.custom-font-style h1,
+.custom-font-style h2,
+.custom-font-style h3,
+.custom-font-style h4,
+.custom-font-style h5,
+.custom-font-style h6 {
+  font-size: 28px;
+  color: #000;
+  margin-top: 1rem;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+}
+
+.custom-font-style p {
+  margin-top: 1rem;
+  text-align: justify;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  hyphens: auto;
+}
