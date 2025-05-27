@@ -5,6 +5,7 @@ import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
 import * as TbIcons from 'react-icons/tb';
 import { IconType } from 'react-icons';
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const getIconComponent = (iconClass: string | null): IconType | null => {
   if (!iconClass) return null;
@@ -38,14 +39,7 @@ export default async function ContactUs() {
     <>
       <div className="h-full w-full flex items-center justify-center  flex-col">
         {/* herosection */}
-        <div
-          className="relative sm:h-[14.5rem] h-[10rem]  w-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/homePage/heroimage.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center font-playfair">
-            <h1 className="text-white text-p3xl font-bold">Contact us</h1>
-          </div>
-        </div>
+        <Breadcrumbs title="Contact us" bgImage="/homePage/heroimage.jpg" />
 
         {/* get into touch   */}
         <div className="md:h-[19rem] h-auto bg-ebg2 w-full pt-[3.25rem]">

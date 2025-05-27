@@ -269,7 +269,7 @@ export default function ContactForm() {
             type="submit"
             className={`max-w-[12.813rem] rounded-[6.25rem] h-[2.813rem] ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-black'} text-white w-full text-pxl font-normal`}
           >
-           {loading ? "Please Wait" : "Send Message"}
+           {loading ? "Please Wait..." : "Send Message"}
           </button>
         </form>
         {response && <p className="mt-4">{response}</p>}
