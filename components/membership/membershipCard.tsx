@@ -7,8 +7,7 @@ export default function MembershipCard({ plan, index }: MembershipCardProps) {
     <>
       <div
         key={index}
-        // className={`flex h-[29.5rem]  max-w-[23rem] w-full hover:h-[32.813rem] hover:max-w-[23] border border-[#E3E3E3] hover:bg-theme hover:text-white text-black  flex-col justify-between p-[2.25rem] rounded-[2.375rem]  `}
-        className={`group flex md:h-[29.5rem] max-h-[34.5rem] md:max-w-[23rem] max-w-[28rem] w-full hover:h-[32.813rem] hover:max-w-[23rem] border border-[#E3E3E3] hover:bg-theme hover:text-white text-black flex-col p-[2.25rem] rounded-[2.375rem] transition-all duration-200`}
+        className={`group flex md:h-[29.5rem] max-h-[34.5rem] md:max-w-[23rem] max-w-[28rem] w-full hover:h-[32.813rem] hover:max-w-[23rem] border border-[#E3E3E3] hover:bg-theme hover:text-white text-black flex-col p-[2.25rem] rounded-[2.375rem] transition-all duration-400`}
       >
         <div>
           <h2 className=" font-semibold text-p3xl mb-[0.5rem] font-playfair leading-[2rem]">

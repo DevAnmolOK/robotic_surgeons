@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-
 type ExpertsItem = {
   heading: string;
   sub_heading?: string | null;
@@ -60,6 +59,11 @@ const DiscoverExpert: React.FC<DiscoverExpertSectionProps> = ({
             </div>
           ))}
         </div>
+        {/* <ExpertByConcern
+          heading={heading}
+          sub_heading={sub_heading}
+          expertData={expertData}
+        /> */}
       </div>
     </section>
   );

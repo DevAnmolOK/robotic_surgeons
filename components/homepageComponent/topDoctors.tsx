@@ -4,15 +4,16 @@ import { BsTelephone } from "react-icons/bs";
 import Link from "next/link";
 
 const TopDoctors = async () => {
-
-  const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featureddoctors`);
+  const doctorsRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/featureddoctors`
+  );
   const doctorData = await doctorsRes.json();
 
-  console.log(doctorData)
+  // console.log(doctorData)  
 
   return (
     <>
-      {doctorData.data.length > 0 &&
+      {doctorData.data.length > 0 && (
         <section className="  px-4 pt-2xl bg-white text-black font-sans">
           <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
             {/* Header */}
@@ -42,7 +43,7 @@ const TopDoctors = async () => {
                         src={
                           doctor.doctor_photo
                             ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${doctor.doctor_photo}`
-                            : 'https://placehold.co/330x330.png'
+                            : "https://placehold.co/330x330.png"
                         }
                         alt={doctor.name}
                         fill
@@ -50,11 +51,14 @@ const TopDoctors = async () => {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       />
                     </Link>
-
                   </div>
                   <div className="p-4">
-                    <Link href="#"><p className="text-pxl font-bold">Dr. {doctor.name}</p></Link>
-                    <p className="text-dt font-semibold  mb-2">Founder of {doctor.clinic_name}</p>
+                    <Link href="#">
+                      <p className="text-pxl font-bold">Dr. {doctor.name}</p>
+                    </Link>
+                    <p className="text-dt font-semibold  mb-2">
+                      Founder of {doctor.clinic_name}
+                    </p>
                     <div className="flex items-start gap-0.5 text-pbase    text-gray-700 mb-1">
                       <SlLocationPin className="mt-1 text-theme" size={14} />
                       {doctor.address}
@@ -69,9 +73,9 @@ const TopDoctors = async () => {
             </div>
           </div>
         </section>
-      }
+      )}
     </>
   );
-}
+};
 
-export default TopDoctors
+export default TopDoctors;

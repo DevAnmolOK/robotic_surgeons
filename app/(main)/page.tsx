@@ -20,7 +20,6 @@ export default async function Home() {
 
   const data = blockData.data || {};
   const blogs = latestBlogs || [];
-  
 
   return (
     <>

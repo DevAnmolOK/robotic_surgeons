@@ -75,23 +75,22 @@ export default function SlickSlider({ products }: SlickSliderProps) {
             key={index}
             className="h-full flex items-stretch px-2 sm:px-3 md:px-4 lg:px-5  "
           >
-
             <div className="bg-black text-white h-[22.5rem] p-8 rounded-lg mb-5 shadow-lg flex flex-col  shadow-theme">
               <div className="flex items-center mb-4 relative w-fit">
                 <Image
                   src={
                     data.image
                       ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${data.image}`
-                      : 'https://placehold.co/16x16.png'
+                      : "https://placehold.co/16x16.png"
                   }
-                  alt={data.heading ?? ''}
+                  alt={data.heading ?? ""}
                   width={64}
                   height={64}
                   className="rounded-full object-contain"
                 />
                 <Image
                   src="/mark.png"
-                  alt={data.heading ?? ''}
+                  alt={data.heading ?? ""}
                   width={22}
                   height={22}
                   className="rounded-full object-contain absolute right-0 top-0"
@@ -99,11 +98,11 @@ export default function SlickSlider({ products }: SlickSliderProps) {
               </div>
               <div className="py-1">
                 <div className="font-semibold text-base sm:text-lg">
-                  {data.heading ?? ''}
+                  {data.heading ?? ""}
                 </div>
               </div>
               <p className="text-plg font-light font-inter line-clamp-6 ">
-                “{data.content ?? ''}”
+                “{data.content ?? ""}”
               </p>
             </div>
             {/* <TestimonialCard testimonial={data} /> */}
