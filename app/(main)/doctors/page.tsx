@@ -11,6 +11,7 @@ const doctors = [
     location: "1601 Avocado Ave, Newport Beach, CA",
     phone: "+1 123-456-7890",
     image: "/doctor/d1.png",
+    slug: "doctor1",
   },
   {
     name: "Dr. Emily Carter",
@@ -18,6 +19,7 @@ const doctors = [
     location: "250 Palm Street, San Diego, CA",
     phone: "+1 987-654-3210",
     image: "/doctor/d2.png",
+    slug: "doctor2",
   },
   {
     name: "Dr. Liam Johnson",
@@ -25,6 +27,7 @@ const doctors = [
     location: "789 Coastal Rd, Santa Monica, CA",
     phone: "+1 456-789-1234",
     image: "/doctor/d3.png",
+    slug: "doctor3",
   },
   {
     name: "Dr. Sophia Patel",
@@ -32,6 +35,7 @@ const doctors = [
     location: "412 Ocean View Blvd, Malibu, CA",
     phone: "+1 321-654-0987",
     image: "/doctor/d1.png",
+    slug: "doctor4",
   },
 ];
 const filters = [
@@ -72,7 +76,7 @@ export default async function Doctors() {
           </div>
         </div>
         {/* explore top doctors */}
-        <ExploreTopDoctor />
+        <ExploreTopDoctor doctors={doctors} />
         {/* discover expert */}
         <div className="w-full">
           {data.homediscoverexpert && (

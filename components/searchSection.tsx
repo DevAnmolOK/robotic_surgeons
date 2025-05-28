@@ -69,7 +69,7 @@ export default function SeacrhSection() {
               className="w-full bg-white  text-black outline-none  placeholder-black text-pxl tracking-tight font-sans font-normal"
             >
               <option>All Procedures</option>
-              <option>Cardiology</option> 
+              <option>Cardiology</option>
               <option>Orthopedics</option>
               <option>Neurology</option>
             </select>
