@@ -41,19 +41,21 @@ export default function BlogCard({ blog, index }: BlogsCardProps) {
           </p>
           <div className="flex items-center gap-2 pb-3">
             <Image
-              src="/blog/author2.png"
+              src={
+                blog.author.avatar.url
+                  ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${blog.author.avatar.url}`
+                  : 'https://placehold.co/36x36.png'
+              }
               alt={blog.name}
               width={36}
               height={36}
               // className="rounded-full bg-pink1 object-cover"
-              className={`rounded-full bg-pink1 object-cover  ${
-                index < 2 ? "bg-pink1" : "bg-red1"
-              }`}
+              className={`rounded-full bg-pink1 object-cover  ${index < 2 ? "bg-pink1" : "bg-red1"
+                }`}
             />
             <div className="">
               <p className="text-black text-dt font-medium">
-                Lana Steiner
-                {/* {blog.author.name} */}
+                {blog.author.name ?? ''}
               </p>
               <p className="text-cgray text-dt font-normal">
                 {formatDate(blog.created_at)}

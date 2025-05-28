@@ -1,36 +1,8 @@
-import Image from "next/image";
 import LatestBlogs from "@/components/blogs/latestblogs";
-// import BlogCard from "@/components/homepageComponent/blogcard";
 import BlogsCard from "@/components/blogs/blogsCard";
-export default function Blogs() {
-  const articleCards = [
-    {
-      category: "Allergy",
-      title: "Allergy and Immunology",
-      description:
-        "The rise of Restful APIs has been met by a rise in tools for creating, testing, and managing them. The rise of Restful APIs has been met by a rise in tools for creating, testing and managing them. The rise of Restful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Olivia Rhye",
-        date: "20 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/recentb.png",
-      slug: "latestblog1",
-    },
-    {
-      category: "Cardiology",
-      title: "Heart Health and Innovations",
-      description:
-        "The rise of Restful APIs has been met by a rise in tools for creating, testing, and managing them. The rise of Restful APIs has been met by a rise in tools for creating, testing and managing them. The rise of Restful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "James Carter",
-        date: "15 Feb 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/recentb.png",
-      slug: "latestblog2",
-    },
-  ];
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+export default async function Blogs() {
 
   const blogCards = [
     {
@@ -139,18 +111,25 @@ export default function Blogs() {
     },
   ];
 
+
+  const blogsData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts`
+  );
+  const result = await blogsData.json();
+
+  const publishedPosts = result.data.filter(
+    (post: any) => post.status?.value === 'published' && post.published_at == null
+  );
+
+  const publishedLater = result.data.filter(
+    (post: any) => post.status?.value === 'draft' && post.published_at !== null
+  );
+
   return (
     <>
       <div className="w-full h-auto bg-white flex flex-col">
         {/* herosection */}
-        <div
-          className="relative sm:h-[14.5rem] h-[10rem]  w-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/homePage/heroimage.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center font-playfair">
-            <h1 className="text-white text-p3xl font-bold">Blogs</h1>
-          </div>
-        </div>
+        <Breadcrumbs title="Blogs" bgImage="/homePage/heroimage.jpg" />
         <div className=" sm:max-w-[75vw] max-w-[85vw] mx-auto w-full  my-[2rem]  text-black">
           {/* latest Articles */}
           <div className="flex flex-col mb-[1rem]">
@@ -158,13 +137,9 @@ export default function Blogs() {
               Latest Articles
             </h2>
             <div className=" flex flex-col gap-[2rem]">
-              {articleCards.map((articleCard, index) => (
-                <LatestBlogs
-                  articleCard={articleCard}
-                  index={index}
-                  key={index}
-                />
-              ))}
+              
+              {publishedPosts.length > 0 && <LatestBlogs publishedPosts = {publishedPosts} /> }
+
             </div>
           </div>
           {/* Upcoming Articles */}
