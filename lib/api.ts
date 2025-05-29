@@ -31,3 +31,12 @@ export async function getPageData(slug: string): Promise<ApiResponse> {
 
   return res.json();
 }
+
+
+export const formatDate = (date: any) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};

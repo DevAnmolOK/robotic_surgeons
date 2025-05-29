@@ -4,114 +4,6 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default async function Blogs() {
 
-  const blogCards = [
-    {
-      category: "Allergy",
-      title: "Allergy and Immunology",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Olivia Rhye",
-        date: "20 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b1.png",
-      slug: "slug1",
-    },
-    {
-      category: "Allergy",
-      title: "Allergy and Immunology",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Olivia Rhye",
-        date: "20 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b2.png",
-      slug: "slug2",
-    },
-    {
-      category: "Medicine",
-      title: "Family Medicine",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Lana Steiner",
-        date: "18 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b3.png",
-      slug: "slug3",
-    },
-    {
-      category: "Oculoplastic",
-      title: "Oculoplastic Surgery",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Lana Steiner",
-        date: "18 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b4.png",
-      slug: "slug4",
-    },
-    {
-      category: "Allergy",
-      title: "Allergy and Immunology",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Olivia Rhye",
-        date: "20 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b1.png",
-      slug: "slug5",
-    },
-    {
-      category: "Allergy",
-      title: "Allergy and Immunology",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Olivia Rhye",
-        date: "20 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b2.png",
-      slug: "slug6",
-    },
-    {
-      category: "Medicine",
-      title: "Family Medicine",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Lana Steiner",
-        date: "18 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b3.png",
-      slug: "slug7",
-    },
-    {
-      category: "Oculoplastic",
-      title: "Oculoplastic Surgery",
-      description:
-        "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-      author: {
-        name: "Lana Steiner",
-        date: "18 Jan 2022",
-        avtar: "/blog/author2.png",
-      },
-      image: "/blog/b4.png",
-      slug: "slug8",
-    },
-  ];
-
-
   const blogsData = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/posts`
   );
@@ -121,9 +13,16 @@ export default async function Blogs() {
     (post: any) => post.status?.value === 'published' && post.published_at == null
   );
 
-  const publishedLater = result.data.filter(
-    (post: any) => post.status?.value === 'draft' && post.published_at !== null
-  );
+  // const publishedLater = result.data.filter(
+  //   (post: any) => post.status?.value === 'draft' && post.published_at !== null
+  // );
+
+  const now = new Date();
+
+  const publishedLater = result.data.filter((post: any) => {
+    const publishedAt = post.published_at ? new Date(post.published_at) : null;
+    return post.status?.value === 'draft' && publishedAt && publishedAt > now;
+  });
 
   return (
     <>
@@ -137,8 +36,8 @@ export default async function Blogs() {
               Latest Articles
             </h2>
             <div className=" flex flex-col gap-[2rem]">
-              
-              {publishedPosts.length > 0 && <LatestBlogs publishedPosts = {publishedPosts} /> }
+
+              {publishedPosts.length > 0 && <LatestBlogs Posts={publishedPosts} />}
 
             </div>
           </div>
@@ -147,20 +46,16 @@ export default async function Blogs() {
             <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
               Upcomming Articles
             </h2>
-            <div className="grid gap-x-[1rem] gap-y-[2.75rem] sm:grid-cols-2 lg:grid-cols-4 ">
-              {blogCards.map((blog, index) => (
-                <BlogsCard key={index} index={index} blog={blog} />
-              ))}
-            </div>
+              {publishedLater.length > 0 && <BlogsCard Posts={publishedLater} />}
           </div>
           {/* load more */}
-          <div>
+          {/* <div>
             <div className="flex items-center justify-center mt-[1rem] mb-[2rem]">
               <div className=" cursor-pointer bg-black text-white h-[3rem] max-w-[9rem] w-full font-sans leading-[1.5rem] text-pxl font-normal flex items-center justify-center rounded-full ">
                 <p>Load More</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -1,46 +1,7 @@
-import Image from "next/image";
-import { ImArrowUpRight2 } from "react-icons/im";
 import BlogCard from "./blogcard";
+import Post from "@/lib/helper";
 
-type Category = {
-  id: number;
-  name: string;
-  slug: string;
-  url: string;
-  description: string;
-};
-
-type SeoMeta = {
-  seo_title: string | null;
-  seo_description: string | null;
-  seo_index: string | null;
-};
-
-type NewsItem = {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  image: string;
-  categories: Category[];
-  seo_meta: SeoMeta;
-};
-
-type latestBlogsType = {
-  latestBlogs: {
-    data: NewsItem[];
-  };
-};
-
-const formatDate = (date: any) => {
-  return new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
-
-const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
+export default function BlogSection({ Posts }: Post) {
   return (
     <section className="bg-white text-black py-pbn px-4 font-sans ">
       <div className=" max-w-[85vw] sm:max-w-[75vw] w-full mx-auto">
@@ -60,7 +21,7 @@ const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
 
         {/* Grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
-          {latestBlogs.data.map((blog: any, index: any) => (
+          {Posts.map((blog: any, index: any) => (
             <BlogCard index={index} blog={blog} key={index} />
           ))}
         </div>
@@ -69,4 +30,3 @@ const BlogSection: React.FC<latestBlogsType> = ({ latestBlogs }) => {
   );
 };
 
-export default BlogSection;

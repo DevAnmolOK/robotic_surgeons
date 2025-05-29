@@ -1,17 +1,12 @@
 import Image from "next/image";
 import { ImArrowUpRight2 } from "react-icons/im";
+import { formatDate } from "@/lib/api";
 
 interface BlogsCardProps {
   blog: any;
   index: any;
 }
-const formatDate = (date: any) => {
-  return new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
+
 export default function BlogCard({ blog, index }: BlogsCardProps) {
   return (
     <>

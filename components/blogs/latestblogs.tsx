@@ -1,56 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { formatDate } from "@/lib/api";
+import Post from "@/lib/helper";
 
-type AuthorAvatar = {
-  url: string;
-};
-
-type Author = {
-  id: number;
-  name: string;
-  email: string;
-  avatar: AuthorAvatar;
-};
-
-type Category = {
-  name: string;
-  slug: string;
-  url: string;
-};
-
-type Post = {
-  publishedPosts: {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  image: string | null;
-  categories: Category[];
-  published_at: string | null;
-  created_at: string;
-  author: Author;
-  }[]
-};
-
-const formatDate = (date: any) => {
-  return new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
-
-export default async function LatestBlogs({publishedPosts}: Post) {
+export default function LatestBlogs({Posts}: Post) {
 
   return (
     <>
-      {publishedPosts.map((item: any, index: any) => (
+      {Posts.map((item: any, index: any) => (
         <Link href={`/blogs/${item.slug}`} key={index}>
           <div
             key={index}
             className="bg-white w-auto accordion-shadow rounded-[0.75rem]  overflow-hidden flex flex-col md:flex-row p-[1.5rem] pb-[2rem] space-y-4 md:space-y-0 gap-[1.75rem] sm:gap-[2.75rem]"
           >
-            <div className="w-full md:w-[60%] h-[23.25rem] relative overflow-hidden ">
+            <div className="w-full md:w-[60%] h-[23.25rem] relative overflow-hidden">
               <Image
                 src={item.image ?? "https://placehold.co/600x400?text=No Image"}
                 alt={item.name ?? ""}
@@ -58,7 +21,7 @@ export default async function LatestBlogs({publishedPosts}: Post) {
                 objectFit="cover"
               />
             </div>
-            <div className="flex flex-col w-full md:w-[40%]  ">
+            <div className="flex flex-col w-full md:w-[40%]">
               <div>
                 <span className="text-dt font-semibold font-inter text-theme ">
                   {item.categories[0].name}
