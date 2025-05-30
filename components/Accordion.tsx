@@ -29,7 +29,7 @@ export default function Accordion({ items }: AccordionProps) {
         >
           <button
             onClick={() => toggle(index)}
-            className="w-full flex justify-between  items-center p-[1.25rem] text-left transition"
+            className="w-full flex justify-between items-center p-[1.25rem] text-left transition"
           >
             {`Question ${index + 1}.${" "} ${" "}${item.heading}`}
             <HiChevronDown

@@ -33,7 +33,7 @@ export default function ClaimProfileForm() {
               {["provider", "staff", "third-party"].map((role) => (
                 <label
                   key={role}
-                  className="block leading-[2.813rem] font-normal text-pxl font-sans"
+                  className="block leading-[2.813rem] font-normal text-pxl -sans"
                 >
                   <input
                     type="radio"
@@ -48,7 +48,7 @@ export default function ClaimProfileForm() {
                   {role === "third-party" &&
                     "I am a part of a third–party firm or agency representing this provider."}
                 </label>
-              ))}
+              ))}font
             </div>
 
             <div className="  pr-[2rem] ">

@@ -1,5 +1,7 @@
 import Link from "next/link";
-import BlogsCard from "@/components/blogs/blogsCard";
+import Image from "next/image";
+import BlogCard from "@/components/homepageComponent/blogcard";
+
 const recentNews = [
   {
     title:
@@ -35,61 +37,31 @@ const recentNews = [
       "EndoQuest Robotics, Inc. Completes First Procedures with Endoluminal Surgical System",
   },
 ];
-const blogCards = [
-  {
-    category: "Allergy",
-    title: "Allergy and Immunology",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Olivia Rhye",
-      date: "20 Jan 2022",
-      avtar: "/blog/author2.png",
-    },
-    image: "/blog/b1.png",
-    slug: "slug1",
-  },
-  {
-    category: "Allergy",
-    title: "Allergy and Immunology",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Olivia Rhye",
-      date: "20 Jan 2022",
-      avtar: "/blog/author2.png",
-    },
-    image: "/blog/b2.png",
-    slug: "slug2",
-  },
-  {
-    category: "Medicine",
-    title: "Family Medicine",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Lana Steiner",
-      date: "18 Jan 2022",
-      avtar: "/blog/author2.png",
-    },
-    image: "/blog/b3.png",
-    slug: "slug3",
-  },
-  {
-    category: "Oculoplastic",
-    title: "Oculoplastic Surgery",
-    description:
-      "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
-    author: {
-      name: "Lana Steiner",
-      date: "18 Jan 2022",
-      avtar: "/blog/author2.png",
-    },
-    image: "/blog/b4.png",
-    slug: "slug4",
-  },
-];
-export default function BlogDetail() {
+
+type Params = Promise<{ slug: string }>
+
+export default async function BlogDetail({ params }: { params: Params }) {
+
+  const { slug } = await params;
+
+  const postRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
+  const postData = await postRes.json();
+  const post = postData.data;
+
+  const blogsData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=4`
+  );
+  const result = await blogsData.json();
+
+  const postCategoryId = post.categories?.[0]?.id;
+
+
+  const relatedPosts = result.data.filter(
+    (item: any) =>
+      item.id !== post.id &&
+      item.categories?.some((cat: any) => cat.id === postCategoryId)
+  );
+
   return (
     <>
       <div className=" flex flex-col h-auto w-full bg-white text-black">
@@ -106,8 +78,25 @@ export default function BlogDetail() {
           {/* detail */}
           <div className="w-full gap-[2.5rem]  flex lg:flex-row flex-col  mt-[3.25rem] ">
             {/* blog detail */}
-            <div className="lg:max-w-[75%] w-full h-auto border border-black text-black">
-              Render Blog Here
+            <div className="lg:max-w-[75%] w-full h-auto text-black">
+              {post.image && (
+                <Image
+                  src={post.image
+                    ? post.image
+                    : 'https://placehold.co/400x900?text=No+Image'
+                  }
+                  alt={post.name}
+                  width={800}
+                  height={400}
+                  unoptimized
+                  className="w-full h-100 mb-6 object-cover shadow"
+                />
+              )}
+
+              {post.content && (
+                <div className="custom-font-style mb-[1.5rem]" dangerouslySetInnerHTML={{ __html: post.content }} />
+              )}
+
             </div>
             {/* recente Post */}
             <div className="lg:max-w-[25%]  w-full rounded-[0.625rem] accordion-shadow  h-fit p-[1.5rem]">
@@ -116,12 +105,9 @@ export default function BlogDetail() {
               </div>
               <div>
                 {recentNews.map((data, index) => (
-                  <Link href={`#`}>
+                  <Link href={`#`} key={index}>
                     <div
-                      key={index}
-                      className={`border-b last:border-b-0 py-2 ${
-                        index === 0 ? " text-gray-800" : "text-blog1"
-                      } text-plg font-normal leading-[1.85rem]  cursor-pointer font-sans`}
+                      className="border-b last:border-b-0 py-2 text-blog1 text-plg font-normal leading-[1.85rem] cursor-pointer font-sans hover:text-black"
                     >
                       {data.title}
                     </div>
@@ -131,17 +117,20 @@ export default function BlogDetail() {
             </div>
           </div>
 
-          {/* Recent Articles */}
-          <div className=" flex flex-col mb-[3.25rem] md:mt-[4.25rem] mt-[3rem]">
+          {/* Related Articles */}
+          {relatedPosts.length > 0 &&
+          <div className=" flex flex-col mb-[3.25rem] md:mt-[4.25rem] mt-[1.5rem]">
             <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
-              Recent Articles
+              Related Articles
             </h2>
             <div className="grid gap-x-[1rem] gap-y-[2.75rem] sm:grid-cols-2 lg:grid-cols-4 ">
-              {blogCards.map((blog, index) => (
-                <BlogsCard key={index} index={index} blog={blog} />
+              {relatedPosts.map((blog: any, index: any) => (
+                <BlogCard index={index} blog={blog} key={index} />
               ))}
             </div>
           </div>
+}
+
         </div>
       </div>
     </>

@@ -9,8 +9,11 @@ const TopDoctors = async () => {
   );
   const doctorData = await doctorsRes.json();
 
+<<<<<<< HEAD
   // console.log(doctorData)  
 
+=======
+>>>>>>> d2047db168e1133e15efb2c8cd2c496418b55e64
   return (
     <>
       {doctorData.data.length > 0 && (

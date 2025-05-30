@@ -1,4 +1,3 @@
-import Image from "next/image";
 import HeroSection from "@/components/homepageComponent/hero";
 import SearchDoctor from "@/components/homepageComponent/searchForDoctorSection";
 import DiscoverExpert from "@/components/homepageComponent/discoverExpert";
@@ -41,7 +40,7 @@ export default async function Home() {
         <Testimonial testimonialsData={data.hometestimonial} />
       )}
       {data.homereadstory && <ReadStory readStoryData={data.homereadstory} />}
-      {blogs.data.length > 0 && <NewsAndBlogs latestBlogs={blogs} />}
+      {blogs.length > 0 && <NewsAndBlogs Posts = {blogs} />}
     </>
   );
 }

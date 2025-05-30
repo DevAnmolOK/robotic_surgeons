@@ -1,16 +1,28 @@
-export default function PrivacyPolicy() {
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { Metadata } from 'next';
+import { getPageData } from "@/lib/api";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPageData("privacy-policy");
+  const seo = data.meta.seo_meta;
+
+  return {
+    title: seo.seo_title,
+    description: seo.seo_description,
+    robots: seo.index === 'index' ? 'index,follow' : 'noindex,nofollow',
+  };
+}
+
+export default async function PrivacyPolicy() {
+
+  const data = await getPageData("privacy-policy");
+  const page = data.pageData[0];
+
   return (
     <>
       <div className=" h-full w-full flex items-center justify-center  flex-col">
-        {/* herosection */}
-        <div
-          className="relative sm:h-[14.5rem] h-[10rem]  w-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/homePage/heroimage.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center font-playfair">
-            <h1 className="text-white text-p3xl font-bold">Privacy Policy</h1>
-          </div>
-        </div>
+        {/* herosection */} 
+        <Breadcrumbs title="Privacy Policy" bgImage="/homePage/heroimage.jpg" />
 
         {/* contant */}
         <div className=" w-full bg-white h-auto">
@@ -20,28 +32,7 @@ export default function PrivacyPolicy() {
                 Privacy Notice – Your Privacy Rights
               </h2>
               <div className="flex flex-col items-start pt-[1rem]">
-                <div className="font-bold text-[1.75rem] font-sans leading-[2rem] mb-[1rem] ">
-                  About This Privacy Notice
-                </div>
-                <p className="font-sans text-pxl font-normal leading-[2rem]">
-                  This Privacy Notice describes the information and collection
-                  practices on the websites, mobile applications, products, and
-                  services (collectively “Services“) that link to this Privacy
-                  Notice. These Services are provided by the provider companies
-                  listed on Contracting Entities Table. It does not apply to our
-                  use of employee or job applicant information.
-                  <br /> We adhere to the principles of the EU-U.S. Data Privacy
-                  Framework (DPF), the Swiss-U.S. DPF, and the UK extension to
-                  the EU-U.S. DPF. To learn more, We may process your personal
-                  information under an agreement with a third party and act as a
-                  data processor. For example, if a business customer uploads a
-                  contract for signature we will process the information under
-                  instructions from the customer. In those cases, the terms of
-                  that agreement may also govern how your information is used.
-                  If you believe a third party has asked us to process your
-                  personal information on their behalf, please contact them
-                  first.
-                </p>
+              <div className="custom-font-style" dangerouslySetInnerHTML={{ __html: data?.pageData[0]?.content }} />
               </div>
             </div>
           </div>

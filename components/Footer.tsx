@@ -115,7 +115,7 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
                 Term & Condition
               </Link>
               <span className="mx-2">|</span>
-              <Link href="#" className="hover:underline">
+              <Link href="/privacy-policy" className="hover:underline">
                 Privacy Policy
               </Link>
             </div>
