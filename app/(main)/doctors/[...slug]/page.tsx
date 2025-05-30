@@ -84,125 +84,126 @@ export default async function DoctorProfile() {
         <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex md:flex-row flex-col gap-[1rem] mt-[3rem] mb-[1.25rem]">
           {/* left */}
           <div className="md:max-w-[68%]  w-full ">
-            <div className=" w-full lg:h-[22.188rem] px-[2.25rem] pt-[1rem] accordion-shadow rounded-[1.25rem] mb-[1.5rem]">
-              <div className="flex flex-col md:flex-row w-full gap-[2rem]">
+            <div className=" w-full lg:h-[22.188rem] px-[1.25rem] sm:px-[2.25rem] pt-[1rem] accordion-shadow rounded-[1.25rem] mb-[1.5rem]">
+              <div className="flex flex-col sm:flex-row  md:items-start items-center md:justify-start justify-center  w-full gap-[2rem]">
                 {/* Left: Doctor Image */}
-                <div className=" h-[12.438rem] max-w-[13.188rem] w-full relative ">
+                <div className=" md:h-[12.438rem] sm:h-[16.438rem] h-[20.438rem] md:max-w-[13.188rem] sm:max-w-[16.188rem] max-w-[18.188rem]  w-full relative ">
                   <Image
                     src="/doctor/d1.png"
                     alt="Dr. James Whitman"
-                    // width={150}
-                    // height={150}
                     fill
                     className="object-cover"
                   />
                 </div>
 
                 {/* Right: Doctor Info */}
-                <div className="flex flex-col   w-full ">
-                  <div className="flex items-start justify-between ">
-                    <div>
-                      <h2 className="text-p3xl font-semibold  font-playfair">
-                        Dr. James Whitman
-                      </h2>
-                      <p className="text-dt font-semibold font-sans">
-                        Founder of Cardiac Hospital
-                      </p>
+                <div className=" flex items-center sm:items-start justify-center sm:justify-between w-full">
+                  <div className="flex flex-col sm:w-full  w-fit">
+                    <div className="flex items-start justify-between ">
+                      <div>
+                        <h2 className="text-p3xl font-semibold  font-playfair">
+                          Dr. James Whitman
+                        </h2>
+                        <p className="text-dt font-semibold font-sans">
+                          Founder of Cardiac Hospital
+                        </p>
+                      </div>
+                      <div className="sm:flex items-center gap-4 text-[0.938rem] leading-[1.625rem] font-semibold  hidden">
+                        <div className="flex items-center gap-1 cursor-pointer">
+                          <div className=" h-[0.938rem] w-[0.938rem] relative">
+                            <Image
+                              src="/icon/Bookmark.png"
+                              fill
+                              className="object-cover"
+                              alt="save doctor"
+                              priority
+                            />
+                          </div>
+                          <span>Save</span>
+                        </div>
+                        <div className="flex items-center gap-1 cursor-pointer">
+                          <div className=" h-[0.938rem] w-[0.938rem] relative">
+                            <Image
+                              src="/icon/share.png"
+                              fill
+                              className="object-cover"
+                              alt="save share"
+                              priority
+                            />
+                          </div>
+                          <span>Share</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-4 text-[0.938rem] leading-[1.625rem] font-semibold">
-                      <div className="flex items-center gap-1 cursor-pointer">
-                        <div className=" h-[0.938rem] w-[0.938rem] relative">
+
+                    <p className="my-5 text-pbase font-sans leading-[1.625rem] font-normal">
+                      Robotic & Minimally Invasive Surgery Specialist <br />
+                      MBBS, MS (General Surgery), Fellowship in Robotic Surgery
+                    </p>
+
+                    <div className="text-sm text-gray-700 flex flex-col gap-2.5">
+                      <div className="flex items-center gap-1 text-pbase font-normal">
+                        <div className=" h-[1.25rem] w-[1.25rem] relative">
                           <Image
-                            src="/icon/Bookmark.png"
+                            src="/icon/location.png"
                             fill
-                            className="object-cover"
+                            className="object-contain"
                             alt="save doctor"
                             priority
                           />
                         </div>
-                        <span>Save</span>
+                        <span>1601 Avocado Ave, Newport Beach, CA</span>
                       </div>
-                      <div className="flex items-center gap-1 cursor-pointer">
-                        <div className=" h-[0.938rem] w-[0.938rem] relative">
+                      <div className="flex items-center gap-1 font-bold text-pbase">
+                        {/* <FaPhoneAlt className="text-blue-500" /> */}
+                        <div className=" h-[1.25rem] w-[1.25rem] relative">
                           <Image
-                            src="/icon/share.png"
+                            src="/icon/call.png"
                             fill
-                            className="object-cover"
-                            alt="save share"
+                            className="object-contain"
+                            alt="save doctor"
                             priority
                           />
                         </div>
-                        <span>Share</span>
+                        <a
+                          href="tel:+11234567890"
+                          className="text-theme  hover:underline"
+                        >
+                          +1 123-456-7890
+                        </a>
                       </div>
-                    </div>
-                  </div>
-
-                  <p className="my-5 text-pbase font-sans leading-[1.625rem] font-normal">
-                    Robotic & Minimally Invasive Surgery Specialist <br />
-                    MBBS, MS (General Surgery), Fellowship in Robotic Surgery
-                  </p>
-
-                  <div className="text-sm text-gray-700 flex flex-col gap-2.5">
-                    <div className="flex items-center gap-1 text-pbase font-normal">
-                      <div className=" h-[1.25rem] w-[1.25rem] relative">
-                        <Image
-                          src="/icon/location.png"
-                          fill
-                          className="object-contain"
-                          alt="save doctor"
-                          priority
-                        />
-                      </div>
-                      <span>1601 Avocado Ave, Newport Beach, CA</span>
-                    </div>
-                    <div className="flex items-center gap-1 font-bold text-pbase">
-                      {/* <FaPhoneAlt className="text-blue-500" /> */}
-                      <div className=" h-[1.25rem] w-[1.25rem] relative">
-                        <Image
-                          src="/icon/call.png"
-                          fill
-                          className="object-contain"
-                          alt="save doctor"
-                          priority
-                        />
-                      </div>
-                      <a
-                        href="tel:+11234567890"
-                        className="text-theme  hover:underline"
-                      >
-                        +1 123-456-7890
-                      </a>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Bottom Stats */}
-              {/* <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 w-fit  pt-4 "> */}
-              <div className="flex  w-fit  pt-8 pb-[2rem]">
-                <div className="border-r border-gray-300 w-fit pr-[1rem]">
-                  <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                    20+ Years
-                  </span>
-                  <span className="font-bold text-pbase leading-[1.375rem]">
-                    Experience
-                  </span>
-                </div>
-                <div className="border-r border-gray-300 w-fit px-[1rem]">
-                  <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                    560+
-                  </span>
-                  <span className="font-bold text-pbase leading-[1.375rem]">
-                    Completed Surgery
-                  </span>
-                </div>
-                <div className=" w-fit pl-[1rem]">
-                  <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                    25k
-                  </span>
-                  <span className="font-bold text-pbase leading-[1.375rem]">
-                    Consultancy
-                  </span>
+              <div className="flex  w-full  pt-8 pb-[2rem] sm:px-0  items-center sm:items-start justify-center sm:justify-start">
+                <div className=" flex w-fit px-[1.25rem]">
+                  <div className="border-r border-gray-300 w-fit sm:pr-[1rem] pr-[0.5rem]">
+                    <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
+                      20+ Years
+                    </span>
+                    <span className="font-bold text-pbase leading-[1.375rem]">
+                      Experience
+                    </span>
+                  </div>
+                  <div className="border-r border-gray-300 w-fit sm:px-[1rem] px-[0.5rem]">
+                    <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
+                      560+
+                    </span>
+                    <span className="font-bold text-pbase leading-[1.375rem]">
+                      Completed Surgery
+                    </span>
+                  </div>
+                  <div className=" w-fit sm:pl-[1rem] pl-[0.  5rem]">
+                    <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
+                      25k
+                    </span>
+                    <span className="font-bold text-pbase leading-[1.375rem]">
+                      Consultancy
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -238,58 +239,63 @@ export default async function DoctorProfile() {
                 />
               </div>
             </div>
-            {/* Action 1 */}
-            <div className="space-y-2 mt-[2.25rem]">
-              <p className="flex items-center gap-2 ">
-                <Image
-                  src="/icon/save.png"
-                  height={18}
-                  width={18}
-                  alt="Save Doctor For later"
-                />
-                <span className="font-semibold text-plg leading-[1.625rem] font-sans">
-                  Want to save this doctor for later?
-                </span>
-              </p>
-              <button className="w-fit cursor-pointer  px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
-                Sign-up
-              </button>
-            </div>
-            {/* Action 2 */}
-            <div className="space-y-2 mt-[2.15rem]">
-              <p className="flex items-center gap-2 ">
-                {/* <FaBookmark /> */}
-                <Image
-                  src="/icon/scope.png"
-                  height={22}
-                  width={22}
-                  alt="Save Doctor For later"
-                />
-                <span className="font-semibold text-plg leading-[1.625rem] font-sans">
-                  Is this your doctor?
-                </span>
-              </p>
-              <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
-                Find a Second Opinion
-              </button>
-            </div>
-            {/* Action 3 */}
-            <div className="space-y-2 mt-[2.15rem]">
-              <p className="flex items-center gap-2 ">
-                {/* <FaBookmark /> */}
-                <Image
-                  src="/icon/doc.png"
-                  height={22}
-                  width={22}
-                  alt="Save Doctor For later"
-                />
-                <span className="font-semibold text-plg leading-[1.625rem] font-sans">
-                  Are you the provider on this profile?
-                </span>
-              </p>
-              <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
-                Claim Profile
-              </button>
+
+            <div className="flex  w-full  items-center justify-center sm:items-start sm:justify-start ">
+              <div className=" flex flex-col ">
+                {/* Action 1 */}
+                <div className="space-y-2 mt-[2.25rem]">
+                  <p className="flex items-center gap-2 ">
+                    <Image
+                      src="/icon/save.png"
+                      height={18}
+                      width={18}
+                      alt="Save Doctor For later"
+                    />
+                    <span className="font-semibold text-plg leading-[1.625rem] font-sans">
+                      Want to save this doctor for later?
+                    </span>
+                  </p>
+                  <button className="w-fit cursor-pointer  px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
+                    Sign-up
+                  </button>
+                </div>
+                {/* Action 2 */}
+                <div className="space-y-2 mt-[2.15rem]">
+                  <p className="flex items-center gap-2 ">
+                    {/* <FaBookmark /> */}
+                    <Image
+                      src="/icon/scope.png"
+                      height={22}
+                      width={22}
+                      alt="Save Doctor For later"
+                    />
+                    <span className="font-semibold text-plg leading-[1.625rem] font-sans">
+                      Is this your doctor?
+                    </span>
+                  </p>
+                  <button className="w-fit cursor-pointer lg:px-[2.5rem] px-[1.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
+                    Find a Second Opinion
+                  </button>
+                </div>
+                {/* Action 3 */}
+                <div className="space-y-2 mt-[2.15rem]">
+                  <p className="flex items-center gap-2 ">
+                    {/* <FaBookmark /> */}
+                    <Image
+                      src="/icon/doc.png"
+                      height={22}
+                      width={22}
+                      alt="Save Doctor For later"
+                    />
+                    <span className="font-semibold text-plg leading-[1.625rem] font-sans">
+                      Are you the provider on this profile?
+                    </span>
+                  </p>
+                  <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
+                    Claim Profile
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

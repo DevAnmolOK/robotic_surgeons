@@ -12,7 +12,6 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
   )?.content;
   return (
     <>
-      {" "}
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="flex gap-[1.75rem] pl-[1.75rem] py-[0.75rem] text-[1.188rem] font-medium leading-[2rem] border-b border-[#EAEAEA] whitespace-nowrap">
@@ -80,7 +79,7 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
             </div>
           </div>
         ) : (
-          <div className="text-sm px-[1.75rem] py-[1.25rem]">
+          <div className="text-sm sm:px-[1.75rem] px-[1 rem] py-[1.25rem]">
             {activeContent}
           </div>
         )}
