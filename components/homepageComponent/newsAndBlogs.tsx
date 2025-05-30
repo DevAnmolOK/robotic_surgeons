@@ -1,5 +1,6 @@
 import BlogCard from "./blogcard";
 import Post from "@/lib/helper";
+import Link from "next/link";
 
 export default function BlogSection({ Posts }: Post) {
   return (
@@ -14,9 +15,9 @@ export default function BlogSection({ Posts }: Post) {
               Highly recommended doctors, ready to help you feel better.
             </p>
           </div>
-          <button className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition ">
+          <Link href="/blogs" className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition ">
             Explore More
-          </button>
+          </Link>
         </div>
 
         {/* Grid */}

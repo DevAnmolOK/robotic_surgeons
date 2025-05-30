@@ -43,13 +43,14 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Areas of Expertise:
                 </div>
-                <ul className=" pl-[1rem] list-disc font-normal leading-[2rem] text-plg  space-y-1">
+                <div dangerouslySetInnerHTML={{ __html: activeContent.areasOfExpertise}} />
+                {/* <ul className=" pl-[1rem] list-disc font-normal leading-[2rem] text-plg  space-y-1">
                   {activeContent.areasOfExpertise.map(
                     (item: string, idx: number) => (
                       <li key={idx}>{item}</li>
                     )
                   )}
-                </ul>
+                </ul> */}
               </div>
 
               {/* Education & Training */}
@@ -57,11 +58,13 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Education & Training:
                 </div>
-                <ul className="space-y-1 font-normal leading-[2rem] text-plg">
+
+                <div dangerouslySetInnerHTML={{ __html: activeContent.education}} />
+                {/* <ul className="space-y-1 font-normal leading-[2rem] text-plg">
                   {activeContent.education.map((item: string, idx: number) => (
                     <li key={idx}>{item}</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
 
               {/* Patient Philosophy */}

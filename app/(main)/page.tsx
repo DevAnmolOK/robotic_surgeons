@@ -18,7 +18,7 @@ export default async function Home() {
   const latestBlogs = await blogsData.json();
 
   const data = blockData.data || {};
-  const blogs = latestBlogs || [];
+  const blogs = latestBlogs.data || [];
 
   return (
     <>

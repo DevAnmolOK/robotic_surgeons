@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
 import DoctorCard from "./doctorCard";
+
 const filters = [
   {
     label: "Distance",
@@ -36,6 +36,7 @@ export default function ExploreTopDoctor({ doctors }: ExploreTopDoctorProps) {
   //     Location: "",
   //     Doctor: "",
   //   });
+
   const [selected, setSelected] = useState<{ [key: string]: string }>({});
   const handleChange = (label: string, value: string) => {
     setSelected((prev) => ({ ...prev, [label]: value }));
@@ -55,6 +56,23 @@ export default function ExploreTopDoctor({ doctors }: ExploreTopDoctorProps) {
   //       [label]: value,
   //     }));
   //   };
+
+  const CHUNK = 2;
+
+  const [visibleCount, setVisibleCount] = useState(CHUNK);
+  const [loading, setLoading] = useState(false);
+
+  const visibleDoctors = doctors.slice(0, visibleCount);
+  const canLoadMore = visibleCount < doctors.length;
+
+  const handleLoadMore = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => prev + CHUNK);
+      setLoading(false);
+    }, 1000);
+  };
+
   return (
     <>
       <div className="sm:max-w-[72vw] max-w-[85vw] flex flex-col w-full mx-auto text-black ">
@@ -69,7 +87,7 @@ export default function ExploreTopDoctor({ doctors }: ExploreTopDoctorProps) {
 
         {/* filter */}
         <div className=" w-full flex flex-wrap gap-4 ">
-          <button className=" h-[3.375rem] bg-theme text-white border border-[#4D4D4D] flex  rounded-full gap-1.5 items-center justify-center  px-[1.5rem]">
+          <button className=" h-[3.375rem] bg-theme text-white border border-[#4D4D4D] flex  rounded-full gap-1.5 items-center justify-center px-[1.5rem]">
             <Image
               src="/icon/setting.png"
               height={22}
@@ -108,20 +126,28 @@ export default function ExploreTopDoctor({ doctors }: ExploreTopDoctorProps) {
 
         {/* doctor card */}
         <div className="space-y-6 mt-[3.25rem]  mb-[2rem]">
-          {doctors.map((doc: any, index: any) => (
+          {visibleDoctors.map((doc: any, index: any) => (
             <div key={index}>
-              <Link href={`/doctors/${doc.slug}`}>
-                <DoctorCard doc={doc} />
-              </Link>
+              <DoctorCard doctor={doc} />
             </div>
           ))}
         </div>
 
-        <div className=" w-full flex items-center justify-center">
-          <button className="h-[3.125rem] w-fit rounded-full bg-black font-normal font-sans text-pxl leading-[1.625rem] text-white px-5">
-            Load More
-          </button>
-        </div>
+
+        {canLoadMore && (
+          <div className="flex align-middle justify-center">
+            <button
+              onClick={handleLoadMore}
+              disabled={loading}
+              className={`h-[3.125rem] w-fit rounded-full font-normal font-sans text-pxl leading-[1.625rem] text-white px-5 hover:cursor-pointer ${loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-black"
+                }`}
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

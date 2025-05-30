@@ -6,6 +6,7 @@ import Link from "next/link";
 import * as TbIcons from 'react-icons/tb';
 import { IconType } from 'react-icons';
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Map from "@/components/Map";
 
 const getIconComponent = (iconClass: string | null): IconType | null => {
   if (!iconClass) return null;
@@ -33,6 +34,7 @@ export default async function ContactUs() {
   const socialLinks = await socialMenus.json();
 
   const { address, phone, contact_email } = setData.settings
+
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
   return (
@@ -125,13 +127,7 @@ export default async function ContactUs() {
         {/* map */}
         {address &&
           <div className="h-[31.938rem] w-full">
-            <iframe
-              src={mapSrc}
-              className="w-full h-full border-0"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <Map mapSrc = {mapSrc} />
           </div>
         }
       </div>

@@ -1,8 +1,7 @@
-import HeroSection from "@/components/HeroSection";
 import SeacrhSection from "@/components/searchSection";
 import ExpertByConcern from "@/components/expertByConcern";
-
 import ExploreTopDoctor from "@/components/exploreTopDoctors";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const doctors = [
   {
@@ -59,16 +58,22 @@ const filters = [
 ];
 
 export default async function Doctors() {
-  const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
-  const blockData = await homepageData.json();
 
-  const data = blockData.data || {};
+  const [discoverExpert, doctorsRes] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
+    ]);
+
+  const blockData = await discoverExpert.json();
+  const doctorsData = await doctorsRes.json();
+
+  const expertCard = blockData.block_data || {};
 
   return (
     <>
       <div className=" w-full h-auto flex flex-col bg-white text-black">
         {/* herosection */}
-        <HeroSection pageName="Find  Doctors" />
+        <Breadcrumbs title="Find  Doctors" bgImage="/homePage/heroimage.jpg" />
         {/* search */}
         <div className="   md:h-[11.125rem] py-[2.5rem] md:py-0  w-full bg-ebg2 flex items-center justify-center ">
           <div className="  w-full sm:max-w-[70vw] max-w-[85vw] mx-auto mt-[0.75rem]">
@@ -76,11 +81,11 @@ export default async function Doctors() {
           </div>
         </div>
         {/* explore top doctors */}
-        <ExploreTopDoctor doctors={doctors} />
+        {doctorsData.data.length > 0 && <ExploreTopDoctor doctors={doctorsData.data} /> }
         {/* discover expert */}
         <div className="w-full">
-          {data.homediscoverexpert && (
-            <ExpertByConcern expertsData={data.homediscoverexpert} />
+          {expertCard && (
+            <ExpertByConcern expertsData={expertCard} />
           )}
         </div>
       </div>
