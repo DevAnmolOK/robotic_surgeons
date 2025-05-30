@@ -291,9 +291,11 @@ export default async function DoctorProfile() {
                       Are you the provider on this profile?
                     </span>
                   </p>
-                  <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
-                    Claim Profile
-                  </button>
+                  <Link href="/claim-profile">
+                    <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
+                      Claim Profile
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

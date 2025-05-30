@@ -3,37 +3,39 @@ import { MdEmail } from "react-icons/md";
 import { TiLocation } from "react-icons/ti";
 import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
-import * as TbIcons from 'react-icons/tb';
-import { IconType } from 'react-icons';
+import * as TbIcons from "react-icons/tb";
+import { IconType } from "react-icons";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 const getIconComponent = (iconClass: string | null): IconType | null => {
   if (!iconClass) return null;
 
-  const slug = iconClass.split(' ').pop();
+  const slug = iconClass.split(" ").pop();
   if (!slug) return null;
 
-  const name = slug.replace('ti-brand-', '');
+  const name = slug.replace("ti-brand-", "");
   const pascal = name
-    .split('-')
-    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('');
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
 
   const fullIcon = `TbBrand${pascal}`;
   return (TbIcons as Record<string, IconType>)[fullIcon] || null;
 };
 
-
 export default async function ContactUs() {
-
   const settingRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`);
   const setData = await settingRes.json();
 
-  const socialMenus = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menus/social`);
+  const socialMenus = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/menus/social`
+  );
   const socialLinks = await socialMenus.json();
 
-  const { address, phone, contact_email } = setData.settings
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+  const { address, phone, contact_email } = setData.settings;
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+    address
+  )}&output=embed`;
 
   return (
     <>
@@ -63,57 +65,65 @@ export default async function ContactUs() {
                 Contact Information
               </h3>
               <p className="text-pxl mb-[2.75rem] font-light font-sans text-center sm:text-start">
-                Proin eleifend in mi eu efficitur. Sed interdum lectus at consequat interdum.
+                Proin eleifend in mi eu efficitur. Sed interdum lectus at
+                consequat interdum.
               </p>
               <div className="flex flex-col gap-[2.5rem] text-pxl font-normal font-sans">
-
-                {phone &&
+                {phone && (
                   <div className="flex items-center gap-[1.5rem]">
                     <div className=" text-[1.5rem]">
                       <PiPhoneCallFill />
                     </div>
                     <Link href={`tel:${phone}`}>{phone}</Link>
                   </div>
-                }
+                )}
 
-                {contact_email &&
+                {contact_email && (
                   <div className="flex items-center gap-[1.5rem]">
                     <div className=" text-[1.5rem]">
                       <MdEmail />
                     </div>
-                    <span><Link href={`mailto:${contact_email}`}>{contact_email}</Link></span>
+                    <span>
+                      <Link href={`mailto:${contact_email}`}>
+                        {contact_email}
+                      </Link>
+                    </span>
                   </div>
-                }
+                )}
 
-                {address &&
+                {address && (
                   <div className="flex items-start gap-[1.5rem]">
                     <div className=" text-[1.65rem] mt-[0.25rem]">
                       <TiLocation />
                     </div>
-                    <span className=" leading-[1.75rem]">
-                      {address}
-                    </span>
+                    <span className=" leading-[1.75rem]">{address}</span>
                   </div>
-                }
+                )}
               </div>
 
-              {socialLinks.items &&
+              {socialLinks.items && (
                 <div className="flex sm:items-center items-start  mt-[3.5rem] gap-[2.75rem]  text-pbase font-normal flex-col sm:flex-row mb-[1.5rem] md:mb-0 ">
                   {socialLinks.items.map((item: any, index: any) => {
-                    if (item.title === 'X' || item.title === 'x') return null;
+                    if (item.title === "X" || item.title === "x") return null;
                     const Icon = getIconComponent(item.icon);
                     if (!Icon) return null;
                     return (
-                      <div key={index} className="flex justify-center items-center gap-[.5rem]">
+                      <div
+                        key={index}
+                        className="flex justify-center items-center gap-[.5rem]"
+                      >
                         <div className="text-pxl">
-                          <Icon className="hover:text-white transition cursor-pointer" size={22} />
+                          <Icon
+                            className="hover:text-white transition cursor-pointer"
+                            size={22}
+                          />
                         </div>
                         <span>{item.title}</span>
                       </div>
                     );
                   })}
                 </div>
-              }
+              )}
             </div>
             {/* form */}
             <div className="md:max-w-[62%]  h-full w-full flex items-center md:pl-[4rem] pt-[1.5rem] sm:pt-0 justify-center md:justify-start mb-[2rem] md:mb-0">
@@ -123,7 +133,7 @@ export default async function ContactUs() {
         </div>
 
         {/* map */}
-        {address &&
+        {address && (
           <div className="h-[31.938rem] w-full">
             <iframe
               src={mapSrc}
@@ -133,7 +143,7 @@ export default async function ContactUs() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
-        }
+        )}
       </div>
     </>
   );

@@ -38,13 +38,14 @@ const recentNews = [
   },
 ];
 
-type Params = Promise<{ slug: string }>
+type Params = Promise<{ slug: string }>;
 
 export default async function BlogDetail({ params }: { params: Params }) {
-
   const { slug } = await params;
 
-  const postRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
+  const postRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`
+  );
   const postData = await postRes.json();
   const post = postData.data;
 
@@ -54,7 +55,6 @@ export default async function BlogDetail({ params }: { params: Params }) {
   const result = await blogsData.json();
 
   const postCategoryId = post.categories?.[0]?.id;
-
 
   const relatedPosts = result.data.filter(
     (item: any) =>
@@ -81,9 +81,10 @@ export default async function BlogDetail({ params }: { params: Params }) {
             <div className="lg:max-w-[75%] w-full h-auto text-black">
               {post.image && (
                 <Image
-                  src={post.image
-                    ? post.image
-                    : 'https://placehold.co/400x900?text=No+Image'
+                  src={
+                    post.image
+                      ? post.image
+                      : "https://placehold.co/400x900?text=No+Image"
                   }
                   alt={post.name}
                   width={800}
@@ -94,20 +95,24 @@ export default async function BlogDetail({ params }: { params: Params }) {
               )}
 
               {post.content && (
-                <div className="custom-font-style mb-[1.5rem]" dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div
+                  className="custom-font-style mb-[1.5rem]"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
               )}
-
             </div>
             {/* recente Post */}
             <div className="lg:max-w-[25%]  w-full rounded-[0.625rem] accordion-shadow  h-fit p-[1.5rem]">
               <div className="text-[1.75rem] font-playfair font-medium text-black">
                 Recent Posts
               </div>
-              <div>
+              <div className="">
                 {recentNews.map((data, index) => (
                   <Link href={`#`} key={index}>
                     <div
-                      className="border-b last:border-b-0 py-2 text-blog1 text-plg font-normal leading-[1.85rem] cursor-pointer font-sans hover:text-black"
+                      className={` border-b  border-[#E5E5E5] ${
+                        index === recentNews.length - 1 ? "border-b-0" : ""
+                      }   py-2 text-blog1 text-plg font-normal leading-[1.85rem] cursor-pointer font-sans hover:text-black`}
                     >
                       {data.title}
                     </div>
@@ -118,19 +123,18 @@ export default async function BlogDetail({ params }: { params: Params }) {
           </div>
 
           {/* Related Articles */}
-          {relatedPosts.length > 0 &&
-          <div className=" flex flex-col mb-[3.25rem] md:mt-[4.25rem] mt-[1.5rem]">
-            <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
-              Related Articles
-            </h2>
-            <div className="grid gap-x-[1rem] gap-y-[2.75rem] sm:grid-cols-2 lg:grid-cols-4 ">
-              {relatedPosts.map((blog: any, index: any) => (
-                <BlogCard index={index} blog={blog} key={index} />
-              ))}
+          {relatedPosts.length > 0 && (
+            <div className=" flex flex-col mb-[3.25rem] md:mt-[4.25rem] mt-[1.5rem]">
+              <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
+                Related Articles
+              </h2>
+              <div className="grid gap-x-[1rem] gap-y-[2.75rem] sm:grid-cols-2 lg:grid-cols-4 ">
+                {relatedPosts.map((blog: any, index: any) => (
+                  <BlogCard index={index} blog={blog} key={index} />
+                ))}
+              </div>
             </div>
-          </div>
-}
-
+          )}
         </div>
       </div>
     </>

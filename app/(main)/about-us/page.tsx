@@ -5,11 +5,12 @@ import ChooseUs from "@/components/aboutUsPage/chooseUs";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default async function () {
-
-  const aboutRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/aboutuspageabout`);
-    const aboutData = await aboutRes.json();
-    const { repeater_fields } = aboutData.block_data
-    const aboutItems = JSON.parse(repeater_fields as string);
+  const aboutRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/block/aboutuspageabout`
+  );
+  const aboutData = await aboutRes.json();
+  const { repeater_fields } = aboutData.block_data;
+  const aboutItems = JSON.parse(repeater_fields as string);
 
   return (
     <>
@@ -17,9 +18,9 @@ export default async function () {
         {/* hero */}
         <Breadcrumbs title="About Us" bgImage="/homePage/heroimage.jpg" />
         {/* about us */}
-        <About aboutItems = {aboutItems[0] }/>
+        <About aboutItems={aboutItems[0]} />
         {/* who we are */}
-        <WeAre aboutItems = {aboutItems[1]} />
+        <WeAre aboutItems={aboutItems[1]} />
         {/* vision */}
         <Vision />
         {/* why chose us0 */}

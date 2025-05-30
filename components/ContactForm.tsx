@@ -8,7 +8,7 @@ type FormData = {
   subject: string;
   phone: string;
   message: string;
-}
+};
 type FormErrors = {
   firstname?: string;
   lastname?: string;
@@ -16,7 +16,7 @@ type FormErrors = {
   phone?: string;
   subject?: string;
   message?: string;
-}
+};
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
@@ -30,7 +30,6 @@ export default function ContactForm() {
 
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
-
 
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -69,48 +68,46 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-     setLoading(true);
-     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inquiry`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstname: formData.firstname,
-          lastname: formData.lastname,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-        }),
-      });
+      setLoading(true);
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inquiry`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            email: formData.email,
+            phone: formData.phone,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
 
-      const result = await res.json();
+        const result = await res.json();
 
-      if (res.ok) {
-        setResponse('Message sent successfully!');
-        console.log("Form submitted:", formData);
-      setFormData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-      setErrors({});
-       
-      } else {
-        setResponse(result.message || 'Submission failed');
+        if (res.ok) {
+          setResponse("Message sent successfully!");
+          console.log("Form submitted:", formData);
+          setFormData({
+            firstname: "",
+            lastname: "",
+            email: "",
+            phone: "",
+            subject: "",
+            message: "",
+          });
+          setErrors({});
+        } else {
+          setResponse(result.message || "Submission failed");
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        setResponse("An error occurred. Please try again.");
+      } finally {
+        setLoading(false); // Reset loading state
       }
-    } catch (error) {
-      console.error('Submission error:', error);
-      setResponse('An error occurred. Please try again.');
-    }
-    finally {
-      setLoading(false); // Reset loading state
-    }
     }
   };
   return (
@@ -267,12 +264,14 @@ export default function ContactForm() {
           </div>
           <button
             type="submit"
-            className={`max-w-[12.813rem] rounded-[6.25rem] h-[2.813rem] ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-black'} text-white w-full text-pxl font-normal`}
+            className={`max-w-[12.813rem] rounded-[6.25rem] h-[2.813rem] ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-black"
+            } text-white w-full text-pxl font-normal`}
           >
-           {loading ? "Please Wait..." : "Send Message"}
+            {loading ? "Please Wait..." : "Send Message"}
           </button>
         </form>
-        {response && <p className="mt-4">{response}</p>}
+        {response && <p className="mt-4 text-red-500 ">{response}</p>}
       </div>
     </>
   );
