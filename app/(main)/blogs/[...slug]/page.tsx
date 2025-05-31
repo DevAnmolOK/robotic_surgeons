@@ -1,42 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import BlogCard from "@/components/homepageComponent/blogcard";
-
-const recentNews = [
-  {
-    title:
-      "Stryker Receives FDA Clearance for OptaBlate® BVN Basivertebral Nerve Ablation System",
-  },
-  {
-    title:
-      "THINK Surgical Announces 1,000th Procedure Milestone for the TMINI® Miniature Robotic System",
-  },
-  {
-    title: "Intuitive Announces CEO Transition",
-  },
-  {
-    title:
-      "EndoQuest Robotics, Inc. Completes First Procedures with Endoluminal Surgical System",
-  },
-  {
-    title: "Surgical Science Announces Acquisition of Intelligent Ultrasound",
-  },
-  {
-    title:
-      "Stryker Receives FDA Clearance for OptaBlate® BVN Basivertebral Nerve Ablation System",
-  },
-  {
-    title:
-      "THINK Surgical Announces 1,000th Procedure Milestone for the TMINI® Miniature Robotic System",
-  },
-  {
-    title: "Intuitive Announces CEO Transition",
-  },
-  {
-    title:
-      "EndoQuest Robotics, Inc. Completes First Procedures with Endoluminal Surgical System",
-  },
-];
+import { formatDate } from "@/lib/api";
 
 type Params = Promise<{ slug: string }>;
 
@@ -50,9 +15,13 @@ export default async function BlogDetail({ params }: { params: Params }) {
   const post = postData.data;
 
   const blogsData = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=4`
+    `${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=6`
   );
   const result = await blogsData.json();
+
+  const publishedPosts = result.data.filter(
+    (post: any) => post.status?.value === 'published' && post.published_at == null
+  );
 
   const postCategoryId = post.categories?.[0]?.id;
 
@@ -102,28 +71,44 @@ export default async function BlogDetail({ params }: { params: Params }) {
               )}
             </div>
             {/* recente Post */}
-            <div className="lg:max-w-[25%]  w-full rounded-[0.625rem] accordion-shadow  h-fit p-[1.5rem]">
+            <div className="lg:max-w-[25%]  w-full rounded-[0.625rem] accordion-shadow h-fit pt-0 pr-[1.5rem] pb-[1.5rem] pl-[1.5rem]">
               <div className="text-[1.75rem] font-playfair font-medium text-black">
                 Recent Posts
               </div>
-              <div className="">
-                {recentNews.map((data, index) => (
-                  <Link href={`#`} key={index}>
-                    <div
-                      className={` border-b  border-[#E5E5E5] ${
-                        index === recentNews.length - 1 ? "border-b-0" : ""
-                      }   py-2 text-blog1 text-plg font-normal leading-[1.85rem] cursor-pointer font-sans hover:text-black`}
-                    >
-                      {data.title}
+              <div>
+                {publishedPosts.map((item: any, index: any) => (
+                  <div className="flex gap-4 items-center mt-3" key={index}>
+                    {item.image && (
+                      <Image
+                        src={item.image
+                          ? item.image
+                          : 'https://placehold.co/64x64.png'
+                        }
+                        alt={item.name}
+                        width={80}
+                        height={80}
+                        unoptimized
+                        className="object-cover"
+                      />
+                    )}
+                    <div>
+                      <div
+                        className="flex flex-col border-b last:border-b-0 text-blog1 text-plg font-normal leading-[1.85rem] cursor-pointer font-sans hover:text-black line-clamp-1"
+                      >
+                        <Link href={`/blogs/${item.slug}`}>{item.name ?? ''}</Link>
+                        <p className="text-cgray text-dt font-normal">
+                          {formatDate(item.created_at)}
+                        </p>
+                      </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
 
           {/* Related Articles */}
-          {relatedPosts.length > 0 && (
+          {relatedPosts.length > 0 &&
             <div className=" flex flex-col mb-[3.25rem] md:mt-[4.25rem] mt-[1.5rem]">
               <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
                 Related Articles
@@ -134,7 +119,8 @@ export default async function BlogDetail({ params }: { params: Params }) {
                 ))}
               </div>
             </div>
-          )}
+          }
+
         </div>
       </div>
     </>

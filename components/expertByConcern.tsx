@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+
 type ExpertsItem = {
   heading: string;
   sub_heading?: string | null;

@@ -4,15 +4,28 @@ import { BsTelephone } from "react-icons/bs";
 import Link from "next/link";
 
 const TopDoctors = async () => {
+<<<<<<< HEAD
   const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`);
   // if (!doctorsRes.ok) {
   //   throw new Error(`Failed to fetch: ${doctorsRes.status}`);
   // }
   const doctorData = await doctorsRes.json();
 
+=======
+
+  const doctorsRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/doctors`
+  );
+  const doctorsData = await doctorsRes.json();
+
+  const featuredDoctor = doctorsData.data.filter(
+    (doctor: any) => doctor.is_featured == 1
+   );
+
+>>>>>>> bbfc15da41f6a299759147363071b3547db6a176
   return (
     <>
-      {doctorData.data.length > 0 && (
+      {featuredDoctor.length > 0 && (
         <section className="  px-4 pt-2xl bg-white text-black font-sans">
           <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto  ">
             {/* Header */}
@@ -25,19 +38,17 @@ const TopDoctors = async () => {
                 Highly recommended doctors, ready to help you feel better.
               </p>
 
-              <Link href="#">
-                <button className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition">
+              <Link href="/doctors" className="bg-black w-fit text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition">
                   View All
-                </button>
               </Link>
             </div>
             {/* Doctor Grid */}
             <div className="lg:grid  lg:grid-cols-4 flex flex-wrap items-center justify-center lg:gap-6 gap-10">
               {/* <div className="flex flex-wrap items-center justify-center gap-6"> */}
-              {doctorData.data.map((doctor: any, index: any) => (
+              {featuredDoctor.map((doctor: any, index: any) => (
                 <div key={index} className="bg-white overflow-hidden ">
                   <div className=" h-dh w-dw relative">
-                    <Link href="#">
+                    <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'}>
                       <Image
                         src={
                           doctor.doctor_photo
@@ -52,19 +63,19 @@ const TopDoctors = async () => {
                     </Link>
                   </div>
                   <div className="p-4">
-                    <Link href="#">
-                      <p className="text-pxl font-bold">Dr. {doctor.name}</p>
-                    </Link>
-                    <p className="text-dt font-semibold  mb-2">
-                      Founder of {doctor.clinic_name}
+                    
+                      <p className="text-pxl font-bold">Dr. {doctor.name ?? ''}</p>
+                    
+                    <p className="text-dt font-semibold mb-2 capitalize">
+                      {doctor.specialty_title ?? ''}
                     </p>
                     <div className="flex items-start gap-0.5 text-pbase    text-gray-700 mb-1">
                       <SlLocationPin className="mt-1 text-theme" size={14} />
-                      {doctor.address}
+                      {doctor.address ?? ''}
                     </div>
                     <div className="flex items-center gap-2 text-pbase text-theme font-semibold">
                       <BsTelephone size={14} />
-                      {doctor.contact_number}
+                      {doctor.contact_number ?? ''}
                     </div>
                   </div>
                 </div>

@@ -1,78 +1,79 @@
-import HeroSection from "@/components/HeroSection";
 import SeacrhSection from "@/components/searchSection";
 import ExpertByConcern from "@/components/expertByConcern";
 import DoctorCard from "@/components/doctorCard";
-import Link from "next/link";
-import { FaUserMd, FaRegClipboard } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import DoctorDetails from "@/components/doctorDetail/DoctorDetail";
 import Image from "next/image";
-const doctors = [
-  {
-    name: "Dr. James Whitman",
-    designation: "Founder of Cardiac Hospital",
-    location: "1601 Avocado Ave, Newport Beach, CA",
-    phone: "+1 123-456-7890",
-    image: "/doctor/d1.png",
-    slug: "doctor1",
-  },
-  {
-    name: "Dr. Emily Carter",
-    designation: "Chief Neurologist",
-    location: "250 Palm Street, San Diego, CA",
-    phone: "+1 987-654-3210",
-    image: "/doctor/d2.png",
-    slug: "doctor2",
-  },
-];
-const datail = [
-  {
-    label: "Introduction",
-    content: {
-      introduction:
-        "Dr. James is a highly skilled and board-certified surgeon with over 20 years of experience in advanced laparoscopic and robotic-assisted surgeries. Renowned for precision, innovation, and patient-centered care, Dr. James has successfully performed numerous procedures in specialties such as urology, gynecology, oncology, and gastrointestinal surgery. A passionate advocate of minimally invasive techniques, Dr. James uses robotic systems like the da Vinci Surgical Platform to offer patients faster recovery, smaller incisions, and better outcomes.",
-      areasOfExpertise: [
-        "Robotic-assisted general & GI surgeries",
-        "Urologic surgeries (e.g., prostatectomy, nephrectomy)",
-        "Gynecologic procedures (e.g., hysterectomy, endometriosis)",
-        "Hernia repair, gallbladder, and colorectal surgeries",
-        "Oncologic robotic surgeries",
-      ],
-      education: [
-        "MBBS – [University Name]",
-        "MS – [University Name]",
-        "Fellowship in Robotic Surgery – [Institution/Location]",
-        "Advanced Training – [Certifications, Courses, International Workshops]",
-      ],
-      philosophy:
-        '"Surgery is not just about skill — it’s about trust. I believe in combining the latest technology with personalized care to help my patients heal faster and feel safer every step of the way."',
-      quoteAuthor: "Dr. James",
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Map from "@/components/Map";
+
+type Params = Promise<{ slug: string }>
+
+export default async function DoctorProfile({ params }: { params: Params }) {
+
+  const { slug } = await params;
+
+  const dostorRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors/${slug}`)
+  const dostorJsonRes = await dostorRes.json();
+
+  const doctor = dostorJsonRes.data || {}
+
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(doctor.address)}&output=embed`;
+
+
+  const datail = [
+    {
+      label: "Introduction",
+      content: {
+        introduction: doctor.description ?? '',
+        areasOfExpertise: doctor.conditions_treated ?? '',
+        education: doctor.educational_background ?? '',
+        philosophy:
+          '"Surgery is not just about skill — it’s about trust. I believe in combining the latest technology with personalized care to help my patients heal faster and feel safer every step of the way."',
+        quoteAuthor: "Dr. James",
+      },
     },
-  },
 
-  {
-    label: "Licence",
-    content: "Licence Content",
-  },
-  {
-    label: "Location",
-    content: "Location Content",
-  },
-  {
-    label: "Clinical Reserch",
-    content: "Clinical Content",
-  },
-];
-export default async function DoctorProfile() {
-  const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
-  const blockData = await homepageData.json();
+    {
+      label: "Licence",
+      content: "Licence Content",
+    },
+    {
+      label: "Location",
+      content: (
+        <div className="h-[20rem] w-full">
+          <Map mapSrc={mapSrc} />
+        </div>
+      )
+    },
+    {
+      label: "Clinical Reserch",
+      content: doctor.publications_research ?? ''
+    },
+  ];
 
-  const data = blockData.data || {};
+  const discoverExpert = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`)
+  const blockData = await discoverExpert.json();
+  const expertCard = blockData.block_data || {};
+
+
+  // const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
+  // const doctorsData = await doctorsRes.json();
+  // const allDoctors = doctorsData?.data || [];
+
+  // const relatedDoctors = allDoctors.filter(
+  //   (item: any) =>
+  //     item?.id !== doctor?.id &&
+  //     item?.specialty_title?.toLowerCase() === doctor?.specialty_title?.toLowerCase()
+  // );
+
+  // const similarDoctors = relatedDoctors.slice(0, 3);
+
   return (
     <>
       <div className=" w-full h-auto flex flex-col bg-white text-black">
         {/* hero section */}
-        <HeroSection pageName="Profile" />
+        <Breadcrumbs title="Profile" bgImage="/homePage/heroimage.jpg" />
         {/* search */}
         <div className="   md:h-[11.125rem] py-[2.5rem] md:py-0  w-full bg-ebg2 flex items-center justify-center ">
           <div className="  w-full sm:max-w-[75vw] max-w-[85vw] mx-auto mt-[0.75rem]">
@@ -88,12 +89,18 @@ export default async function DoctorProfile() {
               <div className="flex flex-col sm:flex-row  md:items-start items-center md:justify-start justify-center  w-full gap-[2rem]">
                 {/* Left: Doctor Image */}
                 <div className=" md:h-[12.438rem] sm:h-[16.438rem] h-[20.438rem] md:max-w-[13.188rem] sm:max-w-[16.188rem] max-w-[18.188rem]  w-full relative ">
+
                   <Image
-                    src="/doctor/d1.png"
-                    alt="Dr. James Whitman"
+                    src={
+                      doctor.doctor_photo
+                        ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${doctor.doctor_photo}`
+                        : "https://placehold.co/330x330.png"
+                    }
+                    alt={doctor.name}
                     fill
                     className="object-cover"
                   />
+
                 </div>
 
                 {/* Right: Doctor Info */}
@@ -102,10 +109,10 @@ export default async function DoctorProfile() {
                     <div className="flex items-start justify-between ">
                       <div>
                         <h2 className="text-p3xl font-semibold  font-playfair">
-                          Dr. James Whitman
+                          {doctor.name ?? ''}
                         </h2>
                         <p className="text-dt font-semibold font-sans">
-                          Founder of Cardiac Hospital
+                          {doctor.specialty_title ?? ''}
                         </p>
                       </div>
                       <div className="sm:flex items-center gap-4 text-[0.938rem] leading-[1.625rem] font-semibold  hidden">
@@ -136,10 +143,11 @@ export default async function DoctorProfile() {
                       </div>
                     </div>
 
-                    <p className="my-5 text-pbase font-sans leading-[1.625rem] font-normal">
-                      Robotic & Minimally Invasive Surgery Specialist <br />
-                      MBBS, MS (General Surgery), Fellowship in Robotic Surgery
-                    </p>
+                    {doctor.publications_research &&
+                      <p className="my-5 text-pbase font-sans leading-[1.625rem] font-normal ">
+                        {doctor.publications_research ?? ''}
+                      </p>
+                    }
 
                     <div className="text-sm text-gray-700 flex flex-col gap-2.5">
                       <div className="flex items-center gap-1 text-pbase font-normal">
@@ -152,7 +160,7 @@ export default async function DoctorProfile() {
                             priority
                           />
                         </div>
-                        <span>1601 Avocado Ave, Newport Beach, CA</span>
+                        <span>{doctor.address ?? ''}</span>
                       </div>
                       <div className="flex items-center gap-1 font-bold text-pbase">
                         {/* <FaPhoneAlt className="text-blue-500" /> */}
@@ -166,10 +174,10 @@ export default async function DoctorProfile() {
                           />
                         </div>
                         <a
-                          href="tel:+11234567890"
+                          href={`tel:${doctor.contact_number}`}
                           className="text-theme  hover:underline"
                         >
-                          +1 123-456-7890
+                          {doctor.contact_number ?? ''}
                         </a>
                       </div>
                     </div>
@@ -181,9 +189,11 @@ export default async function DoctorProfile() {
               <div className="flex  w-full  pt-8 pb-[2rem] sm:px-0  items-center sm:items-start justify-center sm:justify-start">
                 <div className=" flex w-fit px-[1.25rem]">
                   <div className="border-r border-gray-300 w-fit sm:pr-[1rem] pr-[0.5rem]">
+
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                      20+ Years
+                      {doctor.years_of_experience ?? ''}+ Years
                     </span>
+
                     <span className="font-bold text-pbase leading-[1.375rem]">
                       Experience
                     </span>
@@ -303,28 +313,26 @@ export default async function DoctorProfile() {
         </div>
 
         {/* similar doctor */}
-        <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
+        {/* <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
           <div className="lg:max-w-[68%] w-full flex flex-col">
             <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
               Similar Doctors:
             </h2>
             <div className="space-y-6 mt-[1.25rem]  mb-[2rem]">
-              {doctors.map((doc: any, index: any) => (
+              {similarDoctors.map((doc: any, index: any) => (
                 <div key={index}>
-                  <Link href={`/doctors/${doc.slug}`}>
-                    <DoctorCard doc={doc} />
-                  </Link>
+                  <DoctorCard doctor={doc} />
                 </div>
               ))}
             </div>
           </div>
           <div className="lg:max-w-[32%] w-full lg:block hidden"></div>
-        </div>
+        </div> */}
 
         {/* discover expert */}
         <div className="w-full">
-          {data.homediscoverexpert && (
-            <ExpertByConcern expertsData={data.homediscoverexpert} />
+          {expertCard && (
+            <ExpertByConcern expertsData={expertCard} />
           )}
         </div>
       </div>

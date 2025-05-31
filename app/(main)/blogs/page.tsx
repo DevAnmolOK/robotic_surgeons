@@ -11,16 +11,16 @@ export default async function Blogs() {
       post.status?.value === "published" && post.published_at == null
   );
 
-  // const publishedLater = result.data.filter(
-  //   (post: any) => post.status?.value === 'draft' && post.published_at !== null
-  // );
+  const publishedLater = result.data.filter(
+    (post: any) => post.status?.value === 'draft' && post.published_at !== null
+  );
 
-  const now = new Date();
+  // const now = new Date();
 
-  const publishedLater = result.data.filter((post: any) => {
-    const publishedAt = post.published_at ? new Date(post.published_at) : null;
-    return post.status?.value === "draft" && publishedAt && publishedAt > now;
-  });
+  // const publishedLater = result.data.filter((post: any) => {
+  //   const publishedAt = post.published_at ? new Date(post.published_at) : null;
+  //   return post.status?.value === 'draft' && publishedAt && publishedAt > now;
+  // });
 
   return (
     <>

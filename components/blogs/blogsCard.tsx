@@ -11,9 +11,18 @@ export default function BlogsCard({ Posts }: Post) {
     const CHUNK = 4;
 
     const [visibleCount, setVisibleCount] = useState(CHUNK);
+    const [loading, setLoading] = useState(false);
 
     const visiblePosts = Posts.slice(0, visibleCount);
     const canLoadMore = visibleCount < Posts.length;
+
+    const handleLoadMore = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => prev + CHUNK);
+      setLoading(false);
+    }, 1000);
+  };
   
   return (
     <>
@@ -76,9 +85,10 @@ export default function BlogsCard({ Posts }: Post) {
           <div>
             <div className="flex items-center justify-center mt-[2rem]">
               <button
-               onClick={() => setVisibleCount((prev) => prev + CHUNK)}
-              className=" cursor-pointer bg-black text-white h-[3rem] max-w-[9rem] w-full font-sans leading-[1.5rem] text-pxl font-normal flex items-center justify-center rounded-full ">
-                Load More
+               onClick={handleLoadMore}
+                disabled={loading}
+                className={`cursor-pointer ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-black" } text-white h-[3rem] max-w-[9rem] w-full font-sans leading-[1.5rem] text-pxl font-normal flex items-center justify-center rounded-full`}>
+               {loading ? "Loading..." : "Load More"}
               </button>
             </div>
           </div>
