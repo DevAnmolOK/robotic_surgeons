@@ -64,7 +64,7 @@ export default async function Membership() {
               Lorem Ipsum has been the industry's standard dummy text ever since
               the 1500s,
             </p>
-            <div className=" w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center mt-[5rem] ">
+            <div className=" w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center sm:mt-[5rem] mt-[3rem] ">
               {pricingPlans.map((plan, index) => (
                 <div className="" key={index}>
                   <MembershipCard plan={plan} index={index} />

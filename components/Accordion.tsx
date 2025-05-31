@@ -19,7 +19,6 @@ export default function Accordion({ items }: AccordionProps) {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
 
-
   return (
     <div className="mx-auto sm:max-w-[68vw] max-w-[85vw] w-full space-y-[1.2rem] text-accordion font-normal text-plg font-sans">
       {items.map((item, index) => (
@@ -29,16 +28,21 @@ export default function Accordion({ items }: AccordionProps) {
         >
           <button
             onClick={() => toggle(index)}
-            className="w-full flex justify-between items-center p-[1.25rem] text-left transition"
+            className={`w-full flex justify-between items-center px-[1.25rem] py-[1rem]  text-left transition`}
           >
             {`Question ${index + 1}.${" "} ${" "}${item.heading}`}
             <HiChevronDown
-              className={`transform transition-transform duration-200 ${openIndex === index ? "rotate-180" : ""
-                }`}
+              className={`transform transition-transform duration-300 ${
+                openIndex === index ? "rotate-180" : ""
+              }`}
               size={24}
             />
           </button>
-          {openIndex === index && <div className="p-4">{item.content}</div>}
+          {openIndex === index && (
+            <div className="px-[1rem] -mt-[1rem] pb-[2rem] ">
+              Answer. {item.content}
+            </div>
+          )}
         </div>
       ))}
     </div>

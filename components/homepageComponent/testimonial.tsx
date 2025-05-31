@@ -30,7 +30,7 @@ const Testimonial: React.FC<TestimonialItemSectionProps> = ({
 
   return (
     <>
-      <div className=" bg-white text-black py-[5.5rem] ">
+      <div className=" bg-white text-black sm:py-[5.5rem] p-[3.5]  ">
         <div className="max-w-[85vw] sm:max-w-[75vw] mx-auto w-full flex flex-col gap-10 items-center justify-center  ">
           {/* heading section */}
           <div>
