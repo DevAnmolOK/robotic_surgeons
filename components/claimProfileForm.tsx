@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { CiFileOn } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+
 export default function ClaimProfileForm() {
   const [form, setForm] = useState({
     role: "",

@@ -73,7 +73,7 @@ export default function SeacrhSection() {
               <option>Orthopedics</option>
               <option>Neurology</option>
             </select>
-          </div>
+          </div>  
 
           {/* Submit Button */}
           <button

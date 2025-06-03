@@ -44,7 +44,7 @@ export default function ClaimProfile() {
           <div className=" flex items-center justify-center pt-[2rem] pb-[3rem] ">
             <ClaimProfileForm />
           </div>
-        </div>  
+        </div>
       </div>
     </>
   );
