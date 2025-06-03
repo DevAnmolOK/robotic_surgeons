@@ -39,6 +39,8 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
               </p>
 
               {/* Areas of Expertise */}
+               
+              {activeContent.areasOfExpertise &&
               <div>
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Areas of Expertise:
@@ -52,8 +54,11 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                   )}
                 </ul> */}
               </div>
+             }
+
 
               {/* Education & Training */}
+              {activeContent.education &&
               <div>
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Education & Training:
@@ -66,6 +71,7 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                   ))}
                 </ul> */}
               </div>
+              }
 
               {/* Patient Philosophy */}
               <div>

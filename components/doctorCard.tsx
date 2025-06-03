@@ -64,7 +64,9 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
                   className=" text-theme object-cover"
                 />
               </div>
-              <div className=" font-bold font-sans text-pbase">{doctor.contact_number ?? ''}</div>
+              <div className=" font-bold font-sans text-pbase">
+                <Link href={`tel:${doctor.contact_number}`}>{doctor.contact_number ?? ''}</Link>
+                </div>
             </div>
           </div>
            <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]">
