@@ -6,6 +6,7 @@ import DoctorDetails from "@/components/doctorDetail/DoctorDetail";
 import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Map from "@/components/Map";
+import Link from "next/link";
 
 type Params = Promise<{ slug: string }>
 
@@ -57,17 +58,17 @@ export default async function DoctorProfile({ params }: { params: Params }) {
   const expertCard = blockData.block_data || {};
 
 
-  // const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
-  // const doctorsData = await doctorsRes.json();
-  // const allDoctors = doctorsData?.data || [];
+  const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
+  const doctorsData = await doctorsRes.json();
+  const allDoctors = doctorsData?.data || [];
 
-  // const relatedDoctors = allDoctors.filter(
-  //   (item: any) =>
-  //     item?.id !== doctor?.id &&
-  //     item?.specialty_title?.toLowerCase() === doctor?.specialty_title?.toLowerCase()
-  // );
+  const relatedDoctors = allDoctors.filter(
+    (item: any) =>
+      item?.id !== doctor?.id &&
+      item?.specialty_title?.toLowerCase() === doctor?.specialty_title?.toLowerCase()
+  );
 
-  // const similarDoctors = relatedDoctors.slice(0, 3);
+  const similarDoctors = relatedDoctors.slice(0, 3);
 
   return (
     <>
@@ -173,12 +174,12 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                             priority
                           />
                         </div>
-                        <a
+                        <Link
                           href={`tel:${doctor.contact_number}`}
                           className="text-theme  hover:underline"
                         >
                           {doctor.contact_number ?? ''}
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -313,7 +314,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
         </div>
 
         {/* similar doctor */}
-        {/* <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
+        <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
           <div className="lg:max-w-[68%] w-full flex flex-col">
             <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
               Similar Doctors:
@@ -327,7 +328,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
             </div>
           </div>
           <div className="lg:max-w-[32%] w-full lg:block hidden"></div>
-        </div> */}
+        </div>
 
         {/* discover expert */}
         <div className="w-full">
