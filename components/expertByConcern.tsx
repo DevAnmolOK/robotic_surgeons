@@ -25,6 +25,7 @@ const ExpertByConcern: React.FC<DiscoverExpertSectionProps> = ({
   const { heading, sub_heading, repeater_fields } = expertsData;
 
   const expertData = JSON.parse(repeater_fields as string);
+
   return (
     <>
       <div className=" text-center bg-white text-black pt-[2rem] pb-axl font-sans ">
