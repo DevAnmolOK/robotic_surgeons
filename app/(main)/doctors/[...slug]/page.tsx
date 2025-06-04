@@ -11,26 +11,24 @@ import Link from "next/link";
 type Params = Promise<{ slug: string }>
 
 export default async function DoctorProfile({ params }: { params: Params }) {
+
   const { slug } = await params;
 
-  const dostorRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/doctors/${slug}`
-  );
+  const dostorRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors/${slug}`)
   const dostorJsonRes = await dostorRes.json();
 
-  const doctor = dostorJsonRes.data || {};
+  const doctor = dostorJsonRes.data || {}
 
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    doctor.address
-  )}&output=embed`;
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(doctor.address)}&output=embed`;
+
 
   const datail = [
     {
       label: "Introduction",
       content: {
-        introduction: doctor.description ?? "",
-        areasOfExpertise: doctor.conditions_treated ?? "",
-        education: doctor.educational_background ?? "",
+        introduction: doctor.description ?? '',
+        areasOfExpertise: doctor.conditions_treated ?? '',
+        education: doctor.educational_background ?? '',
         philosophy:
           '"Surgery is not just about skill — it’s about trust. I believe in combining the latest technology with personalized care to help my patients heal faster and feel safer every step of the way."',
         quoteAuthor: "Dr. James",
@@ -47,19 +45,18 @@ export default async function DoctorProfile({ params }: { params: Params }) {
         <div className="h-[20rem] w-full">
           <Map mapSrc={mapSrc} />
         </div>
-      ),
+      )
     },
     {
       label: "Clinical Reserch",
-      content: doctor.publications_research ?? "",
+      content: doctor.publications_research ?? ''
     },
   ];
 
-  const discoverExpert = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`
-  );
+  const discoverExpert = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`)
   const blockData = await discoverExpert.json();
   const expertCard = blockData.block_data || {};
+
 
   const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
   const doctorsData = await doctorsRes.json();
@@ -79,11 +76,11 @@ export default async function DoctorProfile({ params }: { params: Params }) {
         {/* hero section */}
         <Breadcrumbs title="Profile" bgImage="/homePage/heroimage.jpg" />
         {/* search */}
-        <div className="   md:h-[11.125rem] py-[2.5rem] md:py-0  w-full bg-ebg2 flex items-center justify-center ">
+        {/* <div className="   md:h-[11.125rem] py-[2.5rem] md:py-0  w-full bg-ebg2 flex items-center justify-center ">
           <div className="  w-full sm:max-w-[75vw] max-w-[85vw] mx-auto mt-[0.75rem]">
-            <SeacrhSection />
+            <SeacrhSection onSearch={handleSearch} />
           </div>
-        </div>
+        </div> */}
 
         {/* Profile Section */}
         <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex md:flex-row flex-col gap-[1rem] mt-[3rem] mb-[1.25rem]">
@@ -93,6 +90,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
               <div className="flex flex-col sm:flex-row  md:items-start items-center md:justify-start justify-center  w-full gap-[2rem]">
                 {/* Left: Doctor Image */}
                 <div className=" md:h-[12.438rem] sm:h-[16.438rem] h-[20.438rem] md:max-w-[13.188rem] sm:max-w-[16.188rem] max-w-[18.188rem]  w-full relative ">
+
                   <Image
                     src={
                       doctor.doctor_photo
@@ -103,6 +101,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                     fill
                     className="object-cover"
                   />
+
                 </div>
 
                 {/* Right: Doctor Info */}
@@ -111,10 +110,10 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                     <div className="flex items-start justify-between ">
                       <div>
                         <h2 className="text-p3xl font-semibold  font-playfair">
-                          {doctor.name ?? ""}
+                          {doctor.name ?? ''}
                         </h2>
                         <p className="text-dt font-semibold font-sans">
-                          {doctor.specialty_title ?? ""}
+                          {doctor.specialty_title ?? ''}
                         </p>
                       </div>
                       <div className="sm:flex items-center gap-4 text-[0.938rem] leading-[1.625rem] font-semibold  hidden">
@@ -145,11 +144,11 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                       </div>
                     </div>
 
-                    {doctor.publications_research && (
+                    {doctor.publications_research &&
                       <p className="my-5 text-pbase font-sans leading-[1.625rem] font-normal ">
-                        {doctor.publications_research ?? ""}
+                        {doctor.publications_research ?? ''}
                       </p>
-                    )}
+                    }
 
                     <div className="text-sm text-gray-700 flex flex-col gap-2.5">
                       <div className="flex items-center gap-1 text-pbase font-normal">
@@ -162,7 +161,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                             priority
                           />
                         </div>
-                        <span>{doctor.address ?? ""}</span>
+                        <span>{doctor.address ?? ''}</span>
                       </div>
                       <div className="flex items-center gap-1 font-bold text-pbase">
                         {/* <FaPhoneAlt className="text-blue-500" /> */}
@@ -191,8 +190,9 @@ export default async function DoctorProfile({ params }: { params: Params }) {
               <div className="flex  w-full  pt-8 pb-[2rem] sm:px-0  items-center sm:items-start justify-center sm:justify-start">
                 <div className=" flex w-fit px-[1.25rem]">
                   <div className="border-r border-gray-300 w-fit sm:pr-[1rem] pr-[0.5rem]">
+
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                      {doctor.years_of_experience ?? ""}+ Years
+                      {doctor.years_of_experience ?? ''}+ Years
                     </span>
 
                     <span className="font-bold text-pbase leading-[1.375rem]">
@@ -332,7 +332,9 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
         {/* discover expert */}
         <div className="w-full">
-          {expertCard && <ExpertByConcern expertsData={expertCard} />}
+          {expertCard && (
+            <ExpertByConcern expertsData={expertCard} />
+          )}
         </div>
       </div>
     </>

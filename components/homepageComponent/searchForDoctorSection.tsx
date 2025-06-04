@@ -1,31 +1,23 @@
 "use client";
 import React from "react";
-import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { SlLocationPin } from "react-icons/sl";
-import { IoPaperPlaneOutline } from "react-icons/io5";
 import SeacrhSection from "../searchSection";
+import { useRouter } from "next/navigation";
+
 export default function SearchDoctor() {
-  const [formData, setFormData] = useState({
-    searchTerm: "",
-    location: "",
-    procedure: "All Procedures",
-  });
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const router = useRouter();
+
+  const handleSearch = (searchData: any) => {
+    const { searchTerm, location, procedure } = searchData;
+    const params = new URLSearchParams();
+    if (searchTerm) params.append("search", searchTerm);
+    if (location) params.append("location", location);
+    if (procedure && procedure !== "All Procedures")
+      params.append("specialty", procedure);
+
+    router.push(`/doctors?${params.toString()}`);
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // console.log("Search Data:", formData);
-    setFormData({
-      searchTerm: "",
-      location: "",
-      procedure: "All Procedures",
-    });
-  };
   return (
     <>
       {/* <div>Seacrh doctor section</div> */}
@@ -36,7 +28,7 @@ export default function SearchDoctor() {
             Search for Doctors Close to You - Anytime, Anywhere
           </h2>
           <div className="  w-full ">
-            <SeacrhSection />
+            <SeacrhSection onSearch={handleSearch} />
           </div>
         </div>
       </div>
