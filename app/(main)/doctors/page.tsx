@@ -13,13 +13,7 @@ export default async function DoctorsPage(props: {
 
   let doctors = [];
   let error = "";
-
-  // const doctorsRes = await searchDoctors({
-  //   searchTerm: searchParams?.search || "",
-  //   location: searchParams?.location || "",
-  //   procedure: searchParams?.specialty || "",
-  // });
-
+  
   try {
     doctors = await searchDoctors({
       searchTerm: searchParams?.search || "",

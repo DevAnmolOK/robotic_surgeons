@@ -93,7 +93,7 @@ export default function ClaimProfileForm() {
       return;
     }
 
-    // console.log("Form Submitted", form);
+     console.log("Form Submitted", form);
     alert("form submitted successfully");
     setForm({
       role: "",
@@ -173,7 +173,7 @@ export default function ClaimProfileForm() {
                     onChange={handleChange}
                     className={` h-[2.438rem]  border ${
                       errors.lastName ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 `}
+                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.lastName && (
                     <p className="text-red-500 text-sm">{errors.lastName}</p>
@@ -194,7 +194,7 @@ export default function ClaimProfileForm() {
                     onChange={handleChange}
                     className={` h-[2.438rem]  border ${
                       errors.email ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 `}
+                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm">{errors.email}</p>
@@ -211,7 +211,7 @@ export default function ClaimProfileForm() {
                     onChange={handleChange}
                     className={` h-[2.438rem]  border ${
                       errors.phone ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 `}
+                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm">{errors.phone}</p>
@@ -234,7 +234,7 @@ export default function ClaimProfileForm() {
                       errors.organization
                         ? "border-red-500"
                         : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 `}
+                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.organization && (
                     <p className="text-red-500 text-sm">
@@ -337,7 +337,7 @@ export default function ClaimProfileForm() {
                     rows={4}
                     className={` h-[6.813rem]  border ${
                       errors.comment ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 `}
+                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.comment && (
                     <p className="text-red-500 text-sm mt-1">

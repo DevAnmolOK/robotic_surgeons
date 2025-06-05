@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
+import { TiDelete } from "react-icons/ti";
 import { SlLocationPin } from "react-icons/sl";
 import { IoPaperPlaneOutline } from "react-icons/io5";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function SeacrhSection({
   onSearch,
@@ -12,7 +13,10 @@ export default function SeacrhSection({
   onSearch: (formData: any) => void;
 }) {
 
-  const router = useRouter();
+  const [groupedResults, setGroupedResults] = useState<any[]>([]);
+  const [skipNextFetch, setSkipNextFetch] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState({
@@ -37,6 +41,7 @@ export default function SeacrhSection({
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setIsInitialLoad(false);
   };
 
   const handleSubmit = (e: any) => {
@@ -50,6 +55,32 @@ export default function SeacrhSection({
 
     onSearch(formData);
   };
+
+
+  useEffect(() => {
+    if (!formData.searchTerm.trim() || skipNextFetch || isInitialLoad) {
+      setGroupedResults([]);
+      setSkipNextFetch(false); // reset skip
+      return;
+    }
+
+    const fetchResults = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/autocomplete?q=${formData.searchTerm}`
+        );
+        const result = await res.json();
+        setGroupedResults(result.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const delay = setTimeout(fetchResults, 300);
+    return () => clearTimeout(delay);
+  }, [formData.searchTerm]);
+
+
   return (
     <>
       <div>
@@ -58,20 +89,58 @@ export default function SeacrhSection({
           className="flex flex-col md:flex-row gap-4 items-center justify-center w-full pb-5"
         >
           {/* Input 1 */}
-          <div className="flex items-center bg-white px-7 py-2.5 lg:py-3 rounded-full w-full ">
-            <CiSearch className="text-black mr-4  text-p4xl" />
-            <input
-              type="text"
-              name="searchTerm"
-              onChange={handleChange}
-              value={formData.searchTerm}
-              placeholder="Enter a specialty or a name"
-              className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
-            />
+          <div className="relative w-full">
+            <div className="flex items-center bg-white px-7 py-2.5 lg:py-3 rounded-full w-full">
+              <CiSearch className="text-black mr-4  text-p4xl" />
+              <input
+                type="text"
+                name="searchTerm"
+                onChange={handleChange}
+                value={formData.searchTerm}
+                placeholder="Enter a specialty or a name"
+                autoComplete="off"
+                className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
+              />
+              {(formData.searchTerm || groupedResults.length > 0) &&  (<TiDelete className="text-black mr-4  text-p4xl hover:cursor-pointer" onClick={() => {
+                setFormData(prev => ({ ...prev, searchTerm: '' }));
+                setGroupedResults([]);
+                setSkipNextFetch(false);
+              }} />
+              )}
+            </div>
+
+            {/* Auto-suggestion dropdown */}
+            {!isInitialLoad && groupedResults.length > 0 && (
+              <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+                {groupedResults.map((group, i) => (
+                  <div key={i}>
+                    <div className="px-4 py-2 text-md font-semibold text-black uppercase bg-gray-50">
+                      {group.label}
+                    </div>
+                    {group.results.map((item: any, index: number) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setGroupedResults([]);
+                          setSkipNextFetch(true);
+                          setFormData((prev) => ({ ...prev, searchTerm: item.value }));
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
+                      >
+                        {item.value}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+
           </div>
 
+
           {/* Input 2 */}
-          <div className="flex items-center bg-white px-7 2xl:px-8 py-2 2xl:py-3 rounded-full w-full ">
+          <div className="relative w-full">
+          <div className="flex items-center bg-white px-7 2xl:px-8 py-2.5 lg:py-3.5 rounded-full w-full ">
             <SlLocationPin className="text-black mr-4 text-p3xl  " />
             <input
               type="text"
@@ -79,8 +148,14 @@ export default function SeacrhSection({
               value={formData.location}
               onChange={handleChange}
               placeholder="City, state or Zip code"
-              className="w-full outline-none text-pxl text-black  placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
+              autoComplete="off"
+              className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
             />
+           {(formData.location || groupedResults.length > 0) &&  (<TiDelete className="text-black mr-4  text-p4xl hover:cursor-pointer" onClick={() => {
+                setFormData(prev => ({ ...prev, location: '' }))
+              }} />
+              )}
+          </div>
           </div>
 
           {/* Dropdown */}

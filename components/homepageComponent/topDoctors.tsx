@@ -4,12 +4,14 @@ import { BsTelephone } from "react-icons/bs";
 import Link from "next/link";
 
 const TopDoctors = async () => {
-  const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`);
-  const doctorsData = await doctorsRes.json();
+  const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featureddoctors`);
+  const doctorsResult = await doctorsRes.json();
 
-  const featuredDoctor = doctorsData.data.filter(
-    (doctor: any) => doctor.is_featured == 1
-  );
+  const featuredDoctor = doctorsResult.data || []
+
+  // const featuredDoctor = doctorsData.data.filter(
+  //   (doctor: any) => doctor.is_featured == 1
+  // );
 
   return (
     <>

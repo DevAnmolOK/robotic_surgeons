@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 type ExpertsItem = {
   heading: string;
@@ -41,18 +42,20 @@ const ExpertByConcern: React.FC<DiscoverExpertSectionProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:gap-16 md:gap-4    justify-between ">
             {expertData.map((item: any, index: any) => (
               <div key={index} className="flex flex-col items-center ">
-                <div className="sm:w-[7rem] sm:h-[7rem] h-[6rem] w-[6rem] rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition">
-                  <Image
-                    src={
-                      item.image
-                        ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`
-                        : "https://placehold.co/55x55.png"
-                    }
-                    alt={item.heading}
-                    width={55}
-                    height={55}
-                    className="object-contain"
-                  />
+                <div className="sm:w-[7rem] sm:h-[7rem] h-[6rem] w-[6rem] rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition hover:cursor-pointer">
+                  <Link href={`/doctors?search=${encodeURIComponent(item.heading.toString().toLowerCase())}`}>
+                    <Image
+                      src={
+                        item.image
+                          ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`
+                          : "https://placehold.co/55x55.png"
+                      }
+                      alt={item.heading}
+                      width={55}
+                      height={55}
+                      className="object-contain"
+                    />
+                  </Link>
                 </div>
                 <p className="mt-3 text-plg font-medium font-sans capitalize">
                   {item.heading}
