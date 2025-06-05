@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SeacrhSection from "@/components/searchSection";
 import ExploreTopDoctor from "@/components/exploreTopDoctors";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { searchDoctors } from "@/lib/searchDoctors";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Doctor = {
   id: number;
@@ -26,9 +26,74 @@ export default function DoctorsClient({
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(initialError || "");
 
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
- const handleSearch = async (searchData: any) => {
+//  const handleSearch = async (searchData: any) => {
+//   setLoading(true);
+//   setErrorMsg("");
+
+//   const { searchTerm, location, procedure } = searchData;
+//   const params = new URLSearchParams();
+
+//   if (searchTerm) params.append("search", searchTerm);
+//   if (location) params.append("location", location);
+//   if (procedure && procedure !== "All Procedures") {
+//     params.append("specialty", procedure);
+//   }
+
+//   const query = `/doctors?${params.toString()}`;
+
+//   await router.push(query);
+
+//   try {
+//     const res = await searchDoctors({ searchTerm, location, procedure });
+
+//     if ("message" in res) {
+//       setDoctors([]);
+//       setErrorMsg(res.message);
+//     } else {
+//       setDoctors(res);
+//     }
+//   } catch (error: any) {
+//     console.error("Search failed", error);
+//     setErrorMsg("Something went wrong.");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+const fetchDoctorsFromURL = async () => {
+    setLoading(true);
+    setErrorMsg("");
+
+    const searchTerm = searchParams.get("search") || "";
+    const location = searchParams.get("location") || "";
+    const procedure = searchParams.get("specialty") || "";
+
+    try {
+      const res = await searchDoctors({ searchTerm, location, procedure });
+
+      if ("message" in res) {
+        setDoctors([]);
+        setErrorMsg(res.message);
+      } else {
+        setDoctors(res);
+      }
+    } catch (error: any) {
+      console.error("Search failed", error);
+      setErrorMsg("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDoctorsFromURL();
+  }, [searchParams]);
+
+  const router = useRouter();
+  
+  const handleSearch = async (searchData: any) => {
   setLoading(true);
   setErrorMsg("");
 
@@ -43,23 +108,8 @@ export default function DoctorsClient({
 
   const query = `/doctors?${params.toString()}`;
 
-  await router.push(query);
-
-  try {
-    const res = await searchDoctors({ searchTerm, location, procedure });
-
-    if ("message" in res) {
-      setDoctors([]);
-      setErrorMsg(res.message);
-    } else {
-      setDoctors(res);
-    }
-  } catch (error: any) {
-    console.error("Search failed", error);
-    setErrorMsg("Something went wrong.");
-  } finally {
-    setLoading(false);
-  }
+  // Faster transition
+  router.replace(query);
 };
 
 

@@ -39,13 +39,17 @@ export default async function Blogs() {
               )}
             </div>
           </div>
+
           {/* Upcoming Articles */}
-          <div className="flex flex-col mb-[3rem]">
-            <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
-              Upcomming Articles
-            </h2>
-            {publishedLater.length > 0 && <BlogsCard Posts={publishedLater} />}
-          </div>
+          {publishedLater.length > 0 &&
+            <div className="flex flex-col mb-[3rem]">
+              <h2 className="text-t2 font-playfair font-medium tracking-normal mb-[1.5rem]">
+                Upcomming Articles
+              </h2>
+              <BlogsCard Posts={publishedLater} />
+            </div>
+          }
+
           {/* load more */}
           {/* <div>
             <div className="flex items-center justify-center mt-[1rem] mb-[2rem]">
