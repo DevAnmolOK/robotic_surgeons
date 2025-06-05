@@ -9,10 +9,10 @@ const filters = [
     label: "Distance",
     options: ["< 5 miles", "< 10 miles", "< 20 miles", "Any"],
   },
-  {
-    label: "Specialty",
-    options: ["Cardiology", "Neurology", "Pediatrics", "Orthopedics"],
-  },
+  // {
+  //   label: "Specialty",
+  //   options: ["Cardiology", "Neurology", "Pediatrics", "Orthopedics"],
+  // },
   {
     label: "Insurance",
     options: ["Aetna", "Blue Cross", "Cigna", "UnitedHealthcare"],

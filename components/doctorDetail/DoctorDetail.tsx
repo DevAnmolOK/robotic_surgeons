@@ -38,23 +38,42 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                 {activeContent.introduction}
               </p>
 
+              {activeContent.speciality &&
+              <div>
+              <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
+                  Specialties:
+                </div>
+                <p className=" leading-[2rem] text-plg font-normal font-sans">{activeContent.speciality}</p>
+                </div>
+              }
+
+              {activeContent.HospitalAffiliations &&
+              <div>
+              <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
+                  Hospital Affiliations:
+                </div>
+                <p className=" leading-[2rem] text-plg font-normal font-sans">{activeContent.HospitalAffiliations}</p>
+                </div>
+              }
+
+              {activeContent.LanguagesSpoken &&
+              <div>
+              <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
+                  Languages Spoken:
+                </div>
+                <p className=" leading-[2rem] text-plg font-normal font-sans">{activeContent.LanguagesSpoken}</p>
+                </div>
+              }
+
               {/* Areas of Expertise */}
-               
-              {activeContent.areasOfExpertise &&
+              {/* {activeContent.areasOfExpertise &&
               <div>
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Areas of Expertise:
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: activeContent.areasOfExpertise}} />
-                {/* <ul className=" pl-[1rem] list-disc font-normal leading-[2rem] text-plg  space-y-1">
-                  {activeContent.areasOfExpertise.map(
-                    (item: string, idx: number) => (
-                      <li key={idx}>{item}</li>
-                    )
-                  )}
-                </ul> */}
               </div>
-             }
+             } */}
 
 
               {/* Education & Training */}
@@ -63,13 +82,7 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
                 <div className="font-semibold leading-[2rem] text-[1.375rem] mb-2">
                   Education & Training:
                 </div>
-
                 <div dangerouslySetInnerHTML={{ __html: activeContent.education}} />
-                {/* <ul className="space-y-1 font-normal leading-[2rem] text-plg">
-                  {activeContent.education.map((item: string, idx: number) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul> */}
               </div>
               }
 
@@ -88,7 +101,7 @@ export default function DoctorDetails({ detail }: DoctorDetailsProp) {
             </div>
           </div>
         ) : (
-          <div className="text-sm sm:px-[1.75rem] px-[1 rem] py-[1.25rem]">
+          <div className="text-plg sm:px-[1.75rem] px-[1 rem] py-[1.25rem]">
             {activeContent}
           </div>
         )}
