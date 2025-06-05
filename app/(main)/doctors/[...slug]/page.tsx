@@ -27,6 +27,9 @@ export default async function DoctorProfile({ params }: { params: Params }) {
       label: "Introduction",
       content: {
         introduction: doctor.description ?? '',
+        speciality: doctor.specialty_title ?? '',
+        HospitalAffiliations: doctor.hospital_affiliations,
+        LanguagesSpoken: doctor.languages_spoken,
         areasOfExpertise: doctor.conditions_treated ?? '',
         education: doctor.educational_background ?? '',
         philosophy:
@@ -52,6 +55,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
       content: doctor.publications_research ?? ''
     },
   ];
+
 
   const discoverExpert = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`)
   const blockData = await discoverExpert.json();
@@ -227,15 +231,15 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
           {/* right */}
           <div className="md:max-w-[32%] w-full h-fit   px-[1.5rem] pt-[1rem] pb-[5.5rem] accordion-shadow rounded-[1.25rem] ">
+            {datail[0].content.areasOfExpertise &&
+            <>
             <h3 className=" text-p3xl font-playfair font-semibold">
               Areas of Expertise
             </h3>
-            <p className="font-sans font-normal text-pbase leading-[1.625rem] mt-[.4rem] pl-[.15rem]">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
+           <div dangerouslySetInnerHTML={{ __html: datail[0].content.areasOfExpertise}} />
+            </>
+         }
+
 
             <div>
               <p className="mt-[1.5rem] text-pbase leading-[1.625] font-normal mb-[.5rem]">
