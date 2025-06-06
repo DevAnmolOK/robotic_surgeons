@@ -41,9 +41,9 @@ const ExpertByConcern: React.FC<DiscoverExpertSectionProps> = ({
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:gap-16 md:gap-4    justify-between ">
             {expertData.map((item: any, index: any) => (
-              <div key={index} className="flex flex-col items-center ">
-                <div className="sm:w-[7rem] sm:h-[7rem] h-[6rem] w-[6rem] rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition hover:cursor-pointer">
-                  <Link href={`/doctors?search=${encodeURIComponent(item.heading.toString().toLowerCase())}`}>
+              <Link key={index} href={`/doctors?search=${encodeURIComponent(item.heading.toString().toLowerCase())}`}>
+              <div className="flex flex-col items-center hover:cursor-pointer">
+                <div className="sm:w-[7rem] sm:h-[7rem] h-[6rem] w-[6rem] rounded-full border border-black flex items-center justify-center hover:shadow-lg bg-ebg transition">
                     <Image
                       src={
                         item.image
@@ -55,12 +55,13 @@ const ExpertByConcern: React.FC<DiscoverExpertSectionProps> = ({
                       height={55}
                       className="object-contain"
                     />
-                  </Link>
                 </div>
+                
                 <p className="mt-3 text-plg font-medium font-sans capitalize">
                   {item.heading}
                 </p>
               </div>
+              </Link>
             ))}
           </div>
         </div>
