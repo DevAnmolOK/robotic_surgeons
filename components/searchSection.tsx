@@ -13,8 +13,16 @@ export default function SeacrhSection({
   onSearch: (formData: any) => void;
 }) {
 
-  const [groupedResults, setGroupedResults] = useState<any[]>([]);
+  // const [groupedResults, setGroupedResults] = useState<any[]>([]);
+  // const [skipNextFetch, setSkipNextFetch] = useState(false);
+  // const [isInitialLoad, setIsInitialLoad] = useState(true);
+  // const [locationSkipFetch, setLocationSkipFetch] = useState(false);
+  // const [addressResults, setAddressResults] = useState<any[]>([]);
+
+  const [specialtyResults, setSpecialtyResults] = useState<any[]>([]);
+  const [addressResults, setAddressResults] = useState<any[]>([]);
   const [skipNextFetch, setSkipNextFetch] = useState(false);
+  const [locationSkipFetch, setLocationSkipFetch] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const searchParams = useSearchParams();
@@ -38,11 +46,11 @@ export default function SeacrhSection({
     });
   }, [searchParams]);
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setIsInitialLoad(false);
-  };
+  // const handleChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  //   setIsInitialLoad(false);
+  // };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -57,28 +65,46 @@ export default function SeacrhSection({
   };
 
 
+  // Fetch specialty suggestions
   useEffect(() => {
-    if (!formData.searchTerm.trim() || skipNextFetch || isInitialLoad) {
-      setGroupedResults([]);
-      setSkipNextFetch(false); // reset skip
+    if (!formData.searchTerm.trim() || skipNextFetch) {
+      setSpecialtyResults([]);
       return;
     }
 
-    const fetchResults = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/autocomplete?q=${formData.searchTerm}`
-        );
-        const result = await res.json();
-        setGroupedResults(result.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+    const timer = setTimeout(() => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/suggestbyname?q=${encodeURIComponent(formData.searchTerm)}`)
+        .then(res => res.json())
+        .then(data => setSpecialtyResults(data.data || []));
+    }, 300);
 
-    const delay = setTimeout(fetchResults, 300);
-    return () => clearTimeout(delay);
-  }, [formData.searchTerm]);
+    return () => clearTimeout(timer);
+  }, [formData.searchTerm, skipNextFetch]);
+
+
+
+  useEffect(() => {
+    if (!formData.location.trim() || locationSkipFetch) {
+      setAddressResults([]);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/addresssuggestion?q=${encodeURIComponent(formData.location)}`)
+        .then(res => res.json())
+        .then(data => setAddressResults(data.data || []));
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [formData.location, locationSkipFetch]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setIsInitialLoad(false);
+    if (name === 'searchTerm') setSkipNextFetch(false);
+    if (name === 'location') setLocationSkipFetch(false);
+  };
 
 
   return (
@@ -91,7 +117,7 @@ export default function SeacrhSection({
           {/* Input 1 */}
           <div className="relative w-full">
             <div className="flex items-center bg-white px-7 py-2.5 lg:py-3 rounded-full w-full">
-              <CiSearch className="text-black mr-4  text-p4xl" />
+              <CiSearch className="text-black mr-4 text-p4xl" />
               <input
                 type="text"
                 name="searchTerm"
@@ -101,29 +127,33 @@ export default function SeacrhSection({
                 autoComplete="off"
                 className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
               />
-              {(formData.searchTerm || groupedResults.length > 0) &&  (<TiDelete className="text-black mr-4  text-p4xl hover:cursor-pointer" onClick={() => {
-                setFormData(prev => ({ ...prev, searchTerm: '' }));
-                setGroupedResults([]);
-                setSkipNextFetch(false);
-              }} />
+              {formData.searchTerm && (
+                <TiDelete
+                  className="text-black mr-4 text-p4xl hover:cursor-pointer"
+                  onClick={() => {
+                    setFormData(prev => ({ ...prev, searchTerm: '' }));
+                    setSpecialtyResults([]);
+                    setSkipNextFetch(false);
+                  }}
+                />
               )}
             </div>
 
-            {/* Auto-suggestion dropdown */}
-            {!isInitialLoad && groupedResults.length > 0 && (
+            {/* Specialty Suggestions Dropdown */}
+            {!isInitialLoad && specialtyResults.length > 0 && (
               <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
-                {groupedResults.map((group, i) => (
-                  <div key={i}>
+                {specialtyResults.map((group, i) => (
+                  <div key={`specialty-${i}`}>
                     <div className="px-4 py-2 text-md font-semibold text-black uppercase bg-gray-50">
                       {group.label}
                     </div>
                     {group.results.map((item: any, index: number) => (
                       <div
-                        key={index}
+                        key={`specialty-item-${index}`}
                         onClick={() => {
-                          setGroupedResults([]);
+                          setSpecialtyResults([]);
                           setSkipNextFetch(true);
-                          setFormData((prev) => ({ ...prev, searchTerm: item.value }));
+                          setFormData(prev => ({ ...prev, searchTerm: item.value }));
                         }}
                         className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
                       >
@@ -134,28 +164,57 @@ export default function SeacrhSection({
                 ))}
               </div>
             )}
-
           </div>
 
 
           {/* Input 2 */}
+          {/* Location Search */}
           <div className="relative w-full">
-          <div className="flex items-center bg-white px-7 2xl:px-8 py-2.5 lg:py-3.5 rounded-full w-full ">
-            <SlLocationPin className="text-black mr-4 text-p3xl  " />
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="City, state or Zip code"
-              autoComplete="off"
-              className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
-            />
-           {(formData.location || groupedResults.length > 0) &&  (<TiDelete className="text-black mr-4  text-p4xl hover:cursor-pointer" onClick={() => {
-                setFormData(prev => ({ ...prev, location: '' }))
-              }} />
+            <div className="flex items-center bg-white px-7 2xl:px-8 py-2.5 lg:py-3.5 rounded-full w-full">
+              <SlLocationPin className="text-black mr-4 text-p3xl" />
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="City, state or Zip code"
+                autoComplete="off"
+                className="w-full outline-none text-pxl text-black placeholder-black placeholder:text-pxl placeholder:tracking-tight placeholder:font-sans placeholder:font-normal"
+              />
+              {formData.location && (
+                <TiDelete
+                  className="text-black mr-4 text-p4xl hover:cursor-pointer"
+                  onClick={() => {
+                    setFormData(prev => ({ ...prev, location: '' }));
+                    setAddressResults([]);
+                    setLocationSkipFetch(false);
+                  }}
+                />
               )}
-          </div>
+            </div>
+
+            {/* Address Suggestions Dropdown */}
+            {!isInitialLoad && addressResults.length > 0 && (
+              <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+                {addressResults.map((group, i) => (
+                  <div key={`address-${i}`}>
+                    {group.results.map((item: any, index: number) => (
+                      <div
+                        key={`address-item-${index}`}
+                        onClick={() => {
+                          setAddressResults([]);
+                          setLocationSkipFetch(true);
+                          setFormData(prev => ({ ...prev, location: item.value }));
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
+                      >
+                        {item.value}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Dropdown */}
