@@ -19,6 +19,8 @@ export default function ClaimProfileForm() {
     acceptTerms: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -83,18 +85,60 @@ export default function ClaimProfileForm() {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!validateForm()) {
       return;
     }
+
+    if (validateForm()) {
+    setLoading(true);
+    const formData = new FormData();
+
+    if (form.licenseFile) {
+      formData.append("file", form.licenseFile); // 👈 must match Laravel key
+    }
+
+    formData.append('firstName', form.firstName);
+    formData.append('lastName', form.lastName);
+    formData.append('email', form.email);
+    formData.append('phone', form.phone);
+    formData.append('organization', form.organization);
+    formData.append('role', form.role);
+    formData.append('acceptTerms', form.acceptTerms ? '1' : '0');
+    formData.append('certify', form.certify ? '1' : '0');
+    formData.append('comment', form.comment);
+    
+
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const doctorId = localStorage.getItem('doctor_id');
+
+    if(doctorId){
+      formData.append('doctor_id', doctorId);
+    }
+
     if (!form.certify && !form.acceptTerms) {
       alert("Please agree to the certification and term before submitting");
       return;
     }
 
-     console.log("Form Submitted", form);
-    alert("form submitted successfully");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/claim-profile`, {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': apiKey || '',
+      },
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setResponse(data.message || '');
+      console.log('Uploaded:', data);
+    } else {
+      console.error('Upload error:', data);
+    }
     setForm({
       role: "",
       firstName: "",
@@ -110,6 +154,9 @@ export default function ClaimProfileForm() {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    setLoading(false);
+    localStorage.removeItem('doctor_id');
+  }
   };
 
   return (
@@ -156,9 +203,8 @@ export default function ClaimProfileForm() {
                     name="firstName"
                     value={form.firstName}
                     onChange={handleChange}
-                    className={` h-[2.438rem]  border ${
-                      errors.firstName ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[2.438rem]  border ${errors.firstName ? "border-red-500" : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.firstName && (
                     <p className="text-red-500 text-sm">{errors.firstName}</p>
@@ -171,9 +217,8 @@ export default function ClaimProfileForm() {
                     name="lastName"
                     value={form.lastName}
                     onChange={handleChange}
-                    className={` h-[2.438rem]  border ${
-                      errors.lastName ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[2.438rem]  border ${errors.lastName ? "border-red-500" : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.lastName && (
                     <p className="text-red-500 text-sm">{errors.lastName}</p>
@@ -192,9 +237,8 @@ export default function ClaimProfileForm() {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    className={` h-[2.438rem]  border ${
-                      errors.email ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[2.438rem]  border ${errors.email ? "border-red-500" : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm">{errors.email}</p>
@@ -209,9 +253,8 @@ export default function ClaimProfileForm() {
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
-                    className={` h-[2.438rem]  border ${
-                      errors.phone ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[2.438rem]  border ${errors.phone ? "border-red-500" : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm">{errors.phone}</p>
@@ -230,11 +273,10 @@ export default function ClaimProfileForm() {
                     name="organization"
                     value={form.organization}
                     onChange={handleChange}
-                    className={` h-[2.438rem]  border ${
-                      errors.organization
-                        ? "border-red-500"
-                        : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[2.438rem]  border ${errors.organization
+                      ? "border-red-500"
+                      : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.organization && (
                     <p className="text-red-500 text-sm">
@@ -335,9 +377,8 @@ export default function ClaimProfileForm() {
                     value={form.comment}
                     onChange={handleChange}
                     rows={4}
-                    className={` h-[6.813rem]  border ${
-                      errors.comment ? "border-red-500" : "border-[#DBDBDB]"
-                    } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                    className={` h-[6.813rem]  border ${errors.comment ? "border-red-500" : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
                   {errors.comment && (
                     <p className="text-red-500 text-sm mt-1">
@@ -403,11 +444,12 @@ export default function ClaimProfileForm() {
               {/* submit Button */}
               <button
                 type="submit"
-                className="h-[3.063rem] bg-black text-white rounded-full text-pxl font-normal leading-[1.631rem] mt-[1.5rem] mb-[2.25rem] px-[1.25rem] cursor-pointer"
+                className={`h-[3.063rem] ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-black text-white"} rounded-full text-pxl font-normal leading-[1.631rem] mt-[1.5rem] mb-[2.25rem] px-[1.25rem] cursor-pointer`}
               >
-                Submit
+                {loading ? "Please Wait..." : "Submit"}
               </button>
             </div>
+            {response && <p className="mt-4">{response}</p>}
           </form>
         </div>
       </div>

@@ -31,6 +31,10 @@ export default async function DoctorsPage(props: {
   const blockData = await discoverExpert.json();
   const expertCard = blockData.block_data || {};
 
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('doctor_id',  'ghkghk');
+  }
+
   return (
     <>
       <DoctorsClient initialDoctors={doctors}  initialError={error} />

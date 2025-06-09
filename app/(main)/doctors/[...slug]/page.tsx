@@ -56,7 +56,6 @@ export default async function DoctorProfile({ params }: { params: Params }) {
     },
   ];
 
-
   const discoverExpert = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`)
   const blockData = await discoverExpert.json();
   const expertCard = blockData.block_data || {};
