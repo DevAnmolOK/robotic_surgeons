@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 export type Doctor = {
+  id: string;
   name: string;
   contact_number: string;
   clinic_name: string;
@@ -15,6 +18,8 @@ export type Doctor = {
 export type DoctorCardProps = {
   doctor: Doctor;
 };
+
+
 
 
 export default function DoctorCard({ doctor }: DoctorCardProps) {
@@ -69,9 +74,10 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
                 </div>
             </div>
           </div>
-           <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]">
+           <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctor_id', doctor.id)}>
             View Profile
           </Link>
+        
         </div>
       </div>
     </>
