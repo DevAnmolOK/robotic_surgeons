@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { CiFileOn } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import Link from "next/link";
 
 export default function ClaimProfileForm() {
   const [form, setForm] = useState({
@@ -86,47 +87,47 @@ export default function ClaimProfileForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+  e.preventDefault();
 
-    if (validateForm()) {
+  if (!validateForm()) {
+    return;
+  }
+
+  const doctorId = localStorage.getItem('doctor_id');
+  if (!doctorId) {
+    alert("There is no selected doctor.");
+    return;
+  }
+
+  if (!form.certify || !form.acceptTerms) {
+    alert("Please agree to the certification and terms before submitting.");
+    return;
+  }
+
+  try {
     setLoading(true);
+    
     const formData = new FormData();
 
-    if (form.licenseFile) {
-      formData.append("file", form.licenseFile); // 👈 must match Laravel key
+    if (form.licenseFile instanceof File) {
+      formData.append("file", form.licenseFile);
     }
 
-    formData.append('firstName', form.firstName);
-    formData.append('lastName', form.lastName);
-    formData.append('email', form.email);
-    formData.append('phone', form.phone);
-    formData.append('organization', form.organization);
-    formData.append('role', form.role);
-    formData.append('acceptTerms', form.acceptTerms ? '1' : '0');
-    formData.append('certify', form.certify ? '1' : '0');
-    formData.append('comment', form.comment);
-    
-
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-    const doctorId = localStorage.getItem('doctor_id');
-
-    if(doctorId){
-      formData.append('doctor_id', doctorId);
-    }
-
-    if (!form.certify && !form.acceptTerms) {
-      alert("Please agree to the certification and term before submitting");
-      return;
-    }
+    formData.append("firstName", form.firstName);
+    formData.append("lastName", form.lastName);
+    formData.append("email", form.email);
+    formData.append("phone", form.phone);
+    formData.append("organization", form.organization);
+    formData.append("role", form.role);
+    formData.append("acceptTerms", form.acceptTerms ? '1' : '0');
+    formData.append("certify", form.certify ? '1' : '0');
+    formData.append("comment", form.comment);
+    formData.append("doctor_id", doctorId);
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/claim-profile`, {
       method: 'POST',
       headers: {
-        'X-API-KEY': apiKey || '',
+        'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY || '',
       },
       body: formData,
     });
@@ -134,30 +135,116 @@ export default function ClaimProfileForm() {
     const data = await response.json();
 
     if (response.ok) {
-      setResponse(data.message || '');
-      console.log('Uploaded:', data);
+      setResponse(data.message || 'Successfully submitted.');
+      setForm({
+        role: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        organization: "",
+        licenseFile: null,
+        comment: "",
+        certify: false,
+        acceptTerms: false,
+      });
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      localStorage.removeItem("doctor_id");
     } else {
-      console.error('Upload error:', data);
+      setResponse(data.error || 'Something went wrong while submitting the form.');
     }
-    setForm({
-      role: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      organization: "",
-      licenseFile: null,
-      comment: "",
-      certify: false,
-      acceptTerms: false,
-    });
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+  } catch (error) {
+    setResponse("Unexpected error occurred. Please try again");
+  } finally {
     setLoading(false);
-    localStorage.removeItem('doctor_id');
   }
-  };
+};
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+    
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+
+  //   if (validateForm()) {
+  //   setLoading(true);
+  //   const formData = new FormData();
+
+  //   if (form.licenseFile) {
+  //     formData.append("file", form.licenseFile); // 👈 must match Laravel key
+  //   }
+
+  //   formData.append('firstName', form.firstName);
+  //   formData.append('lastName', form.lastName);
+  //   formData.append('email', form.email);
+  //   formData.append('phone', form.phone);
+  //   formData.append('organization', form.organization);
+  //   formData.append('role', form.role);
+  //   formData.append('acceptTerms', form.acceptTerms ? '1' : '0');
+  //   formData.append('certify', form.certify ? '1' : '0');
+  //   formData.append('comment', form.comment);
+    
+
+  //   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  //   const doctorId = localStorage.getItem('doctor_id');
+
+  //   if(doctorId){
+  //     formData.append('doctor_id', doctorId);
+  //   }
+
+  //   if(!doctorId){
+  //     alert("There is no selected doctor");
+  //     return;
+  //   }
+
+  //   if (!form.certify && !form.acceptTerms) {
+  //     alert("Please agree to the certification and term before submitting");
+  //     return;
+  //   }
+
+  //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/claim-profile`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'X-API-KEY': apiKey || '',
+  //     },
+  //     body: formData,
+  //   });
+
+  //   const data = await response.json();
+
+  //   if (response.ok) {
+  //     setResponse(data.message || '');
+  //     console.log('Uploaded:', data);
+
+  //     setForm({
+  //     role: "",
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     phone: "",
+  //     organization: "",
+  //     licenseFile: null,
+  //     comment: "",
+  //     certify: false,
+  //     acceptTerms: false,
+  //   });
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.value = "";
+  //   }
+  //   setLoading(false);
+  //   localStorage.removeItem('doctor_id');
+      
+  //   } else {
+  //     console.error('Upload error:', data);
+  //   }
+  // }
+  // };
 
   return (
     <>
@@ -355,6 +442,7 @@ export default function ClaimProfileForm() {
                   id="licenseFile"
                   type="file"
                   name="licenseFile"
+                  accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
                   className="sr-only"
                   ref={fileInputRef}
                   onChange={handleChange}
@@ -427,13 +515,13 @@ export default function ClaimProfileForm() {
                 />
                 <span>
                   I accept the{" "}
-                  <a href="#" className=" underline">
+                  <Link href="#" className="underline">
                     "Terms of use"
-                  </a>{" "}
+                  </Link>{" "}
                   &{" "}
-                  <a href="#" className=" underline">
+                  <Link href="/privacy-policy" className="underline">
                     "Privacy Policy"
-                  </a>
+                  </Link>
                 </span>
               </label>
               {errors.acceptTerms && (
@@ -444,13 +532,20 @@ export default function ClaimProfileForm() {
               {/* submit Button */}
               <button
                 type="submit"
-                className={`h-[3.063rem] ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-black text-white"} rounded-full text-pxl font-normal leading-[1.631rem] mt-[1.5rem] mb-[2.25rem] px-[1.25rem] cursor-pointer`}
+                className={`h-[3.063rem] ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-black"} text-white rounded-full text-pxl font-normal leading-[1.631rem] mt-[1.5rem] mb-[2.25rem] px-[1.25rem] cursor-pointer`}
               >
                 {loading ? "Please Wait..." : "Submit"}
               </button>
             </div>
-            {response && <p className="mt-4">{response}</p>}
           </form>
+          {response &&
+            <div role="alert" className="mt-3 relative flex w-full p-3 text-sm text-white bg-slate-800 rounded-md">
+              {response}
+              <button onClick={() => setResponse(null)} className="flex items-center justify-center transition-all w-8 h-8 rounded-md text-white hover:bg-white/10 active:bg-white/10 absolute top-1.5 right-1.5" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+              }
         </div>
       </div>
     </>

@@ -19,9 +19,6 @@ export type DoctorCardProps = {
   doctor: Doctor;
 };
 
-
-
-
 export default function DoctorCard({ doctor }: DoctorCardProps) {
   return (
     <>
