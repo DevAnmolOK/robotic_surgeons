@@ -21,7 +21,6 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(doctor.address)}&output=embed`;
 
-
   const datail = [
     {
       label: "Introduction",
@@ -305,11 +304,29 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                       Are you the provider on this profile?
                     </span>
                   </p>
+
+                  {(doctor?.claim_status === 'Reject' || doctor?.is_claimed === 'No') && (
+                    <Link href="/claim-profile">
+                      <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem] font-sans flex items-center justify-center text-pxl font-normal tracking-tight">
+                        Claim Profile
+                      </button>
+                    </Link>
+                  )}
+
+
+                 {!doctor?.claim_status && (
                   <Link href="/claim-profile">
-                    <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem]  font-sans  flex items-center justify-center text-pxl font-normal tracking-tight">
+                    <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem] font-sans flex items-center justify-center text-pxl font-normal tracking-tight">
                       Claim Profile
                     </button>
                   </Link>
+                )}
+
+                {doctor?.is_claimed === 'Yes' && doctor?.claim_status === 'Not Approved' && (
+                  <p className="text-yellow-600 text-sm">Your profile claim request is pending approval.</p>
+                )}
+
+
                 </div>
               </div>
             </div>
@@ -317,6 +334,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
         </div>
 
         {/* similar doctor */}
+        {similarDoctors.length > 0 &&
         <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
           <div className="lg:max-w-[68%] w-full flex flex-col">
             <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
@@ -332,6 +350,8 @@ export default async function DoctorProfile({ params }: { params: Params }) {
           </div>
           <div className="lg:max-w-[32%] w-full lg:block hidden"></div>
         </div>
+        }
+
 
         {/* discover expert */}
         <div className="w-full">
