@@ -7,6 +7,9 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Map from "@/components/Map";
 import Link from "next/link";
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 type Params = Promise<{ slug: string }>
 
@@ -71,6 +74,24 @@ export default async function DoctorProfile({ params }: { params: Params }) {
   );
 
   const similarDoctors = relatedDoctors.slice(0, 3);
+
+  if (doctor.claim_status !== 'Approve') {
+    return (
+      <div
+        className="flex flex-col justify-center items-center text-center px-4"
+        style={{ minHeight: 'calc(100vh - 484px)' }}
+      >
+        <h2 className="text-t2 mb-3 leading-tight font-playfair">
+          This profile is not approved by the admin.
+        </h2>
+        <Link
+          href="/doctors"
+          className="bg-theme text-white px-xl py-2.5 rounded-full text-pxl hover:opacity-90 transition">
+          Go Back
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -230,13 +251,13 @@ export default async function DoctorProfile({ params }: { params: Params }) {
           {/* right */}
           <div className="md:max-w-[32%] w-full h-fit   px-[1.5rem] pt-[1rem] pb-[5.5rem] accordion-shadow rounded-[1.25rem] ">
             {datail[0].content.areasOfExpertise &&
-            <>
-            <h3 className=" text-p3xl font-playfair font-semibold">
-              Areas of Expertise
-            </h3>
-           <div dangerouslySetInnerHTML={{ __html: datail[0].content.areasOfExpertise}} />
-            </>
-         }
+              <>
+                <h3 className=" text-p3xl font-playfair font-semibold">
+                  Areas of Expertise
+                </h3>
+                <div dangerouslySetInnerHTML={{ __html: datail[0].content.areasOfExpertise }} />
+              </>
+            }
 
 
             <div>
@@ -305,7 +326,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                     </span>
                   </p>
 
-                  {(doctor?.claim_status === 'Reject' || doctor?.is_claimed === 'No') && (
+                  {(doctor?.claim_status === 'Reject' && doctor?.is_claimed === 'No') && (
                     <Link href="/claim-profile">
                       <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem] font-sans flex items-center justify-center text-pxl font-normal tracking-tight">
                         Claim Profile
@@ -314,17 +335,17 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                   )}
 
 
-                 {!doctor?.claim_status && (
-                  <Link href="/claim-profile">
-                    <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem] font-sans flex items-center justify-center text-pxl font-normal tracking-tight">
-                      Claim Profile
-                    </button>
-                  </Link>
-                )}
+                  {!doctor?.claim_status && (
+                    <Link href="/claim-profile">
+                      <button className="w-fit cursor-pointer px-[2.5rem] rounded-full bg-black text-white h-[2.813rem] font-sans flex items-center justify-center text-pxl font-normal tracking-tight">
+                        Claim Profile
+                      </button>
+                    </Link>
+                  )}
 
-                {doctor?.is_claimed === 'Yes' && doctor?.claim_status === 'Not Approved' && (
-                  <p className="text-yellow-600 text-sm">Your profile claim request is pending approval.</p>
-                )}
+                  {doctor?.is_claimed === 'Yes' && doctor?.claim_status === 'Not Approved' && (
+                    <p className="text-yellow-600 text-sm">Your profile claim request is pending approval.</p>
+                  )}
 
 
                 </div>
@@ -335,21 +356,21 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
         {/* similar doctor */}
         {similarDoctors.length > 0 &&
-        <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
-          <div className="lg:max-w-[68%] w-full flex flex-col">
-            <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
-              Similar Doctors:
-            </h2>
-            <div className="space-y-6 mt-[1.25rem]  mb-[2rem]">
-              {similarDoctors.map((doc: any, index: any) => (
-                <div key={index}>
-                  <DoctorCard doctor={doc} />
-                </div>
-              ))}
+          <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
+            <div className="lg:max-w-[68%] w-full flex flex-col">
+              <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
+                Similar Doctors:
+              </h2>
+              <div className="space-y-6 mt-[1.25rem]  mb-[2rem]">
+                {similarDoctors.map((doc: any, index: any) => (
+                  <div key={index}>
+                    <DoctorCard doctor={doc} />
+                  </div>
+                ))}
+              </div>
             </div>
+            <div className="lg:max-w-[32%] w-full lg:block hidden"></div>
           </div>
-          <div className="lg:max-w-[32%] w-full lg:block hidden"></div>
-        </div>
         }
 
 

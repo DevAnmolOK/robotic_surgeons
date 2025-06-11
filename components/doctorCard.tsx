@@ -13,6 +13,8 @@ export type Doctor = {
   doctor_photo: string;
   slug: string;
   is_featured: number;
+  claim_status: string;
+  is_claimed: string;
 };
 
 export type DoctorCardProps = {
@@ -20,12 +22,24 @@ export type DoctorCardProps = {
 };
 
 export default function DoctorCard({ doctor }: DoctorCardProps) {
+
   return (
     <>
       <div className="flex sm:flex-row flex-col  sm:items-start items-center sm:justify-start justify-center  border px-[.5rem] py-[0.75rem] border-[#D9D9D9] ">
         {/* image */}
         <div className=" sm:h-[12.375rem] h-[15.375rem] sm:max-w-[12.375rem] max-w-[15.375rem] w-full relative">
 
+          {(doctor?.claim_status === 'Reject' || doctor?.claim_status === 'Not Approved') && (
+          <Image
+            src="/Surgeon.jpg"
+            alt={doctor.name}
+            fill
+            className="object-cover"
+            priority
+          />
+          )}
+
+          {doctor?.claim_status === 'Approve' && 
           <Image
             src={
               doctor.doctor_photo
@@ -34,15 +48,17 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
             }
             alt={doctor.name}
             fill
-            className=" object-cover"
+            className="object-cover"
             priority
           />
+          }
 
         </div>
         {/* detail */}
-        <div className="px-[1.5rem] py-[0.65rem] flex sm:flex-row flex-col items-start justify-center sm:justify-between w-fit sm:w-full gap-4 sm:gap-0  ">
+        <div className="px-[1.5rem] py-[0.65rem] flex sm:flex-row flex-col items-start justify-center sm:justify-between w-fit sm:w-full gap-4 sm:gap-0">
           <div className="sm:items-start items-center sm:justify-start justify-center">
             <div className="text-pxl font-bold font-sans capitalize">{doctor.name ?? ''}</div>
+            <div className={`${doctor?.claim_status === 'Approve' ? '' : '[filter:blur(5px)]'}`}>
             <p className="font-semibold font-sans text-dt capitalize">{doctor.specialty_title ?? ''}</p>
             <div className="mt-1 mb-[0.5rem]  flex justify-center items-center gap-1.5 text-wrap">
               <div className="h-[1.125rem] w-[0.938rem]  relative">
@@ -68,13 +84,26 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
               </div>
               <div className=" font-bold font-sans text-pbase">
                 <Link href={`tel:${doctor.contact_number}`}>{doctor.contact_number ?? ''}</Link>
-                </div>
+              </div>
             </div>
           </div>
-           <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctor_id', doctor.id)}>
-            View Profile
-          </Link>
-        
+          </div>
+          
+
+
+          {(doctor?.claim_status === 'Reject' || doctor?.is_claimed === 'No') && (
+            <Link href="/claim-profile" className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctor_id', doctor.id)}>
+                Claim Profile
+            </Link>
+          )}
+
+
+          {doctor?.claim_status === 'Approve' &&
+            <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctor_id', doctor.id)}>
+              View Profile
+            </Link>
+          }
+
         </div>
       </div>
     </>
