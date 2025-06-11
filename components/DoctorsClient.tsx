@@ -112,7 +112,6 @@ const fetchDoctorsFromURL = async () => {
   router.replace(query);
 };
 
-
   return (
     <div className="w-full h-auto flex flex-col bg-white text-black">
       <Breadcrumbs title="Find Doctors" bgImage="/homePage/heroimage.jpg" />
