@@ -2,50 +2,8 @@ import MembershipCard from "@/components/membership/membershipCard";
 import Testimonial from "@/components/homepageComponent/testimonial";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-const pricingPlans = [
-  {
-    title: "Free Plan",
-    description:
-      "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,",
-    buttonText: "Get Started",
-    features: [
-      "Basic Features",
-      "Basic Integrations",
-      "Limited Service",
-      "Chat Support",
-    ],
-    featured: false,
-  },
-  {
-    title: "6 Month Plan",
-    description:
-      "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,",
-    buttonText: "Get Started",
-    features: [
-      "Basic Features",
-      "Basic Integrations",
-      "Limited Service",
-      "Chat Support",
-    ],
-    featured: false,
-  },
-  {
-    title: "I Year Plan",
-    description:
-      "Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,",
-    buttonText: "Get Started",
-    features: [
-      "Basic Features",
-      "Basic Integrations",
-      "Limited Service",
-      "Chat Support",
-    ],
-    featured: true,
-  },
-];
-
 export default async function Membership() {
-  
+
   const [testimonialData, pricingPlans] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/hometestimonial`),
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/plan-list`),
