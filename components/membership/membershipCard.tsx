@@ -11,7 +11,7 @@ type MembershipCardProps = {
   short_description: string,
   description: string;
 }
-export default function MembershipCard({ id, heading, price, short_description, description, month_duration }: MembershipCardProps) {
+export default function MembershipCard({ id, heading, price, short_description, description }: MembershipCardProps) {
 
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,7 @@ export default function MembershipCard({ id, heading, price, short_description, 
   }
 
   try {
-    // Optional delay (can remove if not needed)
+
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout/session`, {
@@ -45,7 +45,7 @@ export default function MembershipCard({ id, heading, price, short_description, 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        plan_id: id, // Make sure `id` is defined in scope
+        plan_id: id,
         email: email,
         doctor_id: parseInt(doctorId),
       }),
@@ -54,7 +54,7 @@ export default function MembershipCard({ id, heading, price, short_description, 
     const json = await response.json();
 
     if (!json.success || !json.data?.url) {
-      throw new Error("Failed to create checkout session");
+      alert("Failed to create checkout session");
     }
 
     window.location.href = json.data.url;
