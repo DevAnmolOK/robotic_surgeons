@@ -20,6 +20,11 @@ export default async function Home() {
   const data = blockData.data || {};
   const blogs = latestBlogs.data || [];
 
+  const publishedPosts = blogs.filter(
+    (post: any) =>
+      post.status?.value === "published" && post.published_at == null
+  );
+
   return (
     <>
       {data.homepagebanner && <HeroSection bannerData={data.homepagebanner} />}
@@ -40,7 +45,7 @@ export default async function Home() {
         <Testimonial testimonialsData={data.hometestimonial} />
       )}
       {data.homereadstory && <ReadStory readStoryData={data.homereadstory} />}
-      {blogs.length > 0 && <NewsAndBlogs Posts = {blogs} />}
+      {publishedPosts.length > 0 && <NewsAndBlogs Posts = {publishedPosts} />}
     </>
   );
 }

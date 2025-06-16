@@ -4,7 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { HiOutlineUserCircle } from "react-icons/hi2";
+// import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi2";
+import { useRouter } from "next/navigation";
+import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi";
 
 type ChildMenu = {
   id: number;
@@ -46,6 +48,23 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const doctorId = localStorage.getItem("doctor_id");
+    setIsLoggedIn(!!doctorId);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("doctor_id");
+    localStorage.removeItem("doctor_name");
+    localStorage.removeItem("doctor_email");
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -134,9 +153,16 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
             </>
           )}
 
-          <Link href="#">
-            <HiOutlineUserCircle size={22} />
-          </Link>
+          {isLoggedIn ? (
+        <button onClick={handleLogout} className="flex items-center gap-1 text-red-500 hover:cursor-pointer">
+          <HiOutlineLogout size={22} />
+          Logout
+        </button>
+      ) : (
+        <Link href="/login" className="hover: cursor-pointer">
+          <HiOutlineUserCircle size={22} />
+        </Link>
+      )}
         </nav>
 
         {/* Mobile Hamburger */}

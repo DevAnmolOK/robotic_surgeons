@@ -23,13 +23,17 @@ export default function LatestBlogs({ Posts }: Post) {
             <div className="flex flex-col w-full md:w-[40%]">
               <div>
                 <span className="text-dt font-semibold font-inter text-theme ">
-                  {item.categories[0].name}
+                  {item?.categories.length > 0 && (
+                    <span>
+                    {item.categories.map((cat: any) => cat.name).join(', ')}
+                  </span>
+                  )}
                 </span>
                 <div className="text-pxl font-semibold  my-[0.875rem] leading-[2rem] text-blog font-inter">
                   {item.name ?? ""}
                 </div>
                 <p className=" text-cgray  text-pbase sm:w-[85%] font-inter  font-normal leading-[1.5rem] tracking-wide">
-                  {item.description ?? ""}
+                  {item?.description ?? ""}
                 </p>
               </div>
               <div className="flex items-center mt-[2rem] space-x-2">
@@ -47,7 +51,7 @@ export default function LatestBlogs({ Posts }: Post) {
                 </div>
                 <div>
                   <p className="text-dt font-inter font-medium text-blog leading-[1.25rem]">
-                    {item.author.name ?? ""}
+                    {item?.author.name ?? ""}
                   </p>
                   <p className="text-dt font-normal text-cgray leading-[1.25rem]">
                     {formatDate(item.created_at)}
