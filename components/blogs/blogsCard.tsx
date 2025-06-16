@@ -43,7 +43,11 @@ export default function BlogsCard({ Posts }: Post) {
             </div>
             <div className=" flex flex-col">
               <p className="text-dt text-theme font-semibold mb-1">
-                {item.categories[0].name}
+                {item?.categories.length > 0 && (
+                    <span>
+                    {item.categories.map((cat: any) => cat.name).join(', ')}
+                  </span>
+                  )}
               </p>
               <div className="flex justify-between items-center pt-2 ">
                 <p className="font-semibold text-pxl">{item.name ?? ''}</p>

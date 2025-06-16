@@ -1,6 +1,7 @@
 import MembershipCard from "@/components/membership/membershipCard";
 import Testimonial from "@/components/homepageComponent/testimonial";
-import HeroSection from "@/components/HeroSection";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
 const pricingPlans = [
   {
     title: "Free Plan",
@@ -44,15 +45,24 @@ const pricingPlans = [
 ];
 
 export default async function Membership() {
-  const homepageData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks`);
-  const blockData = await homepageData.json();
-  const data = blockData.data || {};
-  const testimonial = data.hometestimonial;
+  
+  const [testimonialData, pricingPlans] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/hometestimonial`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/plan-list`),
+    ]);
+
+  const blockData = await testimonialData.json();
+  const testimonial = blockData.block_data || {};
+
+  const pricingPlansCards = await pricingPlans.json();
+  const pricingPlansCard = await pricingPlansCards.data.data || {};
+  
+
   return (
     <>
       <div className=" flex flex-col h-auto w-full bg-white text-black">
         {/* herosection */}
-        <HeroSection pageName="Membership" />
+        <Breadcrumbs title="Membership" bgImage="/homePage/heroimage.jpg" />
 
         <div className="sm:max-w-[75vw] max-w-[85vw] flex flex-col w-full mx-auto">
           {/* Become a member */}
@@ -65,9 +75,9 @@ export default async function Membership() {
               the 1500s,
             </p>
             <div className=" w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center sm:mt-[5rem] mt-[3rem] ">
-              {pricingPlans.map((plan, index) => (
+              {pricingPlansCard.map((plan: any, index: any) => (
                 <div className="" key={index}>
-                  <MembershipCard plan={plan} index={index} />
+                  <MembershipCard heading={plan.heading} id={plan.id} price={plan.price} short_description={plan.short_description} description={plan.description} month_duration={plan.month_duration} />
                 </div>
               ))}
             </div>

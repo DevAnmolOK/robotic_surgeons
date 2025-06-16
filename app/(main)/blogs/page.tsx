@@ -3,7 +3,7 @@ import BlogsCard from "@/components/blogs/blogsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default async function Blogs() {
-  const blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
+  const blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=`);
   const result = await blogsData.json();
 
   const publishedPosts = result.data.filter(

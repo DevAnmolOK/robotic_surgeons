@@ -68,10 +68,10 @@ const fetchDoctorsFromURL = async () => {
 
     const searchTerm = searchParams.get("search") || "";
     const location = searchParams.get("location") || "";
-    const procedure = searchParams.get("specialty") || "";
+    // const procedure = searchParams.get("specialty") || "";
 
     try {
-      const res = await searchDoctors({ searchTerm, location, procedure });
+      const res = await searchDoctors({ searchTerm, location });
 
       if ("message" in res) {
         setDoctors([]);
