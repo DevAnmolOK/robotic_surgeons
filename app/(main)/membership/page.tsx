@@ -5,16 +5,15 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 export default async function Membership() {
 
   const [testimonialData, pricingPlans] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/hometestimonial`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/plan-list`),
-    ]);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/hometestimonial`),
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/plan-list`),
+  ]);
 
   const blockData = await testimonialData.json();
   const testimonial = blockData.block_data || {};
 
   const pricingPlansCards = await pricingPlans.json();
-  const pricingPlansCard = await pricingPlansCards.data.data || {};
-  
+  const pricingPlansCard = pricingPlansCards.data?.data || {};
 
   return (
     <>
@@ -33,11 +32,15 @@ export default async function Membership() {
               the 1500s,
             </p>
             <div className=" w-full flex md:flex-row flex-col gap-4 md:gap-0 items-center justify-center sm:mt-[5rem] mt-[3rem] ">
-              {pricingPlansCard.map((plan: any, index: any) => (
-                <div className="" key={index}>
-                  <MembershipCard heading={plan.heading} id={plan.id} price={plan.price} short_description={plan.short_description} description={plan.description} month_duration={plan.month_duration} />
-                </div>
-              ))}
+              {pricingPlansCard.length > 0 &&
+                <>
+                  {pricingPlansCard.map((plan: any, index: any) => (
+                    <div className="" key={index}>
+                      <MembershipCard heading={plan.heading} id={plan.id} price={plan.price} short_description={plan.short_description} description={plan.description} />
+                    </div>
+                  ))}
+                </>
+              }
             </div>
           </div>
           {/* testimonials */}

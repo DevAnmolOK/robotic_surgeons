@@ -7,7 +7,6 @@ type MembershipCardProps = {
   id: string,
   price: string,
   heading: string;
-  month_duration: string,
   short_description: string,
   description: string;
 }
@@ -24,46 +23,48 @@ export default function MembershipCard({ id, heading, price, short_description, 
 
 
   const handleCheckout = async () => {
-  setLoading(true);
 
-  const doctorId = localStorage.getItem("doctor_id");
-  const email = localStorage.getItem("doctor_email");
+    const doctorId = localStorage.getItem("doctor_id");
+    const email = localStorage.getItem("doctor_email");
 
-  if (!doctorId || !email) {
-    alert("Please login first");
-    router.push("/login");
-    return;
-  }
-
-  try {
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout/session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        plan_id: id,
-        email: email,
-        doctor_id: parseInt(doctorId),
-      }),
-    });
-
-    const json = await response.json();
-
-    if (!json.success || !json.data?.url) {
-      alert("Failed to create checkout session");
+    if (!doctorId || !email) {
+      alert("Please login first");
+      router.push("/login");
+      return;
     }
 
-    window.location.href = json.data.url;
-  } catch (err) {
-    console.error("Checkout error:", err);
-    alert("Something went wrong during checkout.");
-    setLoading(false);
-  }
-};
+    setLoading(true);
+
+    try {
+
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout/session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plan_id: id,
+          email: email,
+          doctor_id: parseInt(doctorId),
+        }),
+      });
+
+      const json = await response.json();
+
+      if (!json.success || !json.data?.url) {
+        alert("Failed to create checkout session");
+      }
+      window.location.href = json.data.url;
+    } catch (err) {
+      console.error("Checkout error:", err);
+      alert("Something went wrong during checkout.");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
