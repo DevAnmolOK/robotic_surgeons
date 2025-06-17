@@ -5,6 +5,7 @@ import Image from "next/image";
 import { CiFileOn } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ClaimProfileForm() {
   const [form, setForm] = useState({
@@ -14,6 +15,7 @@ export default function ClaimProfileForm() {
     email: "",
     phone: "",
     organization: "",
+    password: "",
     licenseFile: null as File | null,
     comment: "",
     certify: false,
@@ -24,6 +26,8 @@ export default function ClaimProfileForm() {
   const [response, setResponse] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -46,9 +50,11 @@ export default function ClaimProfileForm() {
     }
     if (!form.organization.trim())
       newErrors.organization = "Organization is required";
+    if (!form.password.trim())
+      newErrors.password = "Password is required";
     if (!form.licenseFile)
       newErrors.licenseFile = "Please upload a license or ID proof";
-    if (!form.comment.trim()) newErrors.comment = "Enter your comment";
+    // if (!form.comment.trim()) newErrors.comment = "Enter your comment";
     if (!form.certify) newErrors.certify = "You must certify your identity";
     if (!form.acceptTerms) newErrors.acceptTerms = "You must accept the terms";
     setErrors(newErrors);
@@ -93,7 +99,7 @@ export default function ClaimProfileForm() {
     return;
   }
 
-  const doctorId = localStorage.getItem('doctor_id');
+  const doctorId = localStorage.getItem('doctorid');
   if (!doctorId) {
     alert("There is no selected doctor.");
     return;
@@ -118,6 +124,7 @@ export default function ClaimProfileForm() {
     formData.append("email", form.email);
     formData.append("phone", form.phone);
     formData.append("organization", form.organization);
+    formData.append("password", form.password);
     formData.append("role", form.role);
     formData.append("acceptTerms", form.acceptTerms ? '1' : '0');
     formData.append("certify", form.certify ? '1' : '0');
@@ -143,6 +150,7 @@ export default function ClaimProfileForm() {
         email: "",
         phone: "",
         organization: "",
+        password: "",
         licenseFile: null,
         comment: "",
         certify: false,
@@ -153,11 +161,15 @@ export default function ClaimProfileForm() {
         fileInputRef.current.value = "";
       }
 
-      localStorage.removeItem("doctor_id");
+      localStorage.removeItem("doctorid");
+      setTimeout(function(){
+        router.push("/membership");
+      },1500)
     } else {
       setResponse(data.error || 'Something went wrong while submitting the form.');
     }
   } catch (error) {
+    console.log(error)
     setResponse("Unexpected error occurred. Please try again");
   } finally {
     setLoading(false);
@@ -349,6 +361,31 @@ export default function ClaimProfileForm() {
                 </div>
               </div>
 
+
+              {/* password */}
+              <div className="grid grid-cols-1  mt-[1.5rem]  ">
+                <div className="flex flex-col gap-2">
+                  <label className="text-pbase font-normal">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className={` h-[2.438rem]  border ${errors.password
+                      ? "border-red-500"
+                      : "border-[#DBDBDB]"
+                      } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm">
+                      {errors.password}
+                    </p>
+                  )}
+                </div>
+              </div>
+
               {/* Organization */}
               <div className="grid grid-cols-1  mt-[1.5rem]  ">
                 <div className="flex flex-col gap-2">
@@ -468,11 +505,11 @@ export default function ClaimProfileForm() {
                     className={` h-[6.813rem]  border ${errors.comment ? "border-red-500" : "border-[#DBDBDB]"
                       } focus:border-theme focus:border-2 focus:rounded-[0.25rem] focus:ring-2 text-black focus:ring-blue-50 outline-none transition duration-200 pl-[0.75rem]`}
                   />
-                  {errors.comment && (
+                  {/* {errors.comment && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.comment}
                     </p>
-                  )}
+                  )} */}
                 </div>
               </div>
               {/* Certification Section */}

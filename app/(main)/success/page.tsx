@@ -75,9 +75,11 @@ export default function SuccessPage() {
         A total of <strong>${sessionData?.amount_total}</strong>{" "}
         {sessionData?.currency.toUpperCase()} has been received.
       </p>
-      <p className="text-base text-gray-500 mt-4">
+
+      {/* <p className="text-base text-gray-500 mt-4">
         A confirmation has been sent to <strong>{sessionData?.customer?.email}</strong>.
-      </p>
+      </p> */}
+
     </div>
   );
 }
