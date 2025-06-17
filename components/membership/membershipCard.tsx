@@ -28,7 +28,6 @@ export default function MembershipCard({ id, heading, price, short_description, 
     const email = localStorage.getItem("doctor_email");
 
     if (!doctorId || !email) {
-      alert("Please login first");
       router.push("/login");
       return;
     }
@@ -86,7 +85,7 @@ export default function MembershipCard({ id, heading, price, short_description, 
             onClick={handleCheckout}
             className={`py-2 px-5 leading-[1.625rem] rounded-full h-[2.813rem] w-fit font-normal text-pxl ${loading
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-black"} text-white group-hover:bg-white group-hover:text-black transition-all duration-300 hover:cursor-pointer`}
+              : "bg-black group-hover:text-black hover:cursor-pointer group-hover:bg-white"} text-white transition-all duration-300`}
           >
             {loading ? "Please wait..." : "Get Started"}
           </button>

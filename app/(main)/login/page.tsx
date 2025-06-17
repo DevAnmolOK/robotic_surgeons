@@ -42,7 +42,6 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!data.success) {
-        setLoading(false);
         setError(data.message || "Login failed");
         return;
       }
@@ -51,25 +50,26 @@ export default function LoginPage() {
       localStorage.setItem("doctor_id", data.doctor?.doctor_id || "");
       localStorage.setItem("doctor_name", data.doctor?.doctor_name || "");
       localStorage.setItem("doctor_email", data.user?.email || "");
-      setLoading(false);
-
       router.push("/membership");
+
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Try again.");
-    }
+    } finally {
+        setLoading(false);
+      }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ minHeight: 'calc(100vh - 300px)' }}>
       <form
         onSubmit={handleLogin}
         className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Doctor Login</h2>
+        <h2 className="text-t2 mb-3 leading-tight font-playfair text-center">Doctor Login</h2>
         {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Email</label>
+          <label className="text-pbase leading-relaxed mb-2">Email</label>
           <input
             type="email"
             className="rounded-full w-full border px-3 py-4"
@@ -80,7 +80,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Password</label>
+          <label className="text-pbase leading-relaxed mb-2">Password</label>
           <input
             type="password"
             className="rounded-full w-full border px-3 py-4"
@@ -94,7 +94,7 @@ export default function LoginPage() {
           type="submit"
           className={`w-full ${loading
               ? "bg-gray-400 cursor-not-allowed"
-              : " "}bg-theme hover:bg-htheme text-white py-3 lg:py-4 rounded-full font-normal font-sans  tracking-tight transition text-pxl hover:cursor-pointer`}
+              : "bg-theme hover:bg-htheme hover:cursor-pointer"} text-white py-3 lg:py-4 rounded-full font-normal font-sans  tracking-tight transition text-pxl`}
         >
         {loading ? "Please wait..." : "Login"}
         </button>

@@ -19,6 +19,7 @@ type FormErrors = {
 };
 
 export default function ContactForm() {
+  
   const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",

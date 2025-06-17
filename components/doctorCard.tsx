@@ -92,7 +92,7 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
 
 
           {(doctor?.claim_status === 'Reject' || doctor?.is_claimed === 'No') && (
-            <Link href="/claim-profile" className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctor_id', doctor.id)}>
+            <Link href="/claim-profile" className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctorid', doctor.id)}>
                 Claim Profile
             </Link>
           )}
