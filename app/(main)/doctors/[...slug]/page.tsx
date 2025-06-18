@@ -7,8 +7,7 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Map from "@/components/Map";
 import Link from "next/link";
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { AppointmentForm } from "@/components/AppointmentForm";
 
 
 type Params = Promise<{ slug: string }>
@@ -211,7 +210,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
               {/* Bottom Stats */}
               <div className="flex  w-full  pt-8 pb-[2rem] sm:px-0  items-center sm:items-start justify-center sm:justify-start">
-                <div className=" flex w-fit px-[1.25rem]">
+                <div className="flex w-fit px-[1.25rem]">
                   <div className="border-r border-gray-300 w-fit sm:pr-[1rem] pr-[0.5rem]">
 
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
@@ -222,22 +221,22 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                       Experience
                     </span>
                   </div>
-                  <div className="border-r border-gray-300 w-fit sm:px-[1rem] px-[0.5rem]">
+                  {/* <div className="border-r border-gray-300 w-fit sm:px-[1rem] px-[0.5rem]">
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
                       560+
                     </span>
                     <span className="font-bold text-pbase leading-[1.375rem]">
                       Completed Surgery
                     </span>
-                  </div>
-                  <div className=" w-fit sm:pl-[1rem] pl-[0.  5rem]">
+                  </div> */}
+                  {/* <div className=" w-fit sm:pl-[1rem] pl-[0.  5rem]">
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
                       25k
                     </span>
                     <span className="font-bold text-pbase leading-[1.375rem]">
                       Consultancy
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -274,7 +273,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
               </div>
             </div>
 
-            <div className="flex  w-full  items-center justify-center sm:items-start sm:justify-start ">
+            <div className="flex w-full items-center justify-center sm:items-start sm:justify-start ">
               <div className=" flex flex-col ">
                 {/* Action 1 */}
                 <div className="space-y-2 mt-[2.25rem]">
@@ -351,12 +350,21 @@ export default async function DoctorProfile({ params }: { params: Params }) {
                 </div>
               </div>
             </div>
+             
+            <div className="mt-10">
+              <h2 className="text-t2 font-semibold font-playfair leading-[2rem]">
+                Appointment Form
+              </h2>
+              <AppointmentForm doctor_id={doctor.id} specialty={doctor.specialty_title} />  
+            </div>
+            
+
           </div>
         </div>
 
         {/* similar doctor */}
         {similarDoctors.length > 0 &&
-          <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex  gap-[1rem]  ">
+          <div className="lg:max-w-[73vw] max-w-[85vw] w-full mx-auto flex gap-[1rem]">
             <div className="lg:max-w-[68%] w-full flex flex-col">
               <h2 className=" text-t2 font-semibold font-playfair leading-[2rem]">
                 Similar Doctors:

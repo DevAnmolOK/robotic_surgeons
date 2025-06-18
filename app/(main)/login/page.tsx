@@ -72,7 +72,7 @@ export default function LoginPage() {
           <label className="text-pbase leading-relaxed mb-2">Email</label>
           <input
             type="email"
-            className="rounded-full w-full border px-3 py-4"
+            className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <label className="text-pbase leading-relaxed mb-2">Password</label>
           <input
             type="password"
-            className="rounded-full w-full border px-3 py-4"
+            className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -94,7 +94,7 @@ export default function LoginPage() {
           type="submit"
           className={`w-full ${loading
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-theme hover:bg-htheme hover:cursor-pointer"} text-white py-3 lg:py-4 rounded-full font-normal font-sans  tracking-tight transition text-pxl`}
+              : "bg-theme hover:bg-htheme hover:cursor-pointer"} text-white py-3 lg:py-3 rounded-full font-normal font-sans  tracking-tight transition text-pxl`}
         >
         {loading ? "Please wait..." : "Login"}
         </button>
