@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const seo = data.meta.seo_meta;
 
   return {
-    title: seo.seo_title,
-    description: seo.seo_description,
+    title: seo.seo_title || 'Default Title',
+    description: seo.seo_description || 'Default Description',
     robots: seo.index === 'index' ? 'index,follow' : 'noindex,nofollow',
   };
 }
