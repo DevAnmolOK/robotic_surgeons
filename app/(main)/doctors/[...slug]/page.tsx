@@ -57,17 +57,17 @@ export default async function DoctorProfile({ params }: { params: Params }) {
     },
   ];
 
-  const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
-  const doctorsData = await doctorsRes.json();
-  const allDoctors = doctorsData?.data || [];
 
-  const relatedDoctors = allDoctors.filter(
-    (item: any) =>
-      item?.id !== doctor?.id &&
-      item?.specialty_title?.toLowerCase() === doctor?.specialty_title?.toLowerCase()
-  );
+ const speciality = doctor?.specialty_title?.toLowerCase() || '';
+ const doctorId = doctor?.id || '';
 
-  const similarDoctors = relatedDoctors.slice(0, 3);
+const doctorsRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/similar-doctors?speciality=${encodeURIComponent(speciality)}&id=${doctorId}&per_page=3`
+);
+
+const doctorsData = await doctorsRes.json();
+const similarDoctors = doctorsData?.data?.data || [];
+
 
   if (doctor.claim_status !== 'Approve') {
     return (
