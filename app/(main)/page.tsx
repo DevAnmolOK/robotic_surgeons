@@ -29,9 +29,11 @@ export default async function Home() {
     <>
       {data.homepagebanner && <HeroSection bannerData={data.homepagebanner} />}
       <SearchDoctor />
-      {data.homediscoverexpert && (
+      {/* {data.homediscoverexpert && (
         <DiscoverExpert expertsData={data.homediscoverexpert} />
-      )}
+      )} */}
+
+      <DiscoverExpert />
       {data.homefindbestsurgeon && (
         <HelpToFind helpToFindData={data.homefindbestsurgeon} />
       )}

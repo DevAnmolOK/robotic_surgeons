@@ -1,6 +1,6 @@
 import DoctorsClient from "@/components/DoctorsClient";
 import { searchDoctors } from "@/lib/searchDoctors";
-import ExpertByConcern from "@/components/expertByConcern";
+import DiscoverExpert from "@/components/homepageComponent/discoverExpert";
 
 export const dynamic = "force-dynamic";
 
@@ -24,18 +24,11 @@ export default async function DoctorsPage(props: {
     error = err.message || "Something went wrong while fetching doctors.";
   }
 
-  const discoverExpert = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`,
-    { cache: "no-store" } // prevent caching
-  );
-  const blockData = await discoverExpert.json();
-  const expertCard = blockData.block_data || {};
-  
   return (
     <>
       <DoctorsClient initialDoctors={doctors}  initialError={error} />
       <div className="w-full">
-        {expertCard && <ExpertByConcern expertsData={expertCard} />}
+       <DiscoverExpert />
       </div>
     </>
   );
