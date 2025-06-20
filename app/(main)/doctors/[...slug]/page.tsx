@@ -1,5 +1,4 @@
 import SeacrhSection from "@/components/searchSection";
-import ExpertByConcern from "@/components/expertByConcern";
 import DoctorCard from "@/components/doctorCard";
 import { CiSearch } from "react-icons/ci";
 import DoctorDetails from "@/components/doctorDetail/DoctorDetail";
@@ -8,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Map from "@/components/Map";
 import Link from "next/link";
 import { AppointmentForm } from "@/components/AppointmentForm";
+import DiscoverExpert from "@/components/homepageComponent/discoverExpert";
 
 
 type Params = Promise<{ slug: string }>
@@ -56,11 +56,6 @@ export default async function DoctorProfile({ params }: { params: Params }) {
       content: doctor.publications_research ?? ''
     },
   ];
-
-  const discoverExpert = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block/homediscoverexpert`)
-  const blockData = await discoverExpert.json();
-  const expertCard = blockData.block_data || {};
-
 
   const doctorsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
   const doctorsData = await doctorsRes.json();
@@ -384,9 +379,7 @@ export default async function DoctorProfile({ params }: { params: Params }) {
 
         {/* discover expert */}
         <div className="w-full">
-          {expertCard && (
-            <ExpertByConcern expertsData={expertCard} />
-          )}
+          <DiscoverExpert />
         </div>
       </div>
     </>

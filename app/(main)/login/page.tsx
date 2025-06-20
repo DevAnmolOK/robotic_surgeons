@@ -14,8 +14,9 @@ export default function LoginPage() {
   useEffect(() => {
     const doctorId = localStorage.getItem("doctor_id");
     const doctorEmail = localStorage.getItem("doctor_email");
+    const doctorToken = localStorage.getItem("token");
 
-    if (doctorId && doctorEmail) {
+    if (doctorId && doctorEmail && doctorToken) {
       // Already logged in, redirect to membership or home
       router.push("/membership"); // or "/"
     }
