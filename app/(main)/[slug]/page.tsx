@@ -2,14 +2,12 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Metadata } from 'next';
 import { getPageData } from "@/lib/api";
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
+type Params = Promise<{ slug: string }>
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const data = await getPageData(params.slug);
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+
+  const { slug } = await params;
+  const data = await getPageData(slug);
   const seo = data.meta.seo_meta;
 
   return {
@@ -19,8 +17,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function Page({ params }: PageProps) {
-  const data = await getPageData(params.slug);
+export default async function Page({ params }: { params: Params }) {
+  const { slug } = await params;
+  const data = await getPageData(slug);
 
   return (
     <div className="h-full w-full flex items-center justify-center flex-col">
