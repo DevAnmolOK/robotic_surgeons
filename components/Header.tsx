@@ -52,9 +52,27 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // useEffect(() => {
+  //   const doctorId = localStorage.getItem("doctor_id");
+  //   setIsLoggedIn(!!doctorId);
+  // }, []);
+
   useEffect(() => {
-    const doctorId = localStorage.getItem("doctor_id");
-    setIsLoggedIn(!!doctorId);
+    const checkLoginStatus = () => {
+      const email = localStorage.getItem("doctor_email");
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token && !!email);
+    };
+    checkLoginStatus();
+    const handleStorageChange = () => {
+      checkLoginStatus();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const handleLogout = () => {
