@@ -26,8 +26,9 @@ export default function MembershipCard({ id, heading, price, short_description, 
 
     const doctorId = localStorage.getItem("doctor_id");
     const email = localStorage.getItem("doctor_email");
+    const token = localStorage.getItem("token");
 
-    if (!doctorId || !email) {
+    if (!doctorId || !email || !token) {
       router.push("/login");
       return;
     }
@@ -35,7 +36,7 @@ export default function MembershipCard({ id, heading, price, short_description, 
     setLoading(true);
 
     try {
-
+      
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout/session`, {
