@@ -207,41 +207,55 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
       {mobileMenuOpen && (
         <div className="md:hidden mt-4 flex flex-col gap-3 text-sm font-medium text-gray-800">
           <div className="border-t pt-3">
-            <span className="block mb-2">Find a Doctor</span>
-            <Link
-              href="#"
-              className="block px-2 py-1 hover:bg-gray-100 rounded"
-            >
-              Nearby Doctors
-            </Link>
-            <Link
-              href="#"
-              className="block px-2 py-1 hover:bg-gray-100 rounded"
-            >
-              Specialties
-            </Link>
+            {mainMenu?.items?.map((item: any, index: any) => (
+              <div key={index}>
+                <Link
+                  href={item.url ?? "#"}
+                  className="block px-2 py-1 hover:bg-gray-100 rounded capitalize"
+                  target={item.target}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.title ?? ""}
+                </Link>
+                {/* Render children if needed */}
+                {item.children && item.children.length > 0 && (
+                  <div className="pl-4">
+                    {item.children.map((child: any, cidx: any) => (
+                      <Link
+                        key={cidx}
+                        href={child.url ?? "#"}
+                        className="block px-2 py-1 hover:bg-gray-100 rounded capitalize"
+                        target={child.target}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {child.title ?? ""}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          <Link href="#">Categories</Link>
-          <Link href="#">Membership</Link>
-          <Link href="#">Blogs</Link>
-          <Link href="#">
-            <span className="inline-flex items-center gap-1">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5.121 17.804A10.95 10.95 0 0112 15c2.5 0 4.847.836 6.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Account
-            </span>
-          </Link>
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                setMobileMenuOpen(false);
+              }}
+              className="flex items-center gap-1 text-red-500 hover:cursor-pointer"
+            >
+              <HiOutlineLogout size={22} />
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="hover: cursor-pointer"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <HiOutlineUserCircle size={22} />
+            </Link>
+          )}
         </div>
       )}
     </header>

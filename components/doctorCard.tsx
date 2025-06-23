@@ -4,17 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 export type Doctor = {
-  id: string;
+  id: number;
   name: string;
-  contact_number: string;
-  clinic_name: string;
-  specialty_title: string,
-  address: string;
-  doctor_photo: string;
-  slug: string;
-  is_featured: number;
-  claim_status: string;
-  is_claimed: string;
+  specialty: string;
+  insurance?: string;
+  rating?: number;
+  contact_number?: string;
+  clinic_name?: string;
+  specialty_title?: string;
+  address?: string;
+  doctor_photo?: string;
+  slug?: string;
+  is_featured?: boolean;
+  claim_status?: string;
+  is_claimed?: boolean;
+  // ...add any other required fields
 };
 
 export type DoctorCardProps = {
@@ -91,15 +95,15 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
           
 
 
-          {(doctor?.claim_status === 'Reject' || doctor?.is_claimed === 'No') && (
-            <Link href="/claim-profile" className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctorid', doctor.id)}>
+          {(doctor?.claim_status === 'Reject' || doctor?.claim_status === 'Not Approved') && (
+            <Link href="/claim-profile" className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctorid', doctor.id.toString())}>
                 Claim Profile
             </Link>
           )}
 
 
           {doctor?.claim_status === 'Approve' &&
-            <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctorid', doctor.id)}>
+            <Link href={doctor.slug ? `/doctors/${doctor.slug}` : '#'} className="bg-black max-w-[11.75rem] flex items-center justify-center w-full h-[3.125rem] text-white px-6 py-2 rounded-full text-pxl font-normal leading-[1.65rem]" onClick={() => localStorage.setItem('doctorid', doctor.id.toString())}>
               View Profile
             </Link>
           }
