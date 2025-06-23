@@ -67,6 +67,13 @@ export default function ClaimProfileForm() {
     const target = e.target as HTMLInputElement | HTMLTextAreaElement;
     const { name, value, type } = target;
 
+    // Clear the error for the field being changed
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[name];
+      return newErrors;
+    });
+
     if (type === "checkbox") {
       setForm((prev) => ({
         ...prev,
@@ -271,7 +278,7 @@ export default function ClaimProfileForm() {
               {["provider", "staff", "third-party"].map((role) => (
                 <label
                   key={role}
-                  className="block sm:leading-[2.813rem] leading-[2rem] font-normal text-pxl -sans"
+                  className="block sm:leading-[2.813rem] leading-[2rem] font-normal text-pxl font-sans"
                 >
                   <input
                     type="radio"
@@ -282,7 +289,7 @@ export default function ClaimProfileForm() {
                     className="mr-2 cursor-pointer"
                   />
                   {role === "provider" && "I am a provider"}
-                  {role === "staff" && "I am a member of a provider’s staff"}
+                  {role === "staff" && "I am a member of a provider's staff"}
                   {role === "third-party" &&
                     "I am a part of a third–party firm or agency representing this provider."}
                 </label>
@@ -495,7 +502,7 @@ export default function ClaimProfileForm() {
               <div className="grid grid-cols-1  mt-[1.5rem]  ">
                 <div className="flex flex-col gap-2">
                   <label className="text-pbase font-normal">
-                    Optional Comment
+                    Comment (Optional)
                   </label>
                   <textarea
                     name="comment"
@@ -528,9 +535,8 @@ export default function ClaimProfileForm() {
                     licensed to practice medicine and
                   </p>
                   <p>(ii) I am the individual identified above.</p>
-                  <p>(ii) I am the individual identified above.</p>
                   <p className=" leading-[1.563rem]">
-                    Lorem Ipsum is simply dummy text of the printing and
+                    Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it to make a
@@ -551,13 +557,13 @@ export default function ClaimProfileForm() {
                   className="mt-1 cursor-pointer"
                 />
                 <span>
-                  I accept the{" "}
+                  I accept the{' '}
                   <Link href="#" className="underline">
-                    "Terms of use"
-                  </Link>{" "}
-                  &{" "}
+                    Terms of use
+                  </Link>{' '}
+                  &{' '}
                   <Link href="/privacy-policy" className="underline">
-                    "Privacy Policy"
+                    Privacy Policy
                   </Link>
                 </span>
               </label>
