@@ -167,7 +167,7 @@ export default function ExploreTopDoctor({ doctors, onClearFilters }: ExploreTop
           </div>
           {isAnyFilterSet && (
             <button
-              className="h-[3.375rem] bg-gray-200 text-black border border-[#4D4D4D] rounded-full px-[1.5rem] font-sans"
+              className="h-[3.375rem] bg-gray-200 text-black border border-[#4D4D4D] rounded-full px-[1.5rem] font-sans hover:cursor-pointer"
               onClick={handleClearFilters}
               type="button"
             >

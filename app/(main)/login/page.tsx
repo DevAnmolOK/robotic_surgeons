@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +26,19 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setFieldErrors({});
     
+
+    // Validation
+    const newErrors: { email?: string; password?: string } = {};
+    if (!email.trim()) newErrors.email = "Email is required";
+    else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) newErrors.email = "Invalid email format";
+    if (!password.trim()) newErrors.password = "Password is required";
+    if (Object.keys(newErrors).length > 0) {
+      setFieldErrors(newErrors);
+      setLoading(false);
+      return;
+    }
 
     try {
 
@@ -74,9 +87,12 @@ export default function LoginPage() {
             type="email"
             className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setFieldErrors((prev) => ({ ...prev, email: undefined }));
+            }}
           />
+          {fieldErrors.email && <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>}
         </div>
 
         <div className="mb-4">
@@ -85,9 +101,12 @@ export default function LoginPage() {
             type="password"
             className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setFieldErrors((prev) => ({ ...prev, password: undefined }));
+            }}
           />
+          {fieldErrors.password && <p className="text-red-500 text-sm mt-1">{fieldErrors.password}</p>}
         </div>
 
         <button
