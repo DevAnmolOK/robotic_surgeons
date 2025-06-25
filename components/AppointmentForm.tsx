@@ -23,7 +23,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
-    const [maxDate] = useState<Date>(new Date());
+    const [maxDate] = useState<Date | undefined>(undefined);
     const [bookedSlots, setBookedSlots] = useState<string[]>([]);
     const [response, setResponse] = useState<string | null>(null);
 
@@ -103,6 +103,16 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
         ).padStart(2, "0")}`;
     }
 
+    // Add a generic handleChange for all inputs
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors[name];
+            return newErrors;
+        });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -163,8 +173,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                     <label className="text-pbase leading-relaxed mb-2">Full Name</label>
                     <input
                         type="text"
+                        name="fullName"
                         value={form.fullName}
-                        onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                        onChange={handleChange}
                         className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
                     />
                     {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
@@ -174,8 +185,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                     <label className="text-pbase leading-relaxed mb-2">Phone Number</label>
                     <input
                         type="tel"
+                        name="phone"
                         value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        onChange={handleChange}
                         className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -187,8 +199,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                   </label>
                   <input
                     type="email"
+                    name="email"
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onChange={handleChange}
                     className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
                   />
                   {errors.email && (
@@ -202,11 +215,11 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                         options={{
                             dateFormat: "Y-m-d",
                             minDate: "today",
-                            maxDate: `${maxDate}`,
+                            maxDate: maxDate,
                         }}
                         className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
                         placeholder="Select a date"
-                        value={form.selectedDate || ""}
+                        value={form.selectedDate ? [form.selectedDate] : []}
                         onChange={(dates: Date[]) => {
                             const selectedDate = dates[0];
                             setForm({ ...form, selectedDate, selectedTime: "" });
@@ -227,9 +240,14 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                                         type="button"
                                         key={slot}
                                         disabled={isBooked}
-                                        onClick={() =>
-                                            setForm({ ...form, selectedTime: slot })
-                                        }
+                                        onClick={() => {
+                                            setForm({ ...form, selectedTime: slot });
+                                            setErrors((prev) => {
+                                                const newErrors = { ...prev };
+                                                delete newErrors.selectedTime;
+                                                return newErrors;
+                                            });
+                                        }}
                                         className={`border border-[#DBDBDB] px-3 py-2 rounded-full text-sm ${isBooked
                                                 ? "bg-gray-300 cursor-not-allowed text-gray-600"
                                                 : form.selectedTime === slot
@@ -251,8 +269,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctor_id, spe
                 <div className="mb-4">
                     <label className="text-pbase leading-relaxed mb-2">Message</label>
                     <textarea
+                        name="message"
                         value={form.message}
-                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        onChange={handleChange}
                         rows={4}
                         className="w-full border border-[#DBDBDB] rounded-lg px-5 py-3"
                         placeholder="Enter your message here..."

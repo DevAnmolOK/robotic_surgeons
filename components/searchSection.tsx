@@ -10,20 +10,16 @@ import { useSearchParams } from "next/navigation";
 export default function SeacrhSection({
   onSearch,
 }: {
-  onSearch: (formData: any) => void;
+  onSearch: (formData: any) => Promise<void> | void;
 }) {
-
-  // const [groupedResults, setGroupedResults] = useState<any[]>([]);
-  // const [skipNextFetch, setSkipNextFetch] = useState(false);
-  // const [isInitialLoad, setIsInitialLoad] = useState(true);
-  // const [locationSkipFetch, setLocationSkipFetch] = useState(false);
-  // const [addressResults, setAddressResults] = useState<any[]>([]);
 
   const [specialtyResults, setSpecialtyResults] = useState<any[]>([]);
   const [addressResults, setAddressResults] = useState<any[]>([]);
   const [skipNextFetch, setSkipNextFetch] = useState(false);
   const [locationSkipFetch, setLocationSkipFetch] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [lastSearch, setLastSearch] = useState<{searchTerm: string, location: string}>({searchTerm: '', location: ''});
 
   const searchParams = useSearchParams();
 
@@ -52,16 +48,18 @@ export default function SeacrhSection({
   //   setIsInitialLoad(false);
   // };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // console.log("Search Data:", formData);
-    // setFormData({
-    //   searchTerm: "",
-    //   location: "",
-    //   procedure: "All Procedures",
-    // });
-
-    onSearch(formData);
+    if (
+      formData.searchTerm === lastSearch.searchTerm &&
+      formData.location === lastSearch.location
+    ) {
+      return;
+    }
+    setLoading(true);
+    setLastSearch({searchTerm: formData.searchTerm, location: formData.location});
+    await Promise.resolve(onSearch(formData));
+    setLoading(false);
   };
 
 
@@ -236,11 +234,11 @@ export default function SeacrhSection({
           {/* Submit Button */}
           <button
             type="submit"
-            // className="flex items-center 2xl:px-14 px-6  bg-theme hover:bg-htheme text-white py-2 2xl:py-4 rounded-full font-light text-sm  transition 2xl:text-xl"
-            className="flex items-center w-fit lg:px-20 px-10   bg-theme hover:bg-htheme text-white py-3 lg:py-4 rounded-full font-normal font-sans  tracking-tight transition text-pxl hover:cursor-pointer"
+            className="flex items-center w-fit lg:px-20 px-10 bg-theme hover:bg-htheme text-white py-3 lg:py-4 rounded-full font-normal font-sans  tracking-tight transition text-pxl hover:cursor-pointer"
+            disabled={loading}
           >
             <IoPaperPlaneOutline className="text-pxl mr-2  2xl:mr-4 2xl:text-p2xl font-light " />
-            Submit
+            {loading ? "Please wait..." : "Submit"}
           </button>
         </form>
       </div>
