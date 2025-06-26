@@ -168,6 +168,8 @@ const similarDoctors = doctorsData?.data?.data || [];
                     }
 
                     <div className="text-sm text-gray-700 flex flex-col gap-2.5">
+
+                      {doctor?.address &&
                       <div className="flex items-center gap-1 text-pbase font-normal">
                         <div className=" h-[1.25rem] w-[1.25rem] relative">
                           <Image
@@ -178,8 +180,11 @@ const similarDoctors = doctorsData?.data?.data || [];
                             priority
                           />
                         </div>
-                        <span>{doctor.address ?? ''}</span>
+                        <span>{doctor?.address ?? ''}</span>
                       </div>
+                      }
+
+                      {doctor?.contact_number &&
                       <div className="flex items-center gap-1 font-bold text-pbase">
                         {/* <FaPhoneAlt className="text-blue-500" /> */}
                         <div className=" h-[1.25rem] w-[1.25rem] relative">
@@ -195,9 +200,11 @@ const similarDoctors = doctorsData?.data?.data || [];
                           href={`tel:${doctor.contact_number}`}
                           className="text-theme  hover:underline"
                         >
-                          {doctor.contact_number ?? ''}
+                          {doctor?.contact_number ?? ''}
                         </Link>
                       </div>
+                     }
+
                     </div>
                   </div>
                 </div>
@@ -206,24 +213,28 @@ const similarDoctors = doctorsData?.data?.data || [];
               {/* Bottom Stats */}
               <div className="flex  w-full  pt-8 pb-[2rem] sm:px-0  items-center sm:items-start justify-center sm:justify-start">
                 <div className="flex w-fit px-[1.25rem]">
+
+                  {doctor?.years_of_experience &&
                   <div className="border-r border-gray-300 w-fit sm:pr-[1rem] pr-[0.5rem]">
-
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                      {doctor.years_of_experience ?? ''}+ Years
+                      {doctor?.years_of_experience ?? ''}+ Years
                     </span>
-
                     <span className="font-bold text-pbase leading-[1.375rem]">
                       Experience
                     </span>
                   </div>
-                  {/* <div className="border-r border-gray-300 w-fit sm:px-[1rem] px-[0.5rem]">
+                  }
+
+                  {doctor?.procedure_volume &&
+                  <div className="border-r border-gray-300 w-fit sm:px-[1rem] px-[0.5rem]">
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
-                      560+
+                      {doctor?.procedure_volume ?? ''}
                     </span>
                     <span className="font-bold text-pbase leading-[1.375rem]">
                       Completed Surgery
                     </span>
-                  </div> */}
+                  </div>
+                  }
                   {/* <div className=" w-fit sm:pl-[1rem] pl-[0.  5rem]">
                     <span className="text-theme text-[1.375rem] font-bold block leading-[1.375rem]">
                       25k
