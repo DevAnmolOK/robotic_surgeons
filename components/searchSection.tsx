@@ -57,6 +57,9 @@ export default function SeacrhSection({
       return;
     }
     setLoading(true);
+    setSpecialtyResults([]);
+    setAddressResults([]);
+    setIsInitialLoad(true)
     setLastSearch({searchTerm: formData.searchTerm, location: formData.location});
     await Promise.resolve(onSearch(formData));
     setLoading(false);
