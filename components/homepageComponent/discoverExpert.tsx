@@ -21,7 +21,7 @@ const DiscoverExpert = async () => {
   return (
     <>
       {filteredspecialities.length > 0 &&
-        <section className=" px-4 text-center bg-white text-black pt-pbn pb-axl font-sans">
+        <section className="px-4 text-center bg-white text-black pt-pbn pb-axl font-sans">
           <div className="max-w-[85vw] sm:max-w-[75vw] w-full mx-auto border-b border-gray-300 pb-16 ">
             <h2 className="text-t2 mb-1 font-playfair font-medium">
               Discover Expert by Concern
