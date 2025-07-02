@@ -68,6 +68,33 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
     2: 4, // Social
   };
 
+  const slugify = (text: string): string =>
+    text
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .trim();
+
+  const staticPatientLinks = [
+    "Physician",
+    "Bariatric",
+    "Cardiac",
+    "General Surgery",
+    "Gynecology",
+    "Head & Neck",
+    "Urology",
+  ];
+
+  const customLinksMap = {
+    4: staticPatientLinks.map(title => ({
+      title,
+      url: `doctors?search=${slugify(title)}`,
+      icon: null,
+    })),
+  };
+
   const sortedArray = footerMenu.sort((a, b) => {
     return (orderById[a.id] || 999) - (orderById[b.id] || 999);
   });
@@ -76,32 +103,36 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
     <>
       <footer className="bg-black text-white">
         <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between font-sans">
-          {sortedArray.map((menu, index) => (
-            <div key={index}>
-              <p className="font-semibold text-pxl mb-3">{menu?.name}</p>
-              <ul className="space-y-2 font-normal text-pbase text-white">
-                {menu.items.map((item, key) => {
-                  const Icon = getIconComponent(item.icon);
+          {sortedArray.map((menu, index) => {
+            const customItems = customLinksMap[menu.id];
+            const itemsToRender = customItems ?? menu.items;
 
-                  return (
-                    <li key={key}>
-                      <Link
-                        href={item.url}
-                        className="flex items-center gap-2 hover:text-white transition"
-                      >
-                        {Icon && (
-                          <span>
-                            <Icon size={20} />
-                          </span>
-                        )}
-                        {item.title}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+            return (
+              <div key={index}>
+                <p className="font-semibold text-pxl mb-3">{menu?.name}</p>
+                <ul className="space-y-2 font-normal text-pbase text-white">
+                  {itemsToRender.map((item: any, key: any) => {
+                    const Icon = getIconComponent(item.icon);
+                    return (
+                      <li key={key}>
+                        <Link
+                          href={item.url}
+                          className="flex items-center gap-2 hover:text-white transition"
+                        >
+                          {Icon && (
+                            <span>
+                              <Icon size={20} />
+                            </span>
+                          )}
+                          {item.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         {/* Bottom Bar */}

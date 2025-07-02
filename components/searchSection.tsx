@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { TiDelete } from "react-icons/ti";
 import { SlLocationPin } from "react-icons/sl";
 import { IoPaperPlaneOutline } from "react-icons/io5";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function SeacrhSection({
   onSearch,
@@ -22,6 +22,7 @@ export default function SeacrhSection({
   const [lastSearch, setLastSearch] = useState<{searchTerm: string, location: string}>({searchTerm: '', location: ''});
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     searchTerm: "",
@@ -135,6 +136,9 @@ export default function SeacrhSection({
                     setFormData(prev => ({ ...prev, searchTerm: '' }));
                     setSpecialtyResults([]);
                     setSkipNextFetch(false);
+                    if (!formData.location) {
+                      router.push('/doctors');
+                    }
                   }}
                 />
               )}
@@ -189,6 +193,11 @@ export default function SeacrhSection({
                     setFormData(prev => ({ ...prev, location: '' }));
                     setAddressResults([]);
                     setLocationSkipFetch(false);
+                    if (formData.searchTerm) {
+                      router.push(`/doctors?search=${formData.searchTerm}`);
+                    } else {
+                      router.push('/doctors');
+                    }
                   }}
                 />
               )}
