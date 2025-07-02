@@ -39,7 +39,7 @@ export default async function ContactUs() {
 
   return (
     <>
-      <div className="h-full w-full flex items-center justify-center  flex-col">
+      <div className="h-full w-full flex items-center justify-center flex-col">
         {/* herosection */}
         <Breadcrumbs title="Contact us" bgImage="/homePage/heroimage.jpg" />
 

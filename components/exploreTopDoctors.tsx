@@ -8,15 +8,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 const filters = [
   {
     label: "Distance",
-    options: ["< 5 miles", "< 10 miles", "< 20 miles", "Any"],
+    options: ["Any", "< 5 miles", "< 10 miles", "< 20 miles"],
   },
   {
     label: "Insurance",
-    options: ["Aetna", "Blue Cross", "Cigna", "UnitedHealthcare"],
+    options: ["Any", "Aetna", "Blue Cross", "Cigna", "UnitedHealthcare"],
   },
   {
     label: "Rating",
-    options: ["1+ stars", "2+ stars", "3 stars", "4 stars", "5 stars"],
+    options: ["Any", "1", "2", "3", "4", "5"],
     isStar: true,
   },
 ];
@@ -26,7 +26,7 @@ interface Doctor {
   name: string;
   specialty: string;
   insurance?: string;
-  rating?: number;
+  average_rating?: number;
   contact_number?: string;
   clinic_name?: string;
   specialty_title?: string;
@@ -48,7 +48,11 @@ export default function ExploreTopDoctor({ doctors, onClearFilters }: ExploreTop
   //     Doctor: "",
   //   });
 
-  const [selected, setSelected] = useState<{ [key: string]: string }>({});
+  const [selected, setSelected] = useState<{ [key: string]: string }>({
+    Distance: "Any",
+    Insurance: "Any",
+    Rating: "Any"
+  });
   const [visibleCount, setVisibleCount] = useState(10);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -57,18 +61,25 @@ export default function ExploreTopDoctor({ doctors, onClearFilters }: ExploreTop
   // Filtering logic
   const filteredDoctors = useMemo(() => {
     return doctors.filter((doc) => {
-      // Distance filter (example: you need to have a distance property in doc)
+      // Distance filter
       if (selected.Distance && selected.Distance !== "Any") {
-        // Implement your own logic for distance
-        // if (!doc.distance || doc.distance > parseInt(selected.Distance.replace(/[^0-9]/g, ""))) return false;
+        // Implement your distance logic here
       }
       
-      if (selected.Insurance && doc.insurance !== selected.Insurance) return false;
-      
-      if (selected.Rating) {
-        const minStars = parseInt(selected.Rating[0]);
-        if (!doc.rating || doc.rating < minStars) return false;
+      // Insurance filter
+      if (selected.Insurance && selected.Insurance !== "Any") {
+        if (!doc.insurance || doc.insurance !== selected.Insurance) return false;
       }
+      
+      // Rating filter
+      if (selected.Rating && selected.Rating !== "Any") {
+        const exactRating = parseInt(selected.Rating);
+        if (isNaN(exactRating)) return false;
+        if (typeof doc.average_rating !== 'number' || Math.floor(doc.average_rating) !== exactRating) {
+          return false;
+        }
+      }
+      
       return true;
     });
   }, [doctors, selected]);
@@ -85,18 +96,23 @@ export default function ExploreTopDoctor({ doctors, onClearFilters }: ExploreTop
   const isAnyFilterSet = Object.values(selected).some(Boolean) || !!searchParams.get("search");
 
   const handleClearFilters = () => {
-    setSelected({});
+    setSelected({
+      Distance: "Any",
+      Insurance: "Any",
+      Rating: "Any"
+    });
     setVisibleCount(10);
-    // Clear search param from URL
-    router.replace("/doctors");
+    // router.replace("/doctors");
     if (onClearFilters) onClearFilters();
   };
+
 
   const handleClearAllFilters = () => {
     router.replace("/doctors"); // This will clear all search params
   };
 
   const getStars = (text: string) => {
+    if (text === "Any") return text;
     const match = text.match(/^(\d)/);
     if (match) {
       const count = parseInt(match[1]);
