@@ -87,8 +87,8 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
     "Urology",
   ];
 
-  const customLinksMap = {
-    4: staticPatientLinks.map(title => ({
+  const customLinksMap: Record<string, { title: string; url: string; icon: null }[]> = {
+    "4": staticPatientLinks.map(title => ({
       title,
       url: `doctors?search=${slugify(title)}`,
       icon: null,
@@ -104,7 +104,7 @@ const Footer: React.FC<FooterProps> = ({ footerMenu, footerData }) => {
       <footer className="bg-black text-white">
         <div className="max-w-[85vw] sm:max-w-[75vw]  mx-auto w-full px-4 py-10 flex flex-wrap gap-5 justify-between font-sans">
           {sortedArray.map((menu, index) => {
-            const customItems = customLinksMap[menu.id];
+            const customItems = customLinksMap[String(menu.id)];
             const itemsToRender = customItems ?? menu.items;
 
             return (
