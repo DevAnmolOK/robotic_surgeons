@@ -52,21 +52,59 @@ export default function SeacrhSection({
   //   setIsInitialLoad(false);
   // };
 
-  const handleSubmit = async (e: any) => {
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   if (
+  //     formData.searchTerm === lastSearch.searchTerm &&
+  //     formData.location === lastSearch.location
+  //   ) {
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   setSpecialtyResults([]);
+  //   setAddressResults([]);
+  //   setIsInitialLoad(true)
+  //   setLastSearch({ searchTerm: formData.searchTerm, location: formData.location });
+  //   await Promise.resolve(onSearch(formData));
+  //   setLoading(false);
+  // };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      formData.searchTerm === lastSearch.searchTerm &&
-      formData.location === lastSearch.location
-    ) {
+    
+    // Early return if search hasn't changed
+    if (formData.searchTerm === lastSearch.searchTerm && 
+        formData.location === lastSearch.location) {
       return;
     }
-    setLoading(true);
-    setSpecialtyResults([]);
-    setAddressResults([]);
-    setIsInitialLoad(true)
-    setLastSearch({ searchTerm: formData.searchTerm, location: formData.location });
-    await Promise.resolve(onSearch(formData));
-    setLoading(false);
+  
+    // Avoid unnecessary state updates if already loading
+    if (!loading) {
+      try {
+        setLoading(true);
+        setSpecialtyResults([]);
+        setAddressResults([]);
+        setIsInitialLoad(true);
+        
+        // Update query params before search
+        const searchParams = new URLSearchParams(window.location.search);
+        if (formData.searchTerm) searchParams.set('search', formData.searchTerm);
+        if (formData.location) searchParams.set('location', formData.location);
+        window.history.pushState({}, '', `?${searchParams.toString()}`);
+  
+        setLastSearch({ 
+          searchTerm: formData.searchTerm, 
+          location: formData.location 
+        });
+  
+        await onSearch(formData);
+      } catch (error) {
+        console.error('Search failed:', error);
+        // Consider adding error state handling here
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
 
