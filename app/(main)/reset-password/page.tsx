@@ -74,7 +74,7 @@ export default function ResetPassword() {
       const data: ApiResponse = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to reset password');
+        throw new Error(data.message || data.error || 'Failed to reset password');
       }
 
       setMessage(data.message || 'Password reset successfully');
