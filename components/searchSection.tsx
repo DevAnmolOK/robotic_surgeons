@@ -78,7 +78,6 @@ export default function SeacrhSection({
       return;
     }
   
-    // Avoid unnecessary state updates if already loading
     if (!loading) {
       try {
         setLoading(true);
@@ -86,11 +85,19 @@ export default function SeacrhSection({
         setAddressResults([]);
         setIsInitialLoad(true);
         
-        // Update query params before search
-        const searchParams = new URLSearchParams(window.location.search);
-        if (formData.searchTerm) searchParams.set('search', formData.searchTerm);
-        if (formData.location) searchParams.set('location', formData.location);
-        window.history.pushState({}, '', `?${searchParams.toString()}`);
+        // Build the query string according to your format
+        const params = new URLSearchParams();
+        if (formData.searchTerm) {
+          params.set('search', formData.searchTerm.replace(/ /g, '+'));
+        }
+        if (formData.location) {
+          // Assuming location should also be in the query if needed
+          params.set('location', formData.location.replace(/ /g, '+'));
+        }
+  
+        // Update URL without page reload
+        const newUrl = `/doctors${params.toString() ? `?${params.toString()}` : ''}`;
+        window.history.pushState({}, '', newUrl);
   
         setLastSearch({ 
           searchTerm: formData.searchTerm, 
@@ -100,7 +107,7 @@ export default function SeacrhSection({
         await onSearch(formData);
       } catch (error) {
         console.error('Search failed:', error);
-        // Consider adding error state handling here
+        // Handle error state if needed
       } finally {
         setLoading(false);
       }
