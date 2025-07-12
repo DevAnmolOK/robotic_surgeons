@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export default function LoginPage() {
@@ -74,13 +75,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ minHeight: 'calc(100vh - 300px)' }}>
+    <div className="flex flex-row min-h-screen justify-center items-center" style={{ minHeight: 'calc(100vh - 300px)' }}>
+    <div className="max-w-md  mx-auto p-6 bg-white rounded-lg shadow-md">
       <form
         onSubmit={handleLogin}
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm"
+        className="bg-white rounded-lg w-full max-w-sm"
       >
         <h2 className="text-t2 mb-3 leading-tight font-playfair text-center">Doctor Login</h2>
-        {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
+        
         <div className="mb-4">
           <label className="text-pbase leading-relaxed mb-2">Email</label>
           <input
@@ -118,6 +120,15 @@ export default function LoginPage() {
         {loading ? "Please wait..." : "Login"}
         </button>
       </form>
+
+      <div className="mt-4 text-center">
+          <Link href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-500">
+            Forgot Password
+          </Link>
+        </div>
+
+      {error && <div className="mt-4 p-3 text-red-700">{error}</div>}
+    </div>
     </div>
   );
 }

@@ -15,7 +15,8 @@
     "react-flatpickr": "^4.0.10",
     "react-icons": "^5.5.0",
     "react-slick": "^0.30.3",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "use-debounce": "^10.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
