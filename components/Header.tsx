@@ -7,6 +7,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 // import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
 import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi";
+import { Author } from "next/dist/lib/metadata/types/metadata-types";
 
 type ChildMenu = {
   id: number;
@@ -49,29 +50,32 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   // useEffect(() => {
   //   const doctorId = localStorage.getItem("doctor_id");
   //   setIsLoggedIn(!!doctorId);
   // }, []);
 
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const router = useRouter();
+
+  const checkLogin = () => {
+    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("doctor_email");
+    setIsLoggedIn(!!token && !!email);
+  };
+
   useEffect(() => {
-    const checkLoginStatus = () => {
-      const email = localStorage.getItem("doctor_email");
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token && !!email);
-    };
-    checkLoginStatus();
-    const handleStorageChange = () => {
-      checkLoginStatus();
+    checkLogin();
+
+    const handleLoginStatusChange = () => {
+      checkLogin();
     };
 
-    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("login-status-changed", handleLoginStatusChange);
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("login-status-changed", handleLoginStatusChange);
     };
   }, []);
 
@@ -81,6 +85,8 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
     localStorage.removeItem("doctor_name");
     localStorage.removeItem("doctor_email");
     setIsLoggedIn(false);
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new Event("login-status-changed"));
     router.push("/login");
   };
 
@@ -171,14 +177,14 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
             </>
           )}
 
-          {isLoggedIn ? (
+        {isLoggedIn ? (
         <button onClick={handleLogout} className="flex items-center gap-1 text-red-500 hover:cursor-pointer">
-          <HiOutlineLogout size={22} />
+          <HiOutlineLogout size={30} />
           Logout
         </button>
       ) : (
         <Link href="/login" className="hover: cursor-pointer">
-          <HiOutlineUserCircle size={22} />
+          <HiOutlineUserCircle size={30} />
         </Link>
       )}
         </nav>

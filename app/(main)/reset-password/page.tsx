@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { BsEyeSlash, BsEye } from "react-icons/bs";
 
 export interface ResetPasswordRequest {
   token: string;
@@ -22,6 +23,8 @@ export default function ResetPassword() {
   const [token, setToken] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -86,6 +89,14 @@ export default function ResetPassword() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
 
     <div className="flex flex-row min-h-screen justify-center items-center" style={{ minHeight: 'calc(100vh - 300px)' }}>
@@ -107,40 +118,54 @@ export default function ResetPassword() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label htmlFor="password" className="text-pbase leading-relaxed mb-2">
               New Password
             </label>
             <input
               id="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
               className="mt-1 rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             />
+            <button
+          type="button"
+          className="absolute cursor-pointer top-12 right-4"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? <BsEyeSlash /> : <BsEye />}
+        </button>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label htmlFor="passwordConfirmation" className="text-pbase leading-relaxed mb-2">
               Confirm Password
             </label>
             <input
               id="passwordConfirmation"
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               required
               minLength={8}
               className="mt-1 rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             />
+            <button
+          type="button"
+          className="absolute cursor-pointer top-12 right-4"
+          onClick={toggleConfirmPasswordVisibility}
+        >
+          {showConfirmPassword ? <BsEyeSlash /> : <BsEye />}
+        </button>
           </div>
 
           <button
             type="submit"
             disabled={isLoading || !token}
-            className={`w-full ${isLoading
+            className={`w-full ${isLoading || !token
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-theme hover:bg-htheme hover:cursor-pointer"} text-white py-3 lg:py-3 rounded-full font-normal font-sans  tracking-tight transition text-pxl`}
           >

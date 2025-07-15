@@ -122,7 +122,7 @@ export default function SeacrhSection({
       return;
     }
 
-    setIsNameLoading(false);
+    setIsNameLoading(true);
     const timer = setTimeout(() => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/suggestbyname?q=${encodeURIComponent(formData.searchTerm)}`)
         .then(res => res.json())
@@ -233,6 +233,7 @@ export default function SeacrhSection({
                 ) : null}
               </div>
             )}
+            
           </div>
 
 
