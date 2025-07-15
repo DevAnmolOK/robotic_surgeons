@@ -3,11 +3,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { BsEyeSlash, BsEye } from "react-icons/bs";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
   const router = useRouter();
@@ -64,6 +65,7 @@ export default function LoginPage() {
       localStorage.setItem("doctor_id", data.doctor?.doctor_id || "");
       localStorage.setItem("doctor_name", data.doctor?.doctor_name || "");
       localStorage.setItem("doctor_email", data.user?.email || "");
+      window.dispatchEvent(new Event("login-status-changed"));
       router.push("/membership");
 
     } catch (err) {
@@ -72,6 +74,10 @@ export default function LoginPage() {
     } finally {
         setLoading(false);
       }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -97,10 +103,10 @@ export default function LoginPage() {
           {fieldErrors.email && <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>}
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label className="text-pbase leading-relaxed mb-2">Password</label>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             className="rounded-full w-full border border-[#DBDBDB] px-5 py-3"
             value={password}
             onChange={(e) => {
@@ -108,6 +114,13 @@ export default function LoginPage() {
               setFieldErrors((prev) => ({ ...prev, password: undefined }));
             }}
           />
+          <button
+          type="button"
+          className="absolute cursor-pointer top-11 right-4"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? <BsEyeSlash /> : <BsEye />}
+        </button>
           {fieldErrors.password && <p className="text-red-500 text-sm mt-1">{fieldErrors.password}</p>}
         </div>
 
