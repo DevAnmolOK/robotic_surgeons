@@ -5,9 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 // import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi2";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { HiOutlineUserCircle, HiOutlineLogout } from "react-icons/hi";
 import { Author } from "next/dist/lib/metadata/types/metadata-types";
+
 
 type ChildMenu = {
   id: number;
@@ -113,6 +114,9 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
     ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${logo[0].value}`
     : "https://placehold.co/123x46.png";
 
+
+  const currentPath = usePathname();
+
   return (
     <header className="border-b md:px-6 bg-white text-black">
       <div className="max-w-[85vw] py-3.5 sm:max-w-[75vw]  mx-auto w-full flex justify-between items-center">
@@ -132,61 +136,74 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
         <nav className="hidden md:flex gap-8 items-center text-pxl font-normal  font-sans text-black">
           {mainMenu?.items && (
             <>
-              {mainMenu?.items?.map((item: any, index: any) => (
-                <div
-                  className={`capitalize ${item.has_child ? "relative" : ""}`}
-                  key={index}
-                >
-                  {item.has_child ? (
-                    <div
-                      className="flex items-center justify-center"
-                      onClick={() => setDropdownOpen(!dropdownOpen)}
-                    >
-                      <span className="mr-2">{item.title}</span>
-                      <MdKeyboardArrowDown />
-                    </div>
-                  ) : (
-                    <Link
-                      href={item.url ?? "#"}
-                      className="capitalize"
-                      target={item.target}
-                    >
-                      {item.title ?? ""}
-                    </Link>
-                  )}
+              {mainMenu?.items?.map((item: any, index: any) => {
+                // Check if the current item or any of its children is active
+                const isActive = item.url === currentPath ||
+                  (item.children && item.children.some((child: any) => child.url === currentPath));
 
-                  {dropdownOpen && (
-                    <div
-                      ref={dropdownRef}
-                      className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50"
-                    >
-                      {item.children &&
-                        item.children.map((child: any, index: any) => (
-                          <Link
-                            key={index}
-                            href={child.url ?? "#"}
-                            className="block px-4 py-2 capitalize"
-                          >
-                            {child.title ?? ""}
-                          </Link>
-                        ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                return (
+                  <div
+                    className={`capitalize ${item.has_child ? "relative" : ""} ${isActive ? "text-primary-500 font-semibold" : ""
+                      }`}
+                    key={index}
+                  >
+                    {item.has_child ? (
+                      <div
+                        className={`flex items-center justify-center ${isActive ? "text-primary-500" : ""
+                          }`}
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      >
+                        <span className="mr-2">{item.title}</span>
+                        <MdKeyboardArrowDown />
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.url ?? "#"}
+                        className={`capitalize ${isActive ? "text-primary-500 font-semibold" : ""
+                          }`}
+                        target={item.target}
+                      >
+                        {item.title ?? ""}
+                      </Link>
+                    )}
+
+                    {dropdownOpen && (
+                      <div
+                        ref={dropdownRef}
+                        className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50"
+                      >
+                        {item.children &&
+                          item.children.map((child: any, index: any) => {
+                            const isChildActive = child.url === currentPath;
+                            return (
+                              <Link
+                                key={index}
+                                href={child.url ?? "#"}
+                                className={`block px-4 py-2 capitalize ${isChildActive ? "text-primary-500 font-semibold bg-primary-50" : ""
+                                  }`}
+                              >
+                                {child.title ?? ""}
+                              </Link>
+                            );
+                          })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </>
           )}
 
-        {isLoggedIn ? (
-        <button onClick={handleLogout} className="flex items-center gap-1 text-red-500 hover:cursor-pointer">
-          <HiOutlineLogout size={30} />
-          Logout
-        </button>
-      ) : (
-        <Link href="/login" className="hover: cursor-pointer">
-          <HiOutlineUserCircle size={30} />
-        </Link>
-      )}
+          {isLoggedIn ? (
+            <button onClick={handleLogout} className="flex items-center gap-1 text-red-500 hover:cursor-pointer">
+              <HiOutlineLogout size={30} />
+              Logout
+            </button>
+          ) : (
+            <Link href="/login" className="hover: cursor-pointer">
+              <HiOutlineUserCircle size={30} />
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Hamburger */}

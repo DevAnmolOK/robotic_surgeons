@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { CiFileOn } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
@@ -61,31 +61,84 @@ export default function ClaimProfileForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+  //   const { name, value, type } = target;
+
+  //   // Clear the error for the field being changed
+  //   setErrors((prev) => {
+  //     const newErrors = { ...prev };
+  //     delete newErrors[name];
+  //     return newErrors;
+  //   });
+
+  //   if (type === "checkbox") {
+  //     setForm((prev) => ({
+  //       ...prev,
+  //       [name]: (target as HTMLInputElement).checked,
+  //     }));
+  //   } else if (type === "file") {
+  //     const file = (target as HTMLInputElement).files?.[0];
+  //     setForm((prev) => ({ ...prev, licenseFile: file || null }));
+  //   } else {
+  //     setForm((prev) => ({ ...prev, [name]: value }));
+  //   }
+  // };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    const target = e.target as HTMLInputElement | HTMLInputElement | HTMLTextAreaElement;
     const { name, value, type } = target;
-
+  
     // Clear the error for the field being changed
     setErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors[name];
       return newErrors;
     });
-
+  
+    let newFormData: any;
+  
     if (type === "checkbox") {
-      setForm((prev) => ({
-        ...prev,
+      newFormData = {
+        ...form,
         [name]: (target as HTMLInputElement).checked,
-      }));
+      };
     } else if (type === "file") {
       const file = (target as HTMLInputElement).files?.[0];
-      setForm((prev) => ({ ...prev, licenseFile: file || null }));
+      newFormData = {
+        ...form,
+        licenseFile: file || null,
+      };
     } else {
-      setForm((prev) => ({ ...prev, [name]: value }));
+      newFormData = {
+        ...form,
+        [name]: value,
+      };
     }
+  
+    // Update state
+    setForm(newFormData);
+  
+    // Save to localStorage
+    localStorage.setItem('unsavedFormData', JSON.stringify(newFormData));
   };
+  
+  // Add this useEffect to load saved form data when component mounts
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('unsavedFormData');
+    if (savedFormData) {
+      try {
+        const parsedData = JSON.parse(savedFormData);
+        setForm(parsedData);
+      } catch (error) {
+        console.error('Error parsing saved form data:', error);
+      }
+    }
+  }, []);
 
   const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -447,13 +500,13 @@ export default function ClaimProfileForm() {
                     </>
                   )}
 
-                  {form.licenseFile ? (
+                  {form.licenseFile  ? (
                     <>
                       <div className="relative flex items-center justify-center flex-row w-full  h-full ">
                         <div className=" ">
                           <p className="text-pbase font-normal flex items-center gap-1">
                             <CiFileOn className=" text-[2.125rem]" />
-                            {form.licenseFile.type.split("/")[1].toUpperCase()}
+                            {form.licenseFile?.type &&form.licenseFile.type.split("/")[1]?.toUpperCase()}
                           </p>
                           <p className="text-[1.25rem] text-[#939393] mt-1">
                             {form.licenseFile.name}

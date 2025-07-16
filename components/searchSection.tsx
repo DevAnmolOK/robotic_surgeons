@@ -31,7 +31,6 @@ export default function SeacrhSection({
     location: "",
     procedure: "All Procedures",
   });
-  
 
   // ✅ Set form fields from URL on first load
   useEffect(() => {
@@ -84,18 +83,15 @@ export default function SeacrhSection({
         setSpecialtyResults([]);
         setAddressResults([]);
         setIsInitialLoad(true);
-        
-        // Build the query string according to your format
+
         const params = new URLSearchParams();
         if (formData.searchTerm) {
           params.set('search', formData.searchTerm.replace(/ /g, '+'));
         }
         if (formData.location) {
-          // Assuming location should also be in the query if needed
           params.set('location', formData.location.replace(/ /g, '+'));
         }
   
-        // Update URL without page reload
         const newUrl = `/doctors${params.toString() ? `?${params.toString()}` : ''}`;
         window.history.pushState({}, '', newUrl);
   
@@ -107,7 +103,6 @@ export default function SeacrhSection({
         await onSearch(formData);
       } catch (error) {
         console.error('Search failed:', error);
-        // Handle error state if needed
       } finally {
         setLoading(false);
       }
@@ -197,7 +192,41 @@ export default function SeacrhSection({
             </div>
 
             {/* Specialty Suggestions Dropdown */}
-            {!isInitialLoad && (
+
+            {!isInitialLoad && specialtyResults.length > 0 ? (
+            <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+              {specialtyResults.map((group, i) => (
+                <div key={`specialty-${i}`}>
+                  <div className="px-4 py-2 text-md font-semibold text-black uppercase bg-gray-50">
+                    {group.label}
+                  </div>
+                  {group.results.map((item: any, index: number) => (
+                    <div
+                      key={`specialty-item-${index}`}
+                      onClick={() => {
+                        setSpecialtyResults([]);
+                        setSkipNextFetch(true);
+                        setFormData(prev => ({ ...prev, searchTerm: item.value }));
+                        setIsNameLoading(true);
+                      }}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
+                    >
+                      {item.value}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : formData.searchTerm.trim() && !isNameLoading && specialtyResults.length === 0 ? (
+            <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+              <div className="px-4 py-3 text-sm text-gray-500">
+                No results found for "{formData.searchTerm}"
+              </div>
+            </div>
+          ) : null}  
+
+
+            {/* {!isInitialLoad && (
               <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
                 {specialtyResults.length > 0 ? (
                   specialtyResults.map((group: { label: string, results: Array<{ value: string }> }, groupIndex: number) => (
@@ -232,7 +261,7 @@ export default function SeacrhSection({
                   </div>
                 ) : null}
               </div>
-            )}
+            )} */}
             
           </div>
 
@@ -269,7 +298,40 @@ export default function SeacrhSection({
             </div>
 
             {/* Address Suggestions Dropdown */}
-            {!isInitialLoad && (
+
+            {!isInitialLoad && addressResults.length > 0 ? (
+              <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+                {addressResults.map((group, i) => (
+                  <div key={`specialty-${i}`}>
+                    <div className="px-4 py-2 text-md font-semibold text-black uppercase bg-gray-50">
+                      {group.label}
+                    </div>
+                    {group.results.map((item: any, index: number) => (
+                      <div
+                        key={`address-item--${index}`}
+                        onClick={() => {
+                          setAddressResults([]);
+                          setLocationSkipFetch(true);
+                          setFormData(prev => ({ ...prev, location: item.value }));
+                          setIsLocationLoading(true);
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
+                      >
+                        {item.value}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : formData.location.trim() && !isLocationLoading && addressResults.length === 0 ? (
+              <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
+                <div className="px-4 py-3 text-sm text-gray-500">
+                No locations found for "{formData.location}"
+                </div>
+              </div>
+            ) : null}
+
+            {/* {!isInitialLoad && (
               <div className="absolute z-50 w-full bg-white rounded-2xl shadow-lg max-h-60 overflow-y-auto mt-1">
                 {addressResults.length > 0 ? (
                   addressResults.map((group, groupIndex) => (
@@ -297,7 +359,7 @@ export default function SeacrhSection({
                   </div>
                 ) : null}
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Dropdown */}
