@@ -230,34 +230,43 @@ const Header: React.FC<HeaderProps> = ({ mainMenu, logo }) => {
       {mobileMenuOpen && (
         <div className="md:hidden mt-4 flex flex-col gap-3 text-sm font-medium text-gray-800">
           <div className="border-t pt-3">
-            {mainMenu?.items?.map((item: any, index: any) => (
-              <div key={index}>
-                <Link
-                  href={item.url ?? "#"}
-                  className="block px-2 py-1 hover:bg-gray-100 rounded capitalize"
-                  target={item.target}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.title ?? ""}
-                </Link>
-                {/* Render children if needed */}
-                {item.children && item.children.length > 0 && (
-                  <div className="pl-4">
-                    {item.children.map((child: any, cidx: any) => (
-                      <Link
-                        key={cidx}
-                        href={child.url ?? "#"}
-                        className="block px-2 py-1 hover:bg-gray-100 rounded capitalize"
-                        target={child.target}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {child.title ?? ""}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {mainMenu?.items?.map((item: any, index: any) => {
+              // Check if current item or any of its children is active
+              const isActive = item.url === currentPath ||
+                (item.children && item.children.some((child: any) => child.url === currentPath));
+
+              return (
+                <div key={index}>
+                  <Link
+                    href={item.url ?? "#"}
+                    className={`block px-2 py-1 hover:bg-gray-100 rounded capitalize ${item.url === currentPath ? "text-primary-500 font-semibold" : ""
+                      }`}
+                    target={item.target}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.title ?? ""}
+                  </Link>
+
+                  {/* Render children if needed */}
+                  {item.children && item.children.length > 0 && (
+                    <div className="pl-4">
+                      {item.children.map((child: any, cidx: any) => (
+                        <Link
+                          key={cidx}
+                          href={child.url ?? "#"}
+                          className={`block px-2 py-1 hover:bg-gray-100 rounded capitalize ${child.url === currentPath ? "bg-blue-50 text-blue-600 font-medium" : ""
+                            }`}
+                          target={child.target}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {child.title ?? ""}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           {isLoggedIn ? (
             <button
