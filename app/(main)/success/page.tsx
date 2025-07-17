@@ -15,7 +15,7 @@ type SessionData = {
 };
 
 export default function SuccessPage() {
- const router = useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const session_id = searchParams.get('session_id');
 
@@ -30,6 +30,8 @@ export default function SuccessPage() {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/session/${session_id}`);
         const data = await res.json();
+
+        console.log(data);
 
         if (!data.success) throw new Error(data.message || 'Session fetch failed');
 
